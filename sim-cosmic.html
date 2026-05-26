@@ -46,7 +46,7 @@
             <h1 class="text-2xl font-black tracking-tight flex items-center justify-center gap-2 text-purple-200">
                 🌌 シミュレーション 5 ：銀河のひろがりと宇宙の始まり
             </h1>
-            <p class="mt-1 text-purple-300 font-bold text-sm">タイムマシンスライダーを操作して、宇宙膨張と光の赤方偏移の関係を解き明かそう！</p>
+            <p class="mt-1 text-purple-300 font-bold text-sm">タイムマシンスライダーで宇宙の時間を操作し、遠ざかる銀河と「赤方偏移」の物理を検証しよう！</p>
         </div>
 
         <!-- Simulation Area -->
@@ -64,12 +64,9 @@
 
                 <!-- Redshift / wave stretching status -->
                 <div class="bg-slate-950/80 backdrop-blur-md px-4 py-2.5 rounded-xl border border-slate-800 text-white text-xs flex flex-col gap-1 shadow-2xl">
-                    <div class="font-black text-slate-400">🌈 光の波の間隔:</div>
-                    <div class="text-lg font-black"><span id="shiftText" class="text-red-400 text-xl font-black">引き伸ばされて赤い</span></div>
-                    <!-- Small colored spectrum indicator -->
-                    <div class="w-full h-2.5 rounded bg-gradient-to-r from-blue-500 via-green-500 to-red-500 mt-1 relative overflow-hidden">
-                        <div id="spectrumPin" class="absolute top-0 bottom-0 w-1.5 bg-white border border-black shadow" style="right: 5px;"></div>
-                    </div>
+                    <div class="font-black text-slate-400">🌈 ハッブルの法則:</div>
+                    <div class="text-lg font-black"><span id="shiftText" class="text-red-400 text-xl font-black">遠い銀河ほど速く遠ざかる</span></div>
+                    <div class="text-[10px] text-slate-300 font-bold">速度に比例して光の波が赤く伸びる</div>
                 </div>
             </div>
         </div>
@@ -106,16 +103,16 @@
                 </div>
 
                 <div class="text-[11px] font-bold text-slate-400">
-                    💡 スライダーを左へ引くと、膨張した宇宙がぎゅーっと小さくなり、光が青くつまるよ！
+                    💡 遠ざかる速度が速い（矢印が長い）遠方の銀河ほど、光が赤く引き伸ばされています！
                 </div>
             </div>
 
         </div>
 
         <!-- Explanation Footer -->
-        <div class="bg-purple-950/20 p-3 border-t border-purple-900/30 text-center">
-            <p class="text-purple-300 font-bold leading-relaxed text-sm max-w-2xl mx-auto">
-                💡 宇宙が膨張すると光の波が伸びて赤くなり、過去に戻すと波が縮んで青くなります！
+        <div class="bg-purple-950/20 p-4 border-t border-purple-900/30 text-center">
+            <p class="text-purple-300 font-bold leading-relaxed text-sm max-w-3xl mx-auto">
+                ハッブルの法則：宇宙が膨張しているため、<strong>「遠くにある銀河ほど速いスピードで遠ざかる」</strong>という運動を常に続けています。この運動（速度）によって光のドップラー効果が生じ、遠い銀河ほど赤く見える（赤方偏移）のです。
             </p>
         </div>
 
@@ -138,9 +135,9 @@
         canvas.height = logicalHeight * dpr;
         ctx.scale(dpr, dpr);
 
-        // Star particles generator
+        // Star particles generator for background
         const stars = [];
-        for (let i = 0; i < 150; i++) {
+        for (let i = 0; i < 120; i++) {
             stars.push({
                 x: Math.random() * logicalWidth,
                 y: Math.random() * logicalHeight,
@@ -150,27 +147,49 @@
             });
         }
 
-        // Galaxy particles (glowing spiral stars)
-        const galaxyStars = [];
-        const numArms = 2;
-        const particlesPerArm = 200;
-        for (let a = 0; a < numArms; a++) {
-            const armAngle = (a / numArms) * Math.PI * 2;
-            for (let p = 0; p < particlesPerArm; p++) {
-                // distance from center
-                const distanceFactor = p / particlesPerArm;
-                const r = distanceFactor * 140; 
-                // Spiral arm twist
-                const theta = armAngle + distanceFactor * 3.5 + (Math.random() - 0.5) * 0.4;
-                
-                galaxyStars.push({
-                    baseR: r,
-                    baseTheta: theta,
-                    size: Math.random() * 2 + 0.5,
-                    color: Math.random() < 0.35 ? '#818cf8' : (Math.random() < 0.6 ? '#c084fc' : '#fb7185')
-                });
+        // Earth telescope position
+        const earthPos = { x: 100, y: 200 };
+
+        // 3 Galaxies with different distance scales and speed factors
+        // Hubble's Law: Velocity proportional to Distance
+        const galaxies = [
+            {
+                id: "Near",
+                name: "近距離の銀河",
+                targetPos: { x: 260, y: 130 },
+                distanceFactor: 0.28,
+                speedFactor: 0.28,
+                baseColor: '#38bdf8', // sky-blue core
+                shiftColorStart: '#60a5fa', // blue when compressed
+                shiftColorEnd: '#a3e635', // greenish-yellow when expanded
+                wavelengthMax: 14,
+                baseAngle: 0.3
+            },
+            {
+                id: "Medium",
+                name: "中距離の銀河",
+                targetPos: { x: 480, y: 280 },
+                distanceFactor: 0.65,
+                speedFactor: 0.65,
+                baseColor: '#c084fc', // purple core
+                shiftColorStart: '#60a5fa', // blue when compressed
+                shiftColorEnd: '#f59e0b', // orange when expanded
+                wavelengthMax: 22,
+                baseAngle: 1.2
+            },
+            {
+                id: "Far",
+                name: "遠距離の銀河",
+                targetPos: { x: 710, y: 110 },
+                distanceFactor: 1.0,
+                speedFactor: 1.0,
+                baseColor: '#f472b6', // pink core
+                shiftColorStart: '#60a5fa', // blue when compressed
+                shiftColorEnd: '#ef4444', // deep red when expanded
+                wavelengthMax: 34,
+                baseAngle: 2.5
             }
-        }
+        ];
 
         function init() {
             timeSliderVal = 100;
@@ -180,47 +199,27 @@
         }
 
         function updateUI() {
-            // Update labels based on slider val (0 to 100)
             const ageText = document.getElementById('ageText');
             const phaseText = document.getElementById('phaseText');
             const shiftText = document.getElementById('shiftText');
-            const spectrumPin = document.getElementById('spectrumPin');
             const timeLabel = document.getElementById('timeLabel');
 
-            // 1. Calculate age of universe in billion years
-            // at slider = 100 (Present), age is 13.8B years. Let's make age = sliderVal * 0.138
             const ageVal = timeSliderVal * 0.138;
             
             if (timeSliderVal === 100) {
                 ageText.innerText = "誕生から 138億年後";
-                phaseText.innerText = "【現代の宇宙】銀河は遠ざかり、宇宙は広く冷たくなっている。";
-                shiftText.innerText = "引き伸ばされて赤い (赤方偏移) 🔴";
-                shiftText.className = "text-red-400 text-base font-black";
-                spectrumPin.style.left = "calc(100% - 10px)";
+                phaseText.innerText = "【現代の宇宙】銀河は遠くほど超高速で遠ざかっている。";
+                shiftText.innerText = "遠いほど超高速 ➔ 深く赤い 🔴";
                 timeLabel.innerText = "現在 (宇宙膨張の極限)";
             } else if (timeSliderVal === 0) {
                 ageText.innerText = "宇宙誕生の瞬間";
-                phaseText.innerText = "【ビッグバン】すべての物質とエネルギーが超高温の１点に凝縮！";
-                shiftText.innerText = "ギュッとつまって青い (青方偏移) 🔵";
-                shiftText.className = "text-blue-400 text-base font-black";
-                spectrumPin.style.left = "10px";
+                phaseText.innerText = "【ビッグバン】すべての銀河が超高温・超高密度の1点に凝縮！";
+                shiftText.innerText = "すべてが重なり合う ➔ 青く凝縮 🔵";
                 timeLabel.innerText = "138億年前 (ビッグバン)";
             } else {
                 ageText.innerText = `誕生から ${(ageVal).toFixed(1)}億年後`;
-                phaseText.innerText = `【大昔の宇宙】宇宙が膨張し、初期の星や銀河が作られている最中。`;
-                
-                // Color shifts gradually from blue to red
-                if (timeSliderVal < 30) {
-                    shiftText.innerText = "波がつまって青い 🔵";
-                    shiftText.className = "text-blue-300 text-base font-bold";
-                } else if (timeSliderVal < 70) {
-                    shiftText.innerText = "中間の緑・黄色 🟢";
-                    shiftText.className = "text-green-400 text-base font-bold";
-                } else {
-                    shiftText.innerText = "少し伸びて赤い 🔴";
-                    shiftText.className = "text-pink-400 text-base font-bold";
-                }
-                spectrumPin.style.left = `${10 + timeSliderVal * 0.8}%`;
+                phaseText.innerText = `【膨張中の宇宙】宇宙の広がりと共に、各銀河が速度を上げて遠ざかる。`;
+                shiftText.innerText = "遠い銀河ほど速く、赤く伸びる";
                 timeLabel.innerText = `誕生から ${(ageVal).toFixed(1)}億年`;
             }
         }
@@ -233,7 +232,7 @@
 
         document.getElementById('timeSlider').addEventListener('input', (e) => {
             timeSliderVal = parseInt(e.target.value);
-            isPlaying = false; // pause auto play when manually dragging
+            isPlaying = false;
             document.getElementById('playIcon').innerText = "▶";
             document.getElementById('playText').innerText = "時間自動再生";
             updateUI();
@@ -257,15 +256,12 @@
             lastTime = timestamp;
 
             if (dt > 0.1) dt = 0.1;
-
             simTime += dt;
 
             if (isPlaying) {
-                // Loop timeSliderVal automatically
-                // Slow countdown/count-up
                 timeSliderVal += 12 * dt; 
                 if (timeSliderVal > 100) {
-                    timeSliderVal = 0; // Wrap back to Big Bang
+                    timeSliderVal = 0;
                 }
                 document.getElementById('timeSlider').value = Math.floor(timeSliderVal);
                 updateUI();
@@ -273,6 +269,62 @@
 
             draw();
             requestAnimationFrame(renderLoop);
+        }
+
+        // Draw a spiral galaxy
+        function drawGalaxy(cx, cy, baseSize, angle, color, scale) {
+            const size = baseSize * scale;
+            if (size < 2) return; // invisible at big bang point
+            
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(angle);
+            
+            // Core glow
+            const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, size * 0.8);
+            grad.addColorStop(0, '#ffffff');
+            grad.addColorStop(0.3, color);
+            grad.addColorStop(1, 'transparent');
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(0, 0, size * 0.8, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Spiral arms
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 1.5 * scale;
+            ctx.globalAlpha = 0.6;
+            for (let i = 0; i < 2; i++) {
+                ctx.beginPath();
+                const startAngle = i * Math.PI;
+                for (let theta = 0; theta < Math.PI * 1.5; theta += 0.1) {
+                    const r = size * 0.2 + (theta / (Math.PI * 1.5)) * size * 0.8;
+                    const x = r * Math.cos(startAngle + theta);
+                    const y = r * Math.sin(startAngle + theta) * 0.5; // perspective flattening
+                    if (theta === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        // Helper to interpolate between two hex colors
+        function getShiftColor(ratio, colorStart, colorEnd) {
+            // Hex to RGB
+            const rStart = parseInt(colorStart.slice(1,3), 16);
+            const gStart = parseInt(colorStart.slice(3,5), 16);
+            const bStart = parseInt(colorStart.slice(5,7), 16);
+
+            const rEnd = parseInt(colorEnd.slice(1,3), 16);
+            const gEnd = parseInt(colorEnd.slice(3,5), 16);
+            const bEnd = parseInt(colorEnd.slice(5,7), 16);
+
+            const r = Math.round(rStart + ratio * (rEnd - rStart));
+            const g = Math.round(gStart + ratio * (gEnd - gStart));
+            const b = Math.round(bStart + ratio * (bEnd - bStart));
+
+            return `rgba(${r}, ${g}, ${b}, 0.75)`;
         }
 
         function draw() {
@@ -283,7 +335,7 @@
             // Draw twinkling background stars
             stars.forEach(star => {
                 ctx.save();
-                const opacity = 0.3 + Math.sin(simTime * star.twinkleSpeed + star.phase) * 0.4;
+                const opacity = 0.2 + Math.sin(simTime * star.twinkleSpeed + star.phase) * 0.3;
                 ctx.fillStyle = `rgba(248, 250, 252, ${opacity})`;
                 ctx.beginPath();
                 ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
@@ -291,126 +343,133 @@
                 ctx.restore();
             });
 
-            // Big Bang coordinates center at center-left
-            // Center of the cosmos = 250, 200
-            const cosmicCenter = { x: 250, y: 200 };
-            
-            // Current scale factor of expansion (0.1 at Big Bang, 1.0 at Present)
-            // Quadratic scaling to make big bang explosion look quick at start
-            const scaleVal = 0.05 + 0.95 * Math.pow(timeSliderVal / 100, 2);
+            // Scale factor representing cosmic size (0.05 at Big Bang, 1.0 at Present)
+            // Quadratic scaling to make Big Bang blast feel rapid initially
+            const scaleVal = 0.02 + 0.98 * Math.pow(timeSliderVal / 100, 2);
 
-            // Draw Big Bang core glow at the center
+            // 1. Draw Big Bang core glow at the origin (Earth Pos)
             if (timeSliderVal < 30) {
                 ctx.save();
-                const coreGlowR = 60 * (1 - timeSliderVal / 30);
-                const coreGrad = ctx.createRadialGradient(cosmicCenter.x, cosmicCenter.y, 0, cosmicCenter.x, cosmicCenter.y, coreGlowR);
+                const coreGlowR = 90 * (1 - timeSliderVal / 30);
+                const coreGrad = ctx.createRadialGradient(earthPos.x, earthPos.y, 0, earthPos.x, earthPos.y, coreGlowR);
                 coreGrad.addColorStop(0, '#ffffff');
                 coreGrad.addColorStop(0.3, '#fef08a'); // yellow
                 coreGrad.addColorStop(0.7, '#f97316'); // orange
                 coreGrad.addColorStop(1, 'transparent');
                 ctx.fillStyle = coreGrad;
                 ctx.beginPath();
-                ctx.arc(cosmicCenter.x, cosmicCenter.y, coreGlowR, 0, Math.PI*2);
+                ctx.arc(earthPos.x, earthPos.y, coreGlowR, 0, Math.PI*2);
                 ctx.fill();
                 ctx.restore();
             }
 
-            // Draw receding galaxy
-            // Recedes to the right as scale grows
-            const galaxyCenter = {
-                x: cosmicCenter.x + 350 * (scaleVal - 0.05),
-                y: cosmicCenter.y - 40 * (scaleVal - 0.05)
-            };
+            // 2. Draw receding galaxies and their stretched light waves
+            galaxies.forEach(galaxy => {
+                // Galaxy coordinates scale outward from EarthPos (observable universe viewpoint)
+                const gx = earthPos.x + (galaxy.targetPos.x - earthPos.x) * scaleVal;
+                const gy = earthPos.y + (galaxy.targetPos.y - earthPos.y) * scaleVal;
 
-            // Renders galaxy particles
-            galaxyStars.forEach(p => {
-                ctx.save();
-                // Particle rotates over time
-                const rotTheta = p.baseTheta + simTime * 0.5;
-                const r = p.baseR * scaleVal; // distance scales with universe size
-                
-                const px = galaxyCenter.x + r * Math.cos(rotTheta);
-                const py = galaxyCenter.y + r * Math.sin(rotTheta) * 0.5; // perspective flattening
+                // Animate rotation of the galaxy
+                const angle = galaxy.baseAngle + simTime * (0.8 - 0.5 * galaxy.distanceFactor);
 
-                // Glow size
-                const size = p.size * (0.3 + 0.7 * scaleVal);
+                // Draw galaxy itself
+                drawGalaxy(gx, gy, 28, angle, galaxy.baseColor, 0.4 + 0.6 * scaleVal);
 
-                ctx.beginPath();
-                ctx.arc(px, py, size, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                
-                // Add soft glow inside galaxy arms
-                ctx.shadowColor = p.color;
-                ctx.shadowBlur = 6 * scaleVal;
-                ctx.fill();
-                ctx.restore();
+                if (timeSliderVal > 5) {
+                    // Draw velocity vector arrow (recession velocity vector)
+                    // Hubble's Law: Speed is proportional to distance
+                    // Direction is radially away from Earth telescope
+                    const dist = Math.sqrt((gx - earthPos.x)**2 + (gy - earthPos.y)**2);
+                    if (dist > 25) {
+                        const dx = (gx - earthPos.x) / dist;
+                        const dy = (gy - earthPos.y) / dist;
+
+                        // Velocity arrow length proportional to speedFactor and universe scale
+                        const arrowLen = 50 * galaxy.speedFactor * scaleVal;
+                        const arrowStartX = gx;
+                        const arrowStartY = gy;
+                        const arrowEndX = gx + dx * arrowLen;
+                        const arrowEndY = gy + dy * arrowLen;
+
+                        ctx.save();
+                        ctx.strokeStyle = '#f43f5e';
+                        ctx.lineWidth = 3;
+                        ctx.beginPath();
+                        ctx.moveTo(arrowStartX, arrowStartY);
+                        ctx.lineTo(arrowEndX, arrowEndY);
+                        ctx.stroke();
+
+                        // Arrow head
+                        const angleArrow = Math.atan2(arrowEndY - arrowStartY, arrowEndX - arrowStartX);
+                        ctx.fillStyle = '#f43f5e';
+                        ctx.beginPath();
+                        ctx.moveTo(arrowEndX, arrowEndY);
+                        ctx.lineTo(arrowEndX - 8 * Math.cos(angleArrow - 0.5), arrowEndY - 8 * Math.sin(angleArrow - 0.5));
+                        ctx.lineTo(arrowEndX - 8 * Math.cos(angleArrow + 0.5), arrowEndY - 8 * Math.sin(angleArrow + 0.5));
+                        ctx.closePath();
+                        ctx.fill();
+                        
+                        // Label velocity
+                        ctx.fillStyle = '#f87171';
+                        ctx.font = 'bold 10px "Inter", sans-serif';
+                        ctx.textAlign = 'left';
+                        ctx.fillText(`速度 v = H × d`, arrowEndX + 5, arrowEndY + 3);
+                        ctx.restore();
+                    }
+
+                    // Draw stretched light waves from galaxy to Earth telescope
+                    ctx.save();
+                    const waveColor = getShiftColor(scaleVal, galaxy.shiftColorStart, galaxy.shiftColorEnd);
+
+                    const dX = (gx - earthPos.x);
+                    const dY = (gy - earthPos.y);
+                    const waveDist = Math.sqrt(dX**2 + dY**2);
+                    const ndx = dX / waveDist;
+                    const ndy = dY / waveDist;
+
+                    ctx.beginPath();
+                    ctx.moveTo(earthPos.x, earthPos.y);
+
+                    // Wavelength stretches as timeSliderVal increases
+                    // 6px (Big Bang/highly blue shifted) to wavelengthMax (Present expanded)
+                    const wavelength = 6 + (galaxy.wavelengthMax - 6) * scaleVal;
+                    const amplitude = 8 * scaleVal;
+
+                    for (let d = 0; d < waveDist; d += 2) {
+                        const progress = d / waveDist;
+                        const perpX = -ndy;
+                        const perpY = ndx;
+                        
+                        // Wave angle flows towards Earth (simTime shifts the phase)
+                        const angleWave = (d / wavelength) * Math.PI * 2 - simTime * 12;
+                        const offset = Math.sin(angleWave) * amplitude * (1 - progress * 0.8);
+                        
+                        const wx = earthPos.x + d * ndx + offset * perpX;
+                        const wy = earthPos.y + d * ndy + offset * perpY;
+                        ctx.lineTo(wx, wy);
+                    }
+
+                    ctx.strokeStyle = waveColor;
+                    ctx.lineWidth = 2.5;
+                    ctx.shadowColor = waveColor;
+                    ctx.shadowBlur = 6;
+                    ctx.stroke();
+                    ctx.restore();
+
+                    // Label galaxy names
+                    ctx.save();
+                    ctx.fillStyle = '#e2e8f0';
+                    ctx.font = 'bold 10px "M PLUS Rounded 1c", sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(galaxy.name, gx, gy - 20);
+                    ctx.restore();
+                }
             });
 
-            // Center of Galaxy bright core
-            ctx.save();
-            const coreGrad = ctx.createRadialGradient(galaxyCenter.x, galaxyCenter.y, 0, galaxyCenter.x, galaxyCenter.y, 15 * scaleVal);
-            coreGrad.addColorStop(0, '#ffffff');
-            coreGrad.addColorStop(0.6, '#a78bfa');
-            coreGrad.addColorStop(1, 'transparent');
-            ctx.fillStyle = coreGrad;
-            ctx.beginPath();
-            ctx.arc(galaxyCenter.x, galaxyCenter.y, 15 * scaleVal, 0, Math.PI*2);
-            ctx.fill();
-            ctx.restore();
-
-            // Draw stretched light waves from cosmicCenter to galaxyCenter
-            if (timeSliderVal > 5) {
+            // 3. Draw Earth Telescope (Observer on the left)
+            if (timeSliderVal > 3) {
                 ctx.save();
-                
-                // Spectrum color based on timeSliderVal
-                // 0 = blue, 100 = red
-                let waveColor;
-                if (timeSliderVal < 30) {
-                    waveColor = `rgba(59, 130, 246, 0.75)`; // blue
-                } else if (timeSliderVal < 70) {
-                    waveColor = `rgba(74, 222, 128, 0.75)`; // green/yellow
-                } else {
-                    waveColor = `rgba(239, 68, 68, 0.75)`; // red
-                }
-
-                // We draw a sine wave connecting Big bang center to galaxy center
-                const dist = Math.sqrt((galaxyCenter.x - cosmicCenter.x)**2 + (galaxyCenter.y - cosmicCenter.y)**2);
-                const dx = (galaxyCenter.x - cosmicCenter.x) / dist;
-                const dy = (galaxyCenter.y - cosmicCenter.y) / dist;
-
-                ctx.beginPath();
-                ctx.moveTo(cosmicCenter.x, cosmicCenter.y);
-
-                // Wavelength changes: very narrow when slider is low (compressed), broad when high (stretched)
-                // 6px at low, 28px at high
-                const wavelength = 6 + 22 * (timeSliderVal / 100);
-                const amplitude = 12 * scaleVal; // amplitude shrinks in dense hot state
-
-                for (let d = 0; d < dist; d += 2) {
-                    const progress = d / dist;
-                    const perpX = -dy;
-                    const perpY = dx;
-                    
-                    // Wave angle
-                    const angle = (d / wavelength) * Math.PI * 2 - simTime * 10;
-                    const offset = Math.sin(angle) * amplitude * (1 - progress); // tapers off at the galaxy
-                    
-                    const wx = cosmicCenter.x + d * dx + offset * perpX;
-                    const wy = cosmicCenter.y + d * dy + offset * perpY;
-                    ctx.lineTo(wx, wy);
-                }
-
-                ctx.strokeStyle = waveColor;
-                ctx.lineWidth = 3.5;
-                ctx.shadowColor = waveColor;
-                ctx.shadowBlur = 8;
-                ctx.stroke();
-
-                ctx.restore();
-
-                // Observer on left (Earth telescope)
-                ctx.save();
-                ctx.translate(cosmicCenter.x, cosmicCenter.y);
+                ctx.translate(earthPos.x, earthPos.y);
                 ctx.beginPath();
                 ctx.arc(0, 0, 14, 0, Math.PI * 2);
                 ctx.fillStyle = '#1e3a8a';
@@ -419,26 +478,26 @@
                 ctx.lineWidth = 2.5;
                 ctx.stroke();
                 
-                // Drawn as a cute green/blue Earth map outline
+                // Earth map outline representation
                 ctx.fillStyle = '#10b981';
                 ctx.beginPath();
                 ctx.arc(-4, -2, 5, 0, Math.PI*2);
                 ctx.arc(6, 4, 4, 0, Math.PI*2);
                 ctx.fill();
-
                 ctx.restore();
+
                 ctx.fillStyle = '#94a3b8';
-                ctx.font = 'bold 11px "Inter", sans-serif';
+                ctx.font = 'bold 11px "M PLUS Rounded 1c", sans-serif';
                 ctx.textAlign = 'center';
-                ctx.fillText("地球の望遠鏡", cosmicCenter.x, cosmicCenter.y + 30);
+                ctx.fillText("地球（観測者）", earthPos.x, earthPos.y + 30);
             }
 
-            // Big bang explosion indicator text
+            // Big Bang explosion text at birth
             if (timeSliderVal < 8) {
                 ctx.fillStyle = '#fef08a';
-                ctx.font = 'black 28px "M PLUS Rounded 1c", sans-serif';
+                ctx.font = '900 28px "M PLUS Rounded 1c", sans-serif';
                 ctx.textAlign = 'center';
-                ctx.fillText("💥 ビッグバン！", cosmicCenter.x, cosmicCenter.y - 40);
+                ctx.fillText("💥 ビッグバン！", earthPos.x + 100, earthPos.y - 45);
             }
         }
 

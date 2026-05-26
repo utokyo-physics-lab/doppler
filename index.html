@@ -60,6 +60,10 @@
                         <!-- Left Person (Behind) -->
                         <g transform="translate(80, 110)">
                             <circle cx="0" cy="0" r="18" fill="#3b82f6"/>
+                            <!-- Face eyes and smile -->
+                            <circle cx="-5" cy="-3" r="2.5" fill="#1e3a8a"/>
+                            <circle cx="5" cy="-3" r="2.5" fill="#1e3a8a"/>
+                            <path d="M-6,4 Q0,10 6,4" fill="none" stroke="#1e3a8a" stroke-width="2"/>
                             <!-- Headphones -->
                             <path d="M-22,0 A22,22 0 0,1 22,0" fill="none" stroke="#1e293b" stroke-width="6"/>
                             <rect x="-24" y="-6" width="6" height="12" rx="2" fill="#1e293b"/>
@@ -67,15 +71,13 @@
                             <text x="0" y="45" font-size="16" font-weight="bold" fill="#3b82f6" text-anchor="middle">後ろの人</text>
                         </g>
                         
-                        <!-- Middle Person (Inside) -->
-                        <g transform="translate(350, 52) scale(0.6)">
-                            <circle cx="0" cy="0" r="18" fill="#10b981"/>
-                            <text x="0" y="40" font-size="24" font-weight="bold" fill="#047857" text-anchor="middle">車内の人</text>
-                        </g>
-
                         <!-- Right Person (Ahead) -->
                         <g transform="translate(620, 110)">
                             <circle cx="0" cy="0" r="18" fill="#ec4899"/>
+                            <!-- Face eyes and smile -->
+                            <circle cx="-5" cy="-3" r="2.5" fill="#9d174d"/>
+                            <circle cx="5" cy="-3" r="2.5" fill="#9d174d"/>
+                            <path d="M-6,4 Q0,10 6,4" fill="none" stroke="#9d174d" stroke-width="2"/>
                             <!-- Headphones -->
                             <path d="M-22,0 A22,22 0 0,1 22,0" fill="none" stroke="#1e293b" stroke-width="6"/>
                             <rect x="-24" y="-6" width="6" height="12" rx="2" fill="#1e293b"/>
@@ -87,13 +89,30 @@
                         <g transform="translate(290, 70)">
                             <rect x="0" y="15" width="120" height="50" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="3"/>
                             <path d="M80,15 L105,15 L120,35 L120,65 L80,65 Z" fill="#ef4444"/>
-                            <rect x="85" y="22" width="22" height="15" fill="#38bdf8"/>
+                            
+                            <!-- Window -->
+                            <rect x="85" y="22" width="22" height="15" fill="#38bdf8" stroke="#1e293b" stroke-width="1.5"/>
+                            
+                            <!-- Person inside the window -->
+                            <g transform="translate(96, 31) scale(0.4)">
+                                <circle cx="0" cy="0" r="15" fill="#10b981"/>
+                                <circle cx="-4" cy="-3" r="2.5" fill="#064e3b"/>
+                                <circle cx="4" cy="-3" r="2.5" fill="#064e3b"/>
+                                <path d="M-5,3 Q0,8 5,3" fill="none" stroke="#064e3b" stroke-width="2"/>
+                            </g>
+
                             <circle cx="30" cy="65" r="15" fill="#334155"/>
                             <circle cx="95" cy="65" r="15" fill="#334155"/>
                             <!-- Siren -->
                             <polygon points="60,0 52,15 68,15" fill="#f59e0b"/>
                             <circle cx="60" cy="0" r="6" fill="#ef4444"/>
                             <text x="60" y="45" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">サイレン</text>
+                        </g>
+
+                        <!-- Label for person inside -->
+                        <g transform="translate(386, 65)">
+                            <path d="M 0,0 L -5,20" stroke="#059669" stroke-width="2" fill="none"/>
+                            <text x="0" y="-8" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">車内の人</text>
                         </g>
 
                         <!-- Movement Arrow -->
@@ -110,18 +129,14 @@
         <div class="slide">
             <div class="content-box">
                 <h2 class="heading-text">🤔 クイズ 1</h2>
-                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5;">
-                    ピーポーピーポーという「高い音」を聞くためには、<br>どこに立っていればよいでしょう？
+                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5; margin-bottom: 2rem;">
+                    ピーポーピーポーという「高い音」を聞くためには、どこに立っていればよいでしょう？
                 </p>
                 <div class="quiz-options">
-                    <button class="quiz-option" onclick="checkAnswer(this, true, '大正解！救急車の前方にいると、サイレンの音が本来よりも「高く」聞こえます！')">1. 救急車の前</button>
-                    <button class="quiz-option" onclick="checkAnswer(this, false, 'ざんねん！後ろにいると、音は本来よりも「低く」聞こえるよ。')">2. 救急車の後ろ</button>
-                    <button class="quiz-option" onclick="checkAnswer(this, false, 'ざんねん！車内の人は、救急車と一緒に動いているから「元の高さ」のまま聞こえるよ。')">3. 救急車の中</button>
-                    <button class="quiz-option" onclick="checkAnswer(this, false, 'ざんねん！実は聞く場所によって、サイレンの音の高さが変わるんだよ！')">4. 全部同じ高さ</button>
-                </div>
-                <div class="quiz-feedback">
-                    <div class="feedback-result"></div>
-                    <div class="feedback-explanation"></div>
+                    <button class="quiz-option" style="cursor: default;">1. 救急車の前</button>
+                    <button class="quiz-option" style="cursor: default;">2. 救急車の後ろ</button>
+                    <button class="quiz-option" style="cursor: default;">3. 救急車の中</button>
+                    <button class="quiz-option" style="cursor: default;">4. 全部同じ高さ</button>
                 </div>
             </div>
         </div>
@@ -130,7 +145,7 @@
         <div class="slide">
             <div class="content-box" style="text-align: center;">
                 <h2 class="heading-text">🎉 クイズ 1 の正解！</h2>
-                <div style="background: #fdf2f8; padding: 2rem; border-radius: 1.5rem; border: 4px solid #fbcfe8; margin-top: 1rem; width: 100%; box-sizing: border-box;">
+                <div style="background: #ffffff; padding: 2rem; border-radius: 1.5rem; border: 4px solid #fbcfe8; margin-top: 1rem; width: 100%; box-sizing: border-box;">
                     <p style="font-size: 2.8rem; font-weight: 900; color: #db2777; margin-top: 0; margin-bottom: 2rem;">
                         正解は 「1. 救急車の前」！
                     </p>
@@ -151,8 +166,7 @@
                     </div>
                     
                     <p style="font-size: 2.2rem; font-weight: 800; color: #1e293b; margin: 0; line-height: 1.5;">
-                        同じサイレンの音を出しているのに、<br>
-                        <span class="highlight">聞く場所によって音の高さがちがう</span>んだね！
+                        同じサイレンの音を出しているのに、<span class="highlight">聞く場所によって音の高さがちがう</span>んだね！
                     </p>
                 </div>
             </div>
@@ -182,7 +196,120 @@
             </div>
         </div>
 
-        <!-- Slide 6: What if the Observer Moves? -->
+        <!-- Slide 6: Sound is a Wave -->
+        <div class="slide">
+            <div class="content-box" style="text-align: center;">
+                <h2 class="heading-text">🌊 音は「波」である</h2>
+                <p class="body-desc" style="margin-bottom: 2rem;">
+                    そもそも「音」ってなんだろう？実は空気の振動が伝わる「波」なんだ！
+                </p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; width: 100%;">
+                    <div style="background: #f8fafc; padding: 2rem; border-radius: 1.5rem; border: 2px solid #cbd5e1;">
+                        <h3 style="font-size: 2rem; color: #475569; margin-bottom: 1rem;">💧 水面の波</h3>
+                        <svg width="250" height="100" viewBox="0 0 250 100">
+                            <!-- Concentric circles -->
+                            <circle cx="125" cy="50" r="10" fill="none" stroke="#93c5fd" stroke-width="2"/>
+                            <circle cx="125" cy="50" r="25" fill="none" stroke="#60a5fa" stroke-width="2"/>
+                            <circle cx="125" cy="50" r="40" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="3,3"/>
+                        </svg>
+                        <p style="font-size: 1.4rem; font-weight: bold; color: #64748b; margin-top: 1rem;">石を落とすと広がる輪っか</p>
+                    </div>
+                    <div style="background: #fdf2f8; padding: 2rem; border-radius: 1.5rem; border: 2px solid #fbcfe8;">
+                        <h3 style="font-size: 2rem; color: #be185d; margin-bottom: 1rem;">📢 音の波</h3>
+                        <svg width="250" height="100" viewBox="0 0 250 100">
+                            <!-- Sound ripples -->
+                            <path d="M30,50 L50,50" stroke="#f472b6" stroke-width="3"/>
+                            <path d="M70,30 A30,30 0 0,1 70,70" fill="none" stroke="#f472b6" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M100,20 A50,50 0 0,1 100,80" fill="none" stroke="#ec4899" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M130,10 A70,70 0 0,1 130,90" fill="none" stroke="#db2777" stroke-width="5" stroke-linecap="round"/>
+                        </svg>
+                        <p style="font-size: 1.4rem; font-weight: bold; color: #be185d; margin-top: 1rem;">目に見えない空気の波</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: High vs Low waves -->
+        <div class="slide">
+            <div class="content-box" style="text-align: center;">
+                <h2 class="heading-text">🎼 高い音と低い音のちがい</h2>
+                <p class="body-desc" style="margin-bottom: 2rem;">
+                    波の「間隔（スキマ）」によって、音の高さが決まります。
+                </p>
+                
+                <div style="background: #f8fafc; padding: 2rem; border-radius: 1.5rem; border: 3px solid #cbd5e1; width: 100%; display: flex; flex-direction: column; gap: 2rem; box-sizing: border-box;">
+                    <!-- High Pitch Wave -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; background: #fdf2f8; padding: 1rem 2rem; border-radius: 1rem; border-left: 8px solid #ec4899;">
+                        <span style="font-size: 2.2rem; font-weight: 900; color: #db2777; width: 200px; text-align: left;">🔊 高い音</span>
+                        <svg width="400" height="40" viewBox="0 0 400 40">
+                            <!-- Tight sine wave -->
+                            <path d="M 0,20 Q 10,0 20,20 T 40,20 T 60,20 T 80,20 T 100,20 T 120,20 T 140,20 T 160,20 T 180,20 T 200,20 T 220,20 T 240,20 T 260,20 T 280,20 T 300,20 T 320,20 T 340,20 T 360,20 T 380,20 T 400,20" fill="none" stroke="#ec4899" stroke-width="4"/>
+                        </svg>
+                        <span style="font-size: 1.6rem; font-weight: 800; color: #db2777;">波の間隔が【せまい】</span>
+                    </div>
+                    
+                    <!-- Low Pitch Wave -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; background: #eff6ff; padding: 1rem 2rem; border-radius: 1rem; border-left: 8px solid #3b82f6;">
+                        <span style="font-size: 2.2rem; font-weight: 900; color: #2563eb; width: 200px; text-align: left;">🔉 低い音</span>
+                        <svg width="400" height="40" viewBox="0 0 400 40">
+                            <!-- Loose sine wave -->
+                            <path d="M 0,20 Q 25,0 50,20 T 100,20 T 150,20 T 200,20 T 250,20 T 300,20 T 350,20 T 400,20" fill="none" stroke="#3b82f6" stroke-width="4"/>
+                        </svg>
+                        <span style="font-size: 1.6rem; font-weight: 800; color: #2563eb;">波の間隔が【ひろい】</span>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: center; gap: 4rem; margin-top: 2rem;">
+                    <span style="font-size: 2.2rem; font-weight: 900; color: #d946ef;">✨ 波がつまると高い！</span>
+                    <span style="font-size: 2.2rem; font-weight: 900; color: #0ea5e9;">✨ 波が広がると低い！</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Mini Check -->
+        <div class="slide">
+            <div class="content-box">
+                <h2 class="heading-text">📝 ミニ確認テスト</h2>
+                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5; margin-bottom: 2rem;">
+                    Q3. この2つの波のうち、聞くと「高い音」に感じるのはどっち？
+                </p>
+                
+                <div class="quiz-options" style="grid-template-columns: 1fr 1fr; margin-top: 1rem;">
+                    <!-- Option A -->
+                    <button class="quiz-option" style="padding: 2rem; cursor: default;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">A. 間隔がせまい波</div>
+                        <svg width="200" height="30" viewBox="0 0 200 30" style="margin: 0 auto;">
+                            <path d="M 0,15 Q 5,0 10,15 T 20,15 T 30,15 T 40,15 T 50,15 T 60,15 T 70,15 T 80,15 T 90,15 T 100,15 T 110,15 T 120,15 T 130,15 T 140,15 T 150,15 T 160,15 T 170,15 T 180,15 T 190,15 T 200,15" fill="none" stroke="#ec4899" stroke-width="3"/>
+                        </svg>
+                    </button>
+                    <!-- Option B -->
+                    <button class="quiz-option" style="padding: 2rem; cursor: default;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">B. 間隔が広い波</div>
+                        <svg width="200" height="30" viewBox="0 0 200 30" style="margin: 0 auto;">
+                            <path d="M 0,15 Q 15,0 30,15 T 60,15 T 90,15 T 120,15 T 150,15 T 180,15 T 200,15" fill="none" stroke="#3b82f6" stroke-width="3"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Mini Check Answer -->
+        <div class="slide">
+            <div class="content-box" style="text-align: center;">
+                <h2 class="heading-text">🎉 ミニ確認テストの正解！</h2>
+                <div style="background: #ffffff; padding: 2rem; border-radius: 1.5rem; border: 4px solid #fbcfe8; width: 100%; box-sizing: border-box;">
+                    <p style="font-size: 2.8rem; font-weight: 900; color: #db2777; margin-top: 0; margin-bottom: 2rem;">
+                        正解は 「A. 間隔がせまい波」！
+                    </p>
+                    <p style="font-size: 2.2rem; font-weight: 800; color: #1e293b; line-height: 1.6; margin: 0;">
+                        波の間隔がせまい（つまっている）方が、1秒間に耳に届く波の数（周波数）が多くなり、高い音として聞こえます！
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: What if the Observer Moves? -->
         <div class="slide">
             <div class="content-box" style="text-align: center;">
                 <h2 class="heading-text">🏃‍♀️ 聞く人が動いたら？</h2>
@@ -222,27 +349,22 @@
             </div>
         </div>
 
-        <!-- Slide 7: Quiz 2 -->
+        <!-- Slide 11: Quiz 2 -->
         <div class="slide">
             <div class="content-box">
                 <h2 class="heading-text">🤔 クイズ 2</h2>
-                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5;">
-                    スピーカーに向かって自分が爆速で走って近づくと、<br>
-                    聞こえる音の高さはどうなる？
+                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5; margin-bottom: 2rem;">
+                    スピーカーに向かって自分が爆速で走って近づくと、聞こえる音の高さはどうなる？
                 </p>
                 <div class="quiz-options-vertical">
-                    <button class="quiz-option" onclick="checkAnswer(this, true, '大正解！自分が音に向かって走っていくと、1秒間に耳に届く波の数が増えるため、音は「高く」聞こえるよ！')">1. 音が高くなる 📈</button>
-                    <button class="quiz-option" onclick="checkAnswer(this, false, 'ざんねん！遠ざかるように走ると低くなるけど、近づくときは高くなるよ。')">2. 音が低くなる 📉</button>
-                    <button class="quiz-option" onclick="checkAnswer(this, false, 'ざんねん！実は自分が動くことでも、音の高さは変化するんだ。')">3. 変わらない 😐</button>
-                </div>
-                <div class="quiz-feedback">
-                    <div class="feedback-result"></div>
-                    <div class="feedback-explanation"></div>
+                    <button class="quiz-option" style="cursor: default;">1. 音が高くなる 📈</button>
+                    <button class="quiz-option" style="cursor: default;">2. 音が低くなる 📉</button>
+                    <button class="quiz-option" style="cursor: default;">3. 変わらない 😐</button>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 8: Quiz 2 Correct Answer -->
+        <!-- Slide 12: Quiz 2 Correct Answer -->
         <div class="slide">
             <div class="content-box" style="text-align: center;">
                 <h2 class="heading-text">🎉 クイズ 2 の正解！</h2>
@@ -252,7 +374,7 @@
                     </p>
                     
                     <p style="font-size: 2.2rem; font-weight: 700; color: #334155; line-height: 1.5; margin-bottom: 1.5rem;">
-                        波にぶつかるペースが早くなるから！
+                        波にぶつかるペースが早くなる（＝波がつまって耳に届く）から！
                     </p>
                     
                     <div style="background: #fffbeb; padding: 0.8rem 1.5rem; border-radius: 1rem; border: 2px solid #fde68a; display: inline-block;">
@@ -264,149 +386,12 @@
             </div>
         </div>
 
-        <!-- Slide 9: Interim Summary -->
-        <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">📌 ここまでのまとめ</h2>
-                
-                <div style="display: flex; flex-direction: column; gap: 1.5rem; width: 100%; text-align: left; margin-top: 1rem;">
-                    <div class="list-item"><span>1️⃣</span> 音を出すもの（救急車など）が動いても、音の高さは変わる！</div>
-                    <div class="list-item"><span>2️⃣</span> 音を聞く人（自分など）が動いても、音の高さは変わる！</div>
-                </div>
-                
-                <div style="background: #f1f5f9; padding: 2rem; border-radius: 1.5rem; border: 3px solid #cbd5e1; margin-top: 3rem; width: 100%; box-sizing: border-box;">
-                    <p style="font-size: 1.8rem; font-weight: 800; color: #475569; margin: 0 0 1rem 0;">どちらも一番大切なのは・・・</p>
-                    <p style="font-size: 3.5rem; font-weight: 900; color: #4f46e5; margin: 0;" class="pulse-animation">
-                        「1秒間に波と出会う回数」
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 10: Sound is a Wave -->
-        <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🌊 音は「波」である</h2>
-                <p class="body-desc" style="margin-bottom: 2rem;">
-                    そもそも「音」ってなんだろう？実は空気の振動が伝わる「波」なんだ！
-                </p>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; width: 100%;">
-                    <div style="background: #f8fafc; padding: 2rem; border-radius: 1.5rem; border: 2px solid #cbd5e1;">
-                        <h3 style="font-size: 2rem; color: #475569; margin-bottom: 1rem;">💧 水面の波</h3>
-                        <svg width="250" height="100" viewBox="0 0 250 100">
-                            <!-- Concentric circles -->
-                            <circle cx="125" cy="50" r="10" fill="none" stroke="#93c5fd" stroke-width="2"/>
-                            <circle cx="125" cy="50" r="25" fill="none" stroke="#60a5fa" stroke-width="2"/>
-                            <circle cx="125" cy="50" r="40" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="3,3"/>
-                        </svg>
-                        <p style="font-size: 1.4rem; font-weight: bold; color: #64748b; margin-top: 1rem;">石を落とすと広がる輪っか</p>
-                    </div>
-                    <div style="background: #fdf2f8; padding: 2rem; border-radius: 1.5rem; border: 2px solid #fbcfe8;">
-                        <h3 style="font-size: 2rem; color: #be185d; margin-bottom: 1rem;">📢 音の波</h3>
-                        <svg width="250" height="100" viewBox="0 0 250 100">
-                            <!-- Sound ripples -->
-                            <path d="M30,50 L50,50" stroke="#f472b6" stroke-width="3"/>
-                            <path d="M70,30 A30,30 0 0,1 70,70" fill="none" stroke="#f472b6" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M100,20 A50,50 0 0,1 100,80" fill="none" stroke="#ec4899" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M130,10 A70,70 0 0,1 130,90" fill="none" stroke="#db2777" stroke-width="5" stroke-linecap="round"/>
-                        </svg>
-                        <p style="font-size: 1.4rem; font-weight: bold; color: #be185d; margin-top: 1rem;">目に見えない空気の波</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 11: High vs Low waves -->
-        <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🎼 高い音と低い音のちがい</h2>
-                <p class="body-desc" style="margin-bottom: 2rem;">
-                    波の「間隔（スキマ）」によって、音の高さが決まります。
-                </p>
-                
-                <div style="background: #f8fafc; padding: 2rem; border-radius: 1.5rem; border: 3px solid #cbd5e1; width: 100%; display: flex; flex-direction: column; gap: 2rem; box-sizing: border-box;">
-                    <!-- High Pitch Wave -->
-                    <div style="display: flex; align-items: center; justify-content: space-between; background: #fdf2f8; padding: 1rem 2rem; border-radius: 1rem; border-left: 8px solid #ec4899;">
-                        <span style="font-size: 2.2rem; font-weight: 900; color: #db2777; width: 200px; text-align: left;">🔊 高い音</span>
-                        <svg width="400" height="40" viewBox="0 0 400 40">
-                            <!-- Tight sine wave -->
-                            <path d="M 0,20 Q 10,0 20,20 T 40,20 T 60,20 T 80,20 T 100,20 T 120,20 T 140,20 T 160,20 T 180,20 T 200,20 T 220,20 T 240,20 T 260,20 T 280,20 T 300,20 T 320,20 T 340,20 T 360,20 T 380,20 T 400,20" fill="none" stroke="#ec4899" stroke-width="4"/>
-                        </svg>
-                        <span style="font-size: 1.6rem; font-weight: 800; color: #db2777;">波の間隔が【せまい】</span>
-                    </div>
-                    
-                    <!-- Low Pitch Wave -->
-                    <div style="display: flex; align-items: center; justify-content: space-between; background: #eff6ff; padding: 1rem 2rem; border-radius: 1rem; border-left: 8px solid #3b82f6;">
-                        <span style="font-size: 2.2rem; font-weight: 900; color: #2563eb; width: 200px; text-align: left;">🔉 低い音</span>
-                        <svg width="400" height="40" viewBox="0 0 400 40">
-                            <!-- Loose sine wave -->
-                            <path d="M 0,20 Q 25,0 50,20 T 100,20 T 150,20 T 200,20 T 250,20 T 300,20 T 350,20 T 400,20" fill="none" stroke="#3b82f6" stroke-width="4"/>
-                        </svg>
-                        <span style="font-size: 1.6rem; font-weight: 800; color: #2563eb;">波の間隔が【ひろい】</span>
-                    </div>
-                </div>
-
-                <div style="display: flex; justify-content: center; gap: 4rem; margin-top: 2rem;">
-                    <span style="font-size: 2.2rem; font-weight: 900; color: #d946ef;">✨ 波がつまると 高い！</span>
-                    <span style="font-size: 2.2rem; font-weight: 900; color: #0ea5e9;">✨ 波が広がると 低い！</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 12: Mini Check -->
-        <div class="slide">
-            <div class="content-box">
-                <h2 class="heading-text">📝 ミニ確認テスト</h2>
-                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5;">
-                    Q3. この2つの波のうち、聞くと「高い音」に感じるのはどっち？
-                </p>
-                
-                <div class="quiz-options" style="grid-template-columns: 1fr 1fr; margin-top: 3rem;">
-                    <!-- Option A -->
-                    <button class="quiz-option" style="padding: 2rem;" onclick="checkAnswer(this, true, '大正解！波の間隔がぎゅっとつまっている（せまい）方が、1秒間に耳にたくさんの波が届くので、高い音に聞こえます！')">
-                        <div style="font-size: 2rem; margin-bottom: 1rem;">A. 間隔がせまい波</div>
-                        <svg width="200" height="30" viewBox="0 0 200 30" style="margin: 0 auto;">
-                            <path d="M 0,15 Q 5,0 10,15 T 20,15 T 30,15 T 40,15 T 50,15 T 60,15 T 70,15 T 80,15 T 90,15 T 100,15 T 110,15 T 120,15 T 130,15 T 140,15 T 150,15 T 160,15 T 170,15 T 180,15 T 190,15 T 200,15" fill="none" stroke="#ec4899" stroke-width="3"/>
-                        </svg>
-                    </button>
-                    <!-- Option B -->
-                    <button class="quiz-option" style="padding: 2rem;" onclick="checkAnswer(this, false, 'ざんねん！波の間隔が広い方は、波が耳に届くペースがゆっくりになるので、低い音になるよ。')">
-                        <div style="font-size: 2rem; margin-bottom: 1rem;">B. 間隔が広い波</div>
-                        <svg width="200" height="30" viewBox="0 0 200 30" style="margin: 0 auto;">
-                            <path d="M 0,15 Q 15,0 30,15 T 60,15 T 90,15 T 120,15 T 150,15 T 180,15 T 200,15" fill="none" stroke="#3b82f6" stroke-width="3"/>
-                        </svg>
-                    </button>
-                </div>
-                
-                <div class="quiz-feedback">
-                    <div class="feedback-result"></div>
-                    <div class="feedback-explanation"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 13: Simulation 1 - Static Source -->
-        <div class="slide">
-            <div class="iframe-container">
-                <iframe src="sim-source-static.html"></iframe>
-            </div>
-        </div>
-
-        <!-- Slide 14: Simulation 2 - Drag Source -->
-        <div class="slide">
-            <div class="iframe-container">
-                <iframe src="sim-source-drag.html"></iframe>
-            </div>
-        </div>
-
-        <!-- Slide 15: Quiz 3 (Find compressed waves) -->
+        <!-- Slide 13: Quiz 3 (Find compressed waves) -->
         <div class="slide">
             <div class="content-box">
                 <h2 class="heading-text">🤔 波がつまる場所を探せ！</h2>
                 <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5; margin-bottom: 1.5rem;">
-                    音源が「右」に向かって動いているとき、<br>
-                    もっとも波がつまって【高い音】を聞くのはどの人？
+                    音源が「右」に向かって動いているとき、もっとも波がつまって【高い音】を聞くのはどの人？
                 </p>
                 
                 <!-- Illustration inside Quiz -->
@@ -439,34 +424,52 @@
                 </svg>
 
                 <div class="quiz-options" style="margin-top: 1.5rem;">
-                    <button class="quiz-option" onclick="checkAnswer(this, true, '大正解！音源が進む「前」の方では、音源が波を追いかける形になるため、波と波の間隔がぎゅっとつまります！')">1. 前 🏃‍♂️💨</button>
-                    <button class="quiz-option" onclick="checkAnswer(this, false, 'ざんねん！後ろ側は、音源が遠ざかりながら波を出すので、波の間隔が広がってしまうよ。')">2. 後ろ 🚶‍♂️</button>
-                    <button class="quiz-option" onclick="checkAnswer(this, false, 'ざんねん！上の方は、間隔はあまり変わらないよ。')">3. 上 🧭</button>
-                    <button class="quiz-option" onclick="checkAnswer(this, false, 'ざんねん！下の方も、間隔はあまり変わらないよ。')">4. 下 🧭</button>
+                    <button class="quiz-option" style="cursor: default;">1. 前 🏃‍♂️💨</button>
+                    <button class="quiz-option" style="cursor: default;">2. 後ろ 🚶‍♂️</button>
+                    <button class="quiz-option" style="cursor: default;">3. 上 🧭</button>
+                    <button class="quiz-option" style="cursor: default;">4. 下 🧭</button>
                 </div>
-                
-                <div class="quiz-feedback">
-                    <div class="feedback-result"></div>
-                    <div class="feedback-explanation"></div>
-                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Simulation 1 - Static Source -->
+        <div class="slide">
+            <div class="iframe-container">
+                <iframe src="sim-source-static.html"></iframe>
+            </div>
+        </div>
+
+        <!-- Slide 15: Simulation 2 - Drag Source -->
+        <div class="slide">
+            <div class="iframe-container">
+                <iframe src="sim-source-drag.html"></iframe>
             </div>
         </div>
 
         <!-- Slide 16: Name Reveal -->
         <div class="slide">
             <div class="content-box" style="text-align: center;">
-                <p style="font-size: 2rem; font-weight: 800; color: var(--primary); margin: 0 0 1rem 0; letter-spacing: 0.1em;">✨ この現象の名前は・・・ ✨</p>
-                <h1 style="font-size: 6rem; font-weight: 900; color: #ef4444; margin: 1rem 0; text-shadow: 0 4px 10px rgba(239, 68, 68, 0.15);" class="pulse-animation">
+                <h2 class="heading-text">🎉 クイズの正解！</h2>
+                <div style="background: #eff6ff; padding: 1.5rem 2rem; border-radius: 1.5rem; border: 4px solid #93c5fd; width: 100%; box-sizing: border-box; margin-bottom: 1rem;">
+                    <p style="font-size: 2.4rem; font-weight: 900; color: #1d4ed8; margin: 0;">
+                        正解は 「1. 前 🏃‍♂️💨」！
+                    </p>
+                    <p style="font-size: 1.6rem; font-weight: 700; color: #3b82f6; margin-top: 0.5rem; line-height: 1.4;">
+                        音源が進む前方では、音源が波を追いかける形になるため、波と波の間隔がぎゅっとつまります！
+                    </p>
+                </div>
+
+                <p style="font-size: 1.8rem; font-weight: 800; color: var(--primary); margin: 0.5rem 0 0.5rem 0; letter-spacing: 0.1em;">✨ この現象の名前は・・・ ✨</p>
+                <h1 style="font-size: 5.5rem; font-weight: 900; color: #ef4444; margin: 0.5rem 0; text-shadow: 0 4px 10px rgba(239, 68, 68, 0.15);" class="pulse-animation">
                     ドップラー効果
                 </h1>
                 
-                <div style="background: #f8fafc; padding: 2rem; border-radius: 1.5rem; border: 3px solid #cbd5e1; margin-top: 2rem; max-width: 800px; text-align: left; margin-left: auto; margin-right: auto;">
-                    <p style="font-size: 2.2rem; font-weight: 800; color: #1e293b; margin-top: 0; margin-bottom: 1rem; text-align: center;">
+                <div style="background: #f8fafc; padding: 1.5rem 2rem; border-radius: 1.5rem; border: 3px solid #cbd5e1; max-width: 800px; text-align: left; margin-left: auto; margin-right: auto;">
+                    <p style="font-size: 2rem; font-weight: 800; color: #1e293b; margin-top: 0; margin-bottom: 0.5rem; text-align: center;">
                         「動くことで、波の間隔が変わって聞こえる現象」
                     </p>
-                    <p style="font-size: 1.5rem; font-weight: 700; color: #64748b; text-align: center; margin: 0;">
-                        💡 1842年にオーストリアの物理学者ドップラーさんが発見しました。<br>
-                        名前は覚えなくても大丈夫！「考え方」がとっても大切だよ。
+                    <p style="font-size: 1.4rem; font-weight: 700; color: #64748b; text-align: center; margin: 0;">
+                        💡 1842年にオーストリアの物理学者ドップラーさんが発見しました。
                     </p>
                 </div>
             </div>
@@ -476,17 +479,13 @@
         <div class="slide">
             <div class="content-box">
                 <h2 class="heading-text">⚠️ 誤解チェック！</h2>
-                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5;">
+                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5; margin-bottom: 2rem;">
                     Q4. 救急車が前に走ると、前に出した「音の進む速さ」はどうなる？
                 </p>
-                <div class="quiz-options-vertical" style="margin-top: 2rem;">
-                    <button class="quiz-option" onclick="checkAnswer(this, false, 'ざんねん！実は音は救急車に押されて速くなることはないんだ。')">1. 救急車に押されて、音の進むスピードが速くなる</button>
-                    <button class="quiz-option" onclick="checkAnswer(this, true, '大正解！音を出すものがいくら速く動いても、空気中を伝わる「音の速さ」は変わらないんだよ！変わるのは波の間隔だけ！')">2. 音の進むスピードはほぼ変わらない</button>
-                    <button class="quiz-option" onclick="checkAnswer(this, false, 'ざんねん！音は止まらずにちゃんと進んでいくよ。')">3. 音がその場に止まってしまう</button>
-                </div>
-                <div class="quiz-feedback">
-                    <div class="feedback-result"></div>
-                    <div class="feedback-explanation"></div>
+                <div class="quiz-options-vertical">
+                    <button class="quiz-option" style="cursor: default;">1. 救急車に押されて、音の進むスピードが速くなる</button>
+                    <button class="quiz-option" style="cursor: default;">2. 音の進むスピードはほぼ変わらない</button>
+                    <button class="quiz-option" style="cursor: default;">3. 音がその場に止まってしまう</button>
                 </div>
             </div>
         </div>
@@ -495,7 +494,6 @@
         <div class="slide">
             <div class="content-box" style="text-align: center;">
                 <h2 class="heading-text">💡 音の速さではなく、間隔が変わる！</h2>
-                
                 <p class="body-desc" style="margin-bottom: 1.5rem;">
                     音は出た場所から丸く広がるだけ！音を押して速くしているわけじゃないよ。
                 </p>
@@ -534,43 +532,71 @@
             </div>
         </div>
 
-        <!-- Slide 19: Simulation 3 - Frequency Slider -->
+        <!-- Slide 19: Interim Summary -->
+        <div class="slide">
+            <div class="content-box" style="text-align: center;">
+                <h2 class="heading-text">📌 ここまでのまとめ</h2>
+                
+                <div style="display: flex; flex-direction: column; gap: 1.5rem; width: 100%; text-align: left; margin-top: 1rem;">
+                    <div class="list-item"><span>1️⃣</span> 音を出すもの（救急車など）が動いても、音の高さは変わる！</div>
+                    <div class="list-item"><span>2️⃣</span> 音を聞く人（自分など）が動いても、音の高さは変わる！</div>
+                </div>
+                
+                <div style="background: #f1f5f9; padding: 2rem; border-radius: 1.5rem; border: 3px solid #cbd5e1; margin-top: 3rem; width: 100%; box-sizing: border-box;">
+                    <p style="font-size: 1.8rem; font-weight: 800; color: #475569; margin: 0 0 1rem 0;">どちらも一番大切なのは・・・</p>
+                    <p style="font-size: 3.5rem; font-weight: 900; color: #4f46e5; margin: 0;" class="pulse-animation">
+                        「1秒間に波と出会う回数」
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Simulation 3 - Frequency Slider -->
         <div class="slide">
             <div class="iframe-container">
                 <iframe src="sim-frequency.html"></iframe>
             </div>
         </div>
 
-        <!-- Slide 20: Quiz 5 (Super sonic intro) -->
+        <!-- Slide 21: Quiz 5 (Super sonic intro) -->
         <div class="slide">
             <div class="content-box">
                 <h2 class="heading-text">🚀 もっと速く動いたら・・・？</h2>
-                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5;">
-                    Q5. 音を出すものが、ついに「音の伝わる速さ（音速）」よりも<br>
-                    速く動いたらどうなるでしょう？
+                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5; margin-bottom: 2rem;">
+                    Q5. 音を出すものが、ついに「音の伝わる速さ（音速）」よりも速く動いたらどうなるでしょう？
                 </p>
                 
-                <div class="quiz-options-vertical" style="margin-top: 2rem;">
-                    <button class="quiz-option" onclick="checkAnswer(this, true, '大正解！音より速くなると、音波が前に逃げ切れず、波の壁となって重なります。これが強い衝撃波（ソニックブーム）を生むんだよ！')">1. 音が前に逃げられなくなり、波が重なり合う 🌊💥</button>
-                    <button class="quiz-option" onclick="checkAnswer(this, false, 'ざんねん！音は消えないよ。むしろ特別な音が聞こえるようになります。')">2. 音が完全に消えて、静かになる 🤫</button>
-                    <button class="quiz-option" onclick="checkAnswer(this, false, 'ざんねん！スピードの壁を超えると、とても劇的な変化が起きるよ。')">3. 音の高さも進み方も、普通と何も変わらない 😐</button>
-                </div>
-                
-                <div class="quiz-feedback">
-                    <div class="feedback-result"></div>
-                    <div class="feedback-explanation"></div>
+                <div class="quiz-options-vertical">
+                    <button class="quiz-option" style="cursor: default;">1. 音が前に逃げられなくなり、波が重なり合う 🌊💥</button>
+                    <button class="quiz-option" style="cursor: default;">2. 音が完全に消えて、静かになる 🤫</button>
+                    <button class="quiz-option" style="cursor: default;">3. 音の高さも進み方も、普通と何も変わらない 😐</button>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 21: Simulation 4 - Supersonic -->
+        <!-- Slide 22: Quiz 5 Correct Answer -->
+        <div class="slide">
+            <div class="content-box" style="text-align: center;">
+                <h2 class="heading-text">🎉 クイズの正解！</h2>
+                <div style="background: #fff7ed; padding: 2rem; border-radius: 1.5rem; border: 4px solid #fed7aa; width: 100%; box-sizing: border-box;">
+                    <p style="font-size: 2.8rem; font-weight: 900; color: #ea580c; margin-top: 0; margin-bottom: 2rem;">
+                        正解は 「1. 波が重なり合う 🌊💥」！
+                    </p>
+                    <p style="font-size: 2.2rem; font-weight: 800; color: #1e293b; line-height: 1.6; margin: 0;">
+                        音を出すものが音速（音の伝わる速さ）よりも速くなると、前方へ広がる波を追い越してしまい、出した波が前方に逃げ切れずに1つに重なり合います。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Simulation 4 - Supersonic -->
         <div class="slide">
             <div class="iframe-container">
                 <iframe src="sim-supersonic.html"></iframe>
             </div>
         </div>
 
-        <!-- Slide 22: Sonic Boom -->
+        <!-- Slide 24: Sonic Boom -->
         <div class="slide">
             <div class="content-box" style="text-align: center;">
                 <h2 class="heading-text">💥 ソニックブーム</h2>
@@ -580,24 +606,55 @@
                 </p>
 
                 <div style="background: #fff7ed; padding: 2rem; border-radius: 1.5rem; border: 4px solid #fed7aa; width: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: space-around;">
-                    <svg width="400" height="150" viewBox="0 0 400 150">
-                        <!-- Ground and Person -->
-                        <rect x="0" y="130" width="400" height="20" fill="#4b5563"/>
-                        <circle cx="100" cy="110" r="10" fill="#3b82f6"/>
-                        <!-- Jet plane -->
-                        <g transform="translate(280, 50) scale(0.6)">
-                            <path d="M-50,0 L0,-15 L60,-3 L80,0 L60,3 L0,15 Z" fill="#94a3b8"/>
-                            <polygon points="10,-10 30,-30 45,-10" fill="#64748b"/>
-                            <!-- Mach Cone Lines -->
-                            <path d="M80,0 L-100,-80" stroke="#f59e0b" stroke-width="4" stroke-dasharray="4,2"/>
-                            <path d="M80,0 L-100,80" stroke="#f59e0b" stroke-width="4" stroke-dasharray="4,2"/>
+                    <svg width="500" height="180" viewBox="0 0 500 180" style="margin: 0 auto; display: block;">
+                        <!-- Ground -->
+                        <rect x="0" y="150" width="500" height="30" fill="#475569"/>
+                        
+                        <!-- Observer on Ground -->
+                        <g transform="translate(100, 130)">
+                            <circle cx="0" cy="0" r="12" fill="#3b82f6"/>
+                            <!-- Headphones -->
+                            <path d="M-15,0 A15,15 0 0,1 15,0" fill="none" stroke="#1e293b" stroke-width="4"/>
+                            <rect x="-17" y="-4" width="4" height="8" rx="1" fill="#1e293b"/>
+                            <rect x="13" y="-4" width="4" height="8" rx="1" fill="#1e293b"/>
+                            <!-- Surprised Face -->
+                            <circle cx="-3" cy="-2" r="1.5" fill="#1e3a8a"/>
+                            <circle cx="3" cy="-2" r="1.5" fill="#1e3a8a"/>
+                            <circle cx="0" cy="4" r="3" fill="#1e3a8a"/>
+                            <text x="0" y="32" font-size="12" font-weight="bold" fill="#3b82f6" text-anchor="middle">観測者</text>
                         </g>
-                        <!-- Sound ripple boundaries reaching person -->
-                        <path d="M220,0 L100,100" stroke="#ef4444" stroke-width="5"/>
-                        <!-- Flash Text -->
-                        <g transform="translate(100, 70)">
-                            <rect x="-40" y="-20" width="80" height="40" rx="5" fill="#f59e0b" filter="drop-shadow(0 0 8px #f59e0b)"/>
-                            <text x="0" y="5" font-size="20" font-weight="900" fill="#ffffff" text-anchor="middle">ドン！</text>
+
+                        <!-- Supersonic Jet (flying to the right) -->
+                        <g transform="translate(300, 50) scale(0.6)">
+                            <!-- Jet body -->
+                            <path d="M-70,0 L-20,-15 L60,-5 L80,0 L60,5 L-20,15 Z" fill="#94a3b8" stroke="#475569" stroke-width="2"/>
+                            <!-- Wings -->
+                            <path d="M-20,-12 L-40,-45 L-10,-45 L20,-8" fill="#64748b" stroke="#475569" stroke-width="2"/>
+                            <path d="M-20,12 L-40,45 L-10,45 L20,8" fill="#64748b" stroke="#475569" stroke-width="2"/>
+                            <!-- Tail fin -->
+                            <path d="M-60,0 L-75,-30 L-50,-30 L-35,0" fill="#475569"/>
+                        </g>
+                        
+                        <!-- Absolute Nose of the Jet: x = 348, y = 50 -->
+                        <!-- Shockwave (Mach Cone) -->
+                        <!-- Top Boundary -->
+                        <line x1="348" y1="50" x2="60" y2="-70" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6,4"/>
+                        <!-- Bottom Boundary (Shockwave front reaching the observer) -->
+                        <line x1="348" y1="50" x2="80" y2="162" stroke="#ef4444" stroke-width="4" filter="drop-shadow(0 0 4px #ef4444)"/>
+                        
+                        <!-- Shockwave Label -->
+                        <text x="230" y="125" font-size="12" font-weight="bold" fill="#ef4444" transform="rotate(22.6, 230, 125)">衝撃波の壁 (音が重なったもの)</text>
+
+                        <!-- Boom effect near observer -->
+                        <g transform="translate(100, 100)">
+                            <path d="M-30,-15 L-15,-25 L0,-15 L15,-25 L30,-15 L20,10 L-20,10 Z" fill="#f59e0b" opacity="0.9" filter="drop-shadow(0 0 8px #f59e0b)"/>
+                            <text x="0" y="-3" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle">ドン！</text>
+                        </g>
+                        
+                        <!-- Jet Speed Arrow -->
+                        <g transform="translate(380, 20)">
+                            <path d="M0,0 L40,0 M30,-5 L40,0 L30,5" fill="none" stroke="#ef4444" stroke-width="3"/>
+                            <text x="20" y="-10" font-size="12" font-weight="bold" fill="#ef4444" text-anchor="middle">音速より速い！</text>
                         </g>
                     </svg>
                     
@@ -611,7 +668,7 @@
             </div>
         </div>
 
-        <!-- Slide 23: Grand Summary -->
+        <!-- Slide 25: Grand Summary -->
         <div class="slide">
             <div class="content-box" style="text-align: center;">
                 <h2 class="heading-text">🌟 ここまでの大まとめ</h2>
@@ -663,7 +720,7 @@
             </div>
         </div>
 
-        <!-- Slide 24: Light is also a Wave -->
+        <!-- Slide 26: Light is also a Wave -->
         <div class="slide" data-theme="dark">
             <div class="content-box" style="text-align: center;">
                 <h2 class="heading-text">🌌 実は「光」も波である！</h2>
@@ -704,14 +761,14 @@
             </div>
         </div>
 
-        <!-- Slide 25: Cosmic simulation (Cosmological Redshift) -->
+        <!-- Slide 27: Cosmic simulation -->
         <div class="slide" data-theme="dark">
             <div class="iframe-container">
                 <iframe src="sim-cosmic.html"></iframe>
             </div>
         </div>
 
-        <!-- Slide 26: Cosmic expansion to age of universe -->
+        <!-- Slide 28: Cosmic expansion to age of universe -->
         <div class="slide" data-theme="dark">
             <div class="content-box" style="text-align: center;">
                 <h2 class="heading-text">🌌 宇宙の年齢を解き明かす</h2>
@@ -739,7 +796,7 @@
                     </div>
                 </div>
 
-                <div style="background: linear-gradient(135deg, #1e1b4b, #311042); padding: 1.2rem 2.5rem; border-radius: 1.5rem; border: 2px stroke #d946ef; margin-top: 1.5rem; display: inline-block;">
+                <div style="background: linear-gradient(135deg, #1e1b4b, #311042); padding: 1.2rem 2.5rem; border-radius: 1.5rem; border: 2px solid #d946ef; margin-top: 1.5rem; display: inline-block;">
                     <p style="font-size: 3rem; font-weight: 900; color: #fdf2f8; margin: 0;" class="pulse-animation">
                         🚀 宇宙の年齢： 約 138億年！
                     </p>
@@ -751,7 +808,7 @@
             </div>
         </div>
 
-        <!-- Slide 27: Quiz 6 (Final Test 1) -->
+        <!-- Slide 29: Quiz 6 (Final Test 1) -->
         <div class="slide">
             <div class="content-box">
                 <h2 class="heading-text">📝 さいごの小テスト (1/2)</h2>
@@ -761,20 +818,31 @@
                         Q. 救急車が近づいてくるとき、前の方の音の波はどうなる？
                     </p>
                     <div class="quiz-options" style="margin-top: 0; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 100%;">
-                        <button class="quiz-option" style="padding: 1.5rem;" onclick="checkAnswer(this, true, '大正解！近づくときは音源が波を追いかける形になるので、波と波の間隔が【せまく】なり、高い音になります！')">1. 波と波の間隔がせまくなる</button>
-                        <button class="quiz-option" style="padding: 1.5rem;" onclick="checkAnswer(this, false, 'ざんねん！間隔が広くなるのは、救急車が遠ざかるときだよ。')">2. 波と波の間隔が広くなる</button>
-                        <button class="quiz-option" style="padding: 1.5rem;" onclick="checkAnswer(this, false, 'ざんねん！波は消えずにちゃんと届くよ。')">3. 波が完全になくなる</button>
-                        <button class="quiz-option" style="padding: 1.5rem;" onclick="checkAnswer(this, false, 'ざんねん！間隔が変わらないのは、救急車が止まっているときだよ。')">4. 何も変わらない</button>
-                    </div>
-                    <div class="quiz-feedback" style="margin-top: 1.5rem;">
-                        <div class="feedback-result"></div>
-                        <div class="feedback-explanation"></div>
+                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">1. 波と波の間隔がせまくなる</button>
+                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">2. 波と波の間隔が広くなる</button>
+                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">3. 波が完全になくなる</button>
+                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">4. 何も変わらない</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 28: Quiz 7 (Final Test 2) -->
+        <!-- Slide 30: Final Test 1 Answer -->
+        <div class="slide">
+            <div class="content-box" style="text-align: center;">
+                <h2 class="heading-text">🎉 さいごの小テスト (1/2) の正解！</h2>
+                <div style="background: #fffbeb; padding: 2rem; border-radius: 1.5rem; border: 4px solid #fcd34d; width: 100%; box-sizing: border-box;">
+                    <p style="font-size: 2.8rem; font-weight: 900; color: #b45309; margin-top: 0; margin-bottom: 2rem;">
+                        正解は 「1. 波と波の間隔がせまくなる」！
+                    </p>
+                    <p style="font-size: 2.2rem; font-weight: 800; color: #1e293b; line-height: 1.6; margin: 0;">
+                        近づくときは、音を出す救急車が波を追いかけながら次の波を出すため、前方の波の間隔がせまくなります。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 31: Quiz 7 (Final Test 2) -->
         <div class="slide">
             <div class="content-box">
                 <h2 class="heading-text">📝 さいごの小テスト (2/2)</h2>
@@ -784,15 +852,26 @@
                         Q. 1秒間にたくさんの音の波が耳に届くと、音はどう聞こえる？
                     </p>
                     <div class="quiz-options" style="margin-top: 0; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 100%;">
-                        <button class="quiz-option" style="padding: 1.5rem;" onclick="checkAnswer(this, true, '大正解！波がたくさん届く（周波数が高い）と、音は【高く】聞こえます！「大きい」とはちがうので注意してね。')">1. 高く聞こえる 📈</button>
-                        <button class="quiz-option" style="padding: 1.5rem;" onclick="checkAnswer(this, false, 'ざんねん！波の『数』は音の高さだよ。音の大きさは波の『揺れる強さ（振幅）』で決まるよ。')">2. 必ず大きく聞こえる 🔊</button>
-                        <button class="quiz-option" style="padding: 1.5rem;" onclick="checkAnswer(this, false, 'ざんねん！波がたくさん耳に届くということは、しっかりはっきり聞こえるよ。')">3. 聞こえなくなる 🤫</button>
-                        <button class="quiz-option" style="padding: 1.5rem;" onclick="checkAnswer(this, false, 'ざんねん！波が届く回数が変わると、聞こえる音の種類が変わるよ。')">4. 低く聞こえる 📉</button>
+                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">1. 高く聞こえる 📈</button>
+                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">2. 必ず大きく聞こえる 🔊</button>
+                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">3. 聞こえなくなる 🤫</button>
+                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">4. 低く聞こえる 📉</button>
                     </div>
-                    <div class="quiz-feedback" style="margin-top: 1.5rem;">
-                        <div class="feedback-result"></div>
-                        <div class="feedback-explanation"></div>
-                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 32: Final Test 2 Answer -->
+        <div class="slide">
+            <div class="content-box" style="text-align: center;">
+                <h2 class="heading-text">🎉 さいごの小テスト (2/2) の正解！</h2>
+                <div style="background: #eff6ff; padding: 2rem; border-radius: 1.5rem; border: 4px solid #93c5fd; width: 100%; box-sizing: border-box;">
+                    <p style="font-size: 2.8rem; font-weight: 900; color: #1d4ed8; margin-top: 0; margin-bottom: 2rem;">
+                        正解は 「1. 高く聞こえる」！
+                    </p>
+                    <p style="font-size: 2.2rem; font-weight: 800; color: #1e293b; line-height: 1.6; margin: 0;">
+                        1秒間に耳に届く波の数（周波数）が多くなるため、音が高く聞こえるようになります。
+                    </p>
                 </div>
             </div>
         </div>
@@ -800,7 +879,7 @@
         <!-- Navigation Controls -->
         <div class="controls">
             <button id="prev-btn" class="control-btn" title="前のスライドへ (左矢印キー)">◀</button>
-            <span id="slide-number" class="slide-number">1 / 28</span>
+            <span id="slide-number" class="slide-number">1 / 32</span>
             <button id="next-btn" class="control-btn" title="次のスライドへ (右矢印キー / スペース)">▶</button>
         </div>
 
@@ -811,58 +890,9 @@
     </div> <!-- #presentation-container -->
 
     <script>
+        // Clicking is disabled globally on all quiz options now, so this helper is kept only for legacy checks if any, or it can be left clean.
         function checkAnswer(btn, isCorrect, explanationText) {
-            const container = btn.parentElement;
-            const buttons = container.querySelectorAll('.quiz-option');
-            
-            // Reset status of all buttons first to allow retry
-            buttons.forEach(b => {
-                b.style.backgroundColor = '';
-                b.style.borderColor = '';
-                b.style.color = '';
-                b.style.transform = '';
-                b.style.boxShadow = '';
-            });
-
-            // Set styling for chosen button
-            const isDark = document.getElementById('presentation-container').classList.contains('dark-theme');
-
-            if (isCorrect) {
-                btn.style.backgroundColor = isDark ? '#064e3b' : '#dcfce7';
-                btn.style.borderColor = '#22c55e';
-                btn.style.color = isDark ? '#34d399' : '#166534';
-            } else {
-                btn.style.backgroundColor = isDark ? '#7f1d1d' : '#fee2e2';
-                btn.style.borderColor = '#ef4444';
-                btn.style.color = isDark ? '#fca5a5' : '#991b1b';
-            }
-
-            // Find feedback container (it might be next sibling or nested sibling)
-            let feedback = container.nextElementSibling;
-            while (feedback && !feedback.classList.contains('quiz-feedback')) {
-                feedback = feedback.nextElementSibling;
-            }
-
-            if (feedback) {
-                feedback.style.display = 'block';
-                
-                const resultEl = feedback.querySelector('.feedback-result');
-                const explanationEl = feedback.querySelector('.feedback-explanation');
-                
-                if (isCorrect) {
-                    resultEl.innerText = '🎉 正解！';
-                    resultEl.style.color = '#16a34a';
-                    feedback.style.backgroundColor = isDark ? 'rgba(6, 78, 59, 0.3)' : '#f0fdf4';
-                    feedback.style.border = '2px solid #bbf7d0';
-                } else {
-                    resultEl.innerText = '❌ 不正解...';
-                    resultEl.style.color = '#dc2626';
-                    feedback.style.backgroundColor = isDark ? 'rgba(127, 29, 29, 0.3)' : '#fef2f2';
-                    feedback.style.border = '2px solid #fecaca';
-                }
-                explanationEl.innerText = explanationText;
-                explanationEl.style.color = isDark ? '#e5e7eb' : '#475569';
-            }
+            // Deprecated - clicking is disabled to prevent slide stretching, answers are on next slides.
         }
     </script>
     <script src="js/slides.js"></script>
