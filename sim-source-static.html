@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>静止している音源のシミュレーション</title>
+    <!-- Tailwind CSS for modern aesthetics -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=M+PLUS+Rounded+1c:wght@500;700;900&display=swap');
+        body {
+            font-family: 'Inter', 'M PLUS Rounded 1c', sans-serif;
+            background-color: #f8fafc;
+        }
+        input[type=range] {
+            height: 8px;
+            border-radius: 4px;
+            background: #e2e8f0;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4f46e5;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen p-4 flex flex-col items-center justify-center">
+
+    <div class="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+        
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white p-5 text-center shadow-inner">
+            <h1 class="text-2xl font-black tracking-tight">シミュレーション 1 ：止まっている音源</h1>
+            <p class="mt-1 text-indigo-100 font-bold text-sm">スピーカーが止まっているときの、音の波の広がり方を見てみよう！</p>
+        </div>
+
+        <!-- Simulation Canvas Container -->
+        <div class="relative bg-slate-900 overflow-hidden flex justify-center items-center">
+            <canvas id="simCanvas" width="800" height="400" class="w-full h-auto block touch-none"></canvas>
+            
+            <!-- Floating observer indicators or quick labels if needed -->
+            <div class="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-xs font-bold text-white flex flex-col gap-1">
+                <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>赤丸：音源（スピーカー）</div>
+                <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>青丸：観測者（聞く人）</div>
+            </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="p-5 bg-slate-50 border-t border-slate-200 flex flex-col md:flex-row gap-6 items-center justify-between">
+            <!-- Buttons -->
+            <div class="flex items-center gap-3">
+                <button id="btnPlayPause" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2 text-sm">
+                    <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    </svg>
+                    <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 9v6m4-6v6" />
+                    </svg>
+                    <span id="playText">スタート</span>
+                </button>
+                
+                <button id="btnReset" class="bg-slate-500 hover:bg-slate-600 text-white font-black py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2 text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    リセット
+                </button>
+            </div>
+
+            <!-- Slider -->
+            <div class="flex-1 w-full max-w-sm flex items-center gap-3">
+                <span class="text-xs font-black text-slate-500 whitespace-nowrap">波を出す間隔:</span>
+                <input type="range" id="emissionSlider" min="0.3" max="2.0" step="0.1" value="0.8" class="w-full">
+                <span id="sliderVal" class="text-xs font-black text-indigo-600 min-w-[2.5rem]">0.8秒</span>
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="bg-indigo-50/70 p-3 border-t border-indigo-100 text-center">
+            <p class="text-slate-700 font-bold leading-relaxed text-sm max-w-2xl mx-auto">
+                💡 どの方向にも、全く同じ間隔（波のピッチ）で波が届いています！
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        // State variables
+        let isRunning = false;
+        let lastWaveTime = 0;
+        let waves = [];
+        const soundSpeed = 120; // pixels per second
+        let emissionInterval = 0.8; // seconds
+
+        // Canvas setup
+        const canvas = document.getElementById('simCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // High resolution fix
+        const logicalWidth = 800;
+        const logicalHeight = 400;
+        const dpr = window.devicePixelRatio || 1;
+        canvas.style.width = logicalWidth + 'px';
+        canvas.style.maxWidth = '100%';
+        canvas.width = logicalWidth * dpr;
+        canvas.height = logicalHeight * dpr;
+        ctx.scale(dpr, dpr);
+
+        // Entities
+        const source = { x: 400, y: 200 };
+        const observers = [
+            { name: "前の人 (前)", x: 620, y: 200, color: "#ec4899" },
+            { name: "後ろの人 (後ろ)", x: 180, y: 200, color: "#3b82f6" },
+            { name: "上の人 (上)", x: 400, y: 70, color: "#10b981" },
+            { name: "下の人 (下)", x: 400, y: 330, color: "#f59e0b" }
+        ];
+
+        // Wave constructor
+        class Wave {
+            constructor(x, y, t) {
+                this.x = x;
+                this.y = y;
+                this.emittedTime = t;
+                this.r = 0;
+                this.maxR = 380;
+                this.opacity = 1;
+            }
+            update(dt, currentTime) {
+                this.r = soundSpeed * (currentTime - this.emittedTime);
+                this.opacity = Math.max(0, 1 - (this.r / this.maxR));
+            }
+            draw() {
+                if (this.opacity <= 0) return;
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(147, 197, 253, ${this.opacity})`;
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        // Initialize state
+        function init() {
+            waves = [];
+            lastWaveTime = 0;
+            // Pre-fill some waves so it doesn't look empty at start
+            for (let i = 1; i <= 3; i++) {
+                let initialTime = -i * emissionInterval;
+                let wave = new Wave(source.x, source.y, initialTime);
+                wave.update(0, 0);
+                waves.push(wave);
+            }
+            draw();
+        }
+
+        // Toggle Play/Pause
+        function togglePlay() {
+            isRunning = !isRunning;
+            document.getElementById('playIcon').classList.toggle('hidden', isRunning);
+            document.getElementById('pauseIcon').classList.toggle('hidden', !isRunning);
+            document.getElementById('playText').innerText = isRunning ? "一時停止" : "スタート";
+        }
+
+        // Reset Simulation
+        function reset() {
+            isRunning = false;
+            document.getElementById('playIcon').classList.remove('hidden');
+            document.getElementById('pauseIcon').classList.add('hidden');
+            document.getElementById('playText').innerText = "スタート";
+            init();
+        }
+
+        // Handle Slider Input
+        document.getElementById('emissionSlider').addEventListener('input', (e) => {
+            emissionInterval = parseFloat(e.target.value);
+            document.getElementById('sliderVal').innerText = emissionInterval.toFixed(1) + '秒';
+        });
+
+        document.getElementById('btnPlayPause').addEventListener('click', togglePlay);
+        document.getElementById('btnReset').addEventListener('click', reset);
+
+        // Core animation variables
+        let lastTime = 0;
+        let simTime = 0;
+
+        function renderLoop(timestamp) {
+            if (!lastTime) lastTime = timestamp;
+            let dt = (timestamp - lastTime) / 1000;
+            lastTime = timestamp;
+
+            // Cap dt to prevent huge jumps when tab is inactive
+            if (dt > 0.1) dt = 0.1;
+
+            if (isRunning) {
+                simTime += dt;
+                
+                // Add new waves based on interval
+                if (simTime - lastWaveTime >= emissionInterval) {
+                    waves.push(new Wave(source.x, source.y, simTime));
+                    lastWaveTime = simTime;
+                }
+
+                // Update waves
+                waves.forEach(w => w.update(dt, simTime));
+                // Remove outer waves
+                waves = waves.filter(w => w.r < w.maxR);
+            }
+
+            draw();
+            requestAnimationFrame(renderLoop);
+        }
+
+        // Render Canvas
+        function draw() {
+            // Dark space/slate background inside canvas
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(0, 0, logicalWidth, logicalHeight);
+
+            // Draw wave indicators / background lines
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(source.x, 0); ctx.lineTo(source.x, logicalHeight);
+            ctx.moveTo(0, source.y); ctx.lineTo(logicalWidth, source.y);
+            ctx.stroke();
+
+            // Draw Waves
+            waves.forEach(w => w.draw());
+
+            // Draw Observers
+            observers.forEach(obs => {
+                ctx.save();
+                
+                // Pulsing reaction if wave is passing through observer
+                let isPassing = false;
+                waves.forEach(w => {
+                    let d = Math.sqrt((obs.x - w.x)**2 + (obs.y - w.y)**2);
+                    if (Math.abs(d - w.r) < 8) {
+                        isPassing = true;
+                    }
+                });
+
+                let scale = isPassing ? 1.15 : 1;
+                ctx.translate(obs.x, obs.y);
+                ctx.scale(scale, scale);
+
+                // Body circle
+                ctx.beginPath();
+                ctx.arc(0, 0, 16, 0, Math.PI * 2);
+                ctx.fillStyle = obs.color;
+                ctx.fill();
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // Draw headphones
+                ctx.beginPath();
+                ctx.arc(0, 0, 20, Math.PI, 0); // Headband
+                ctx.strokeStyle = '#e2e8f0';
+                ctx.lineWidth = 4;
+                ctx.stroke();
+                
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(-22, -6, 5, 12);
+                ctx.fillRect(17, -6, 5, 12);
+
+                // Face details
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(-5, -2, 2.5, 0, Math.PI*2);
+                ctx.arc(5, -2, 2.5, 0, Math.PI*2);
+                ctx.fill();
+
+                ctx.restore();
+
+                // Name label
+                ctx.fillStyle = '#94a3b8';
+                ctx.font = 'bold 12px "Inter", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(obs.name, obs.x, obs.y + 35);
+            });
+
+            // Draw Speaker (Sound Source)
+            ctx.save();
+            ctx.translate(source.x, source.y);
+            // Draw red glowing circle
+            let pulse = 1 + Math.sin(simTime * 6) * 0.08;
+            ctx.scale(pulse, pulse);
+            ctx.beginPath();
+            ctx.arc(0, 0, 22, 0, Math.PI * 2);
+            ctx.fillStyle = '#ef4444';
+            ctx.fill();
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 3.5;
+            ctx.stroke();
+
+            // Speaker icon inside
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.moveTo(-8, -6);
+            ctx.lineTo(-3, -6);
+            ctx.lineTo(4, -12);
+            ctx.lineTo(4, 12);
+            ctx.lineTo(-3, 6);
+            ctx.lineTo(-8, 6);
+            ctx.closePath();
+            ctx.fill();
+            
+            ctx.restore();
+        }
+
+        // Kick off
+        init();
+        requestAnimationFrame(renderLoop);
+
+    </script>
+</body>
+</html>

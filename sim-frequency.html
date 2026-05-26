@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>速度と波の数のシミュレーション</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=M+PLUS+Rounded+1c:wght@500;700;900&display=swap');
+        body {
+            font-family: 'Inter', 'M PLUS Rounded 1c', sans-serif;
+            background-color: #f8fafc;
+        }
+        input[type=range] {
+            height: 8px;
+            border-radius: 4px;
+            background: #cbd5e1;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #4f46e5;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.15s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen p-4 flex flex-col items-center justify-center">
+
+    <div class="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+        
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white p-5 text-center shadow-inner">
+            <h1 class="text-2xl font-black tracking-tight">シミュレーション 3 ：スピードを変えるとどうなる？</h1>
+            <p class="mt-1 text-indigo-100 font-bold text-sm">スピードを上げると、耳に届く波の数（＝音の高さ）がどう変わるか観察しよう！</p>
+        </div>
+
+        <!-- Simulation Area -->
+        <div class="relative bg-slate-900 overflow-hidden flex justify-center items-center">
+            <canvas id="simCanvas" width="800" height="360" class="w-full h-auto block touch-none"></canvas>
+            
+            <!-- Live stats panel -->
+            <div class="absolute top-4 left-4 right-4 flex justify-between gap-4 pointer-events-none">
+                <!-- Left Observer stats -->
+                <div class="bg-blue-950/80 backdrop-blur-md px-4 py-2.5 rounded-xl border border-blue-500/30 text-white text-xs flex flex-col gap-1 shadow-lg">
+                    <div class="font-black text-blue-400">🔉 後ろの人 (左側)</div>
+                    <div class="text-lg font-black">受け取った波: <span id="countLeft" class="text-blue-300 text-2xl font-black">0</span> 回</div>
+                    <div class="text-[10px] text-blue-300 font-bold" id="pitchLeft">元の音と同じ</div>
+                </div>
+
+                <!-- Right Observer stats -->
+                <div class="bg-pink-950/80 backdrop-blur-md px-4 py-2.5 rounded-xl border border-pink-500/30 text-white text-xs flex flex-col gap-1 shadow-lg">
+                    <div class="font-black text-pink-400">🔊 前の人 (右側)</div>
+                    <div class="text-lg font-black">受け取った波: <span id="countRight" class="text-pink-300 text-2xl font-black">0</span> 回</div>
+                    <div class="text-[10px] text-pink-300 font-bold" id="pitchRight">元の音と同じ</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls Panel -->
+        <div class="p-5 bg-slate-50 border-t border-slate-200 flex flex-col gap-5">
+            <!-- Slider -->
+            <div class="flex flex-col gap-2">
+                <div class="flex justify-between items-center text-sm font-black text-slate-700">
+                    <span>🚗 スピーカーの移動スピード:</span>
+                    <span id="speedLabel" class="text-indigo-600 bg-indigo-50 px-3 py-1 rounded-md text-base">止まる (時速0km)</span>
+                </div>
+                <input type="range" id="speedSlider" min="0" max="3" step="1" value="0" class="w-full">
+                <!-- Speed ticks -->
+                <div class="flex justify-between text-[11px] font-black text-slate-400 px-1">
+                    <span>止まる</span>
+                    <span>ゆっくり</span>
+                    <span>速い</span>
+                    <span>音速に近い！</span>
+                </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <button id="btnPlayPause" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2 text-sm">
+                        <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        </svg>
+                        <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 9v6m4-6v6" />
+                        </svg>
+                        <span id="playText">スタート</span>
+                    </button>
+                    
+                    <button id="btnReset" class="bg-slate-500 hover:bg-slate-600 text-white font-black py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 text-sm">
+                        カウントリセット
+                    </button>
+                </div>
+
+                <div class="text-[11px] font-bold text-slate-500">
+                    💡 スピーカーは右端に達すると、自動で左端からループします。
+                </div>
+            </div>
+        </div>
+
+        <!-- Explanation Footer -->
+        <div class="bg-indigo-50/70 p-3 border-t border-indigo-100 text-center">
+            <p class="text-slate-700 font-bold leading-relaxed text-sm max-w-2xl mx-auto">
+                💡 速く動くほど、前側では波がたくさん届き、後ろ側では少なくなります！
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        let isRunning = false;
+        let waves = [];
+        let simTime = 0;
+        let lastWaveTime = 0;
+        const soundSpeed = 130; // px/sec
+        const emissionInterval = 0.5; // seconds
+
+        // Speed presets
+        // 0: stop, 1: slow, 2: fast, 3: supersonic border (near speed of sound)
+        const speeds = [0, 30, 70, 115]; 
+        const speedText = [
+            "止まる (時速0km)",
+            "ゆっくり (時速30km)",
+            "速い (時速70km)",
+            "音速に近い！ (時速115km)"
+        ];
+        let currentSpeedIdx = 0;
+        let sourceSpeed = speeds[currentSpeedIdx];
+
+        // Canvas Setup
+        const canvas = document.getElementById('simCanvas');
+        const ctx = canvas.getContext('2d');
+        const logicalWidth = 800;
+        const logicalHeight = 360;
+        const dpr = window.devicePixelRatio || 1;
+        canvas.style.width = logicalWidth + 'px';
+        canvas.style.maxWidth = '100%';
+        canvas.width = logicalWidth * dpr;
+        canvas.height = logicalHeight * dpr;
+        ctx.scale(dpr, dpr);
+
+        // Source & Observers
+        const source = { x: 100, y: 180 };
+        const observerLeft = { x: 80, y: 180, count: 0, lastCheckIdxs: new Set(), pulseTimer: 0 };
+        const observerRight = { x: 720, y: 180, count: 0, lastCheckIdxs: new Set(), pulseTimer: 0 };
+
+        let waveIdCounter = 0;
+
+        class Wave {
+            constructor(id, x, y, t) {
+                this.id = id;
+                this.x = x;
+                this.y = y;
+                this.emittedTime = t;
+                this.r = 0;
+                this.maxR = 750;
+            }
+            update(dt, currentTime) {
+                this.r = soundSpeed * (currentTime - this.emittedTime);
+            }
+            draw() {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(147, 197, 253, 0.25)';
+                ctx.lineWidth = 2.5;
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        function init() {
+            waves = [];
+            simTime = 0;
+            lastWaveTime = 0;
+            source.x = 100;
+            resetCounters();
+            draw();
+        }
+
+        function resetCounters() {
+            observerLeft.count = 0;
+            observerRight.count = 0;
+            observerLeft.lastCheckIdxs.clear();
+            observerRight.lastCheckIdxs.clear();
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('countLeft').innerText = observerLeft.count;
+            document.getElementById('countRight').innerText = observerRight.count;
+
+            const pitchLeftEl = document.getElementById('pitchLeft');
+            const pitchRightEl = document.getElementById('pitchRight');
+
+            if (sourceSpeed === 0) {
+                pitchLeftEl.innerText = "元の音と同じ (中音) 🔉";
+                pitchLeftEl.className = "text-[10px] text-slate-300 font-bold";
+                pitchRightEl.innerText = "元の音と同じ (中音) 🔊";
+                pitchRightEl.className = "text-[10px] text-slate-300 font-bold";
+            } else if (sourceSpeed === speeds[1]) {
+                pitchLeftEl.innerText = "少し低い音 🔉";
+                pitchLeftEl.className = "text-[10px] text-blue-400 font-bold";
+                pitchRightEl.innerText = "少し高い音 🔊";
+                pitchRightEl.className = "text-[10px] text-pink-400 font-bold";
+            } else if (sourceSpeed === speeds[2]) {
+                pitchLeftEl.innerText = "低い音 🔉";
+                pitchLeftEl.className = "text-[10px] text-blue-500 font-black";
+                pitchRightEl.innerText = "高い音 🔊";
+                pitchRightEl.className = "text-[10px] text-pink-500 font-black";
+            } else {
+                pitchLeftEl.innerText = "かなり低い音 🔉";
+                pitchLeftEl.className = "text-[10px] text-indigo-400 font-black";
+                pitchRightEl.innerText = "超高い音！！ 🔊⚡";
+                pitchRightEl.className = "text-[10px] text-pink-300 font-black animate-pulse";
+            }
+        }
+
+        function togglePlay() {
+            isRunning = !isRunning;
+            document.getElementById('playIcon').classList.toggle('hidden', isRunning);
+            document.getElementById('pauseIcon').classList.toggle('hidden', !isRunning);
+            document.getElementById('playText').innerText = isRunning ? "一時停止" : "スタート";
+        }
+
+        // Slider logic
+        document.getElementById('speedSlider').addEventListener('input', (e) => {
+            currentSpeedIdx = parseInt(e.target.value);
+            sourceSpeed = speeds[currentSpeedIdx];
+            document.getElementById('speedLabel').innerText = speedText[currentSpeedIdx];
+            updateUI();
+        });
+
+        document.getElementById('btnPlayPause').addEventListener('click', togglePlay);
+        document.getElementById('btnReset').addEventListener('click', resetCounters);
+
+        let lastTime = 0;
+
+        function renderLoop(timestamp) {
+            if (!lastTime) lastTime = timestamp;
+            let dt = (timestamp - lastTime) / 1000;
+            lastTime = timestamp;
+
+            if (dt > 0.1) dt = 0.1;
+
+            if (isRunning) {
+                simTime += dt;
+
+                // 1. Move source
+                source.x += sourceSpeed * dt;
+                
+                // Loops source to left if goes off-screen
+                if (source.x > 750) {
+                    source.x = 50;
+                    // Reset check index sets when looping so we don't double count
+                    observerLeft.lastCheckIdxs.clear();
+                    observerRight.lastCheckIdxs.clear();
+                }
+
+                // 2. Emit wave
+                if (simTime - lastWaveTime >= emissionInterval) {
+                    waveIdCounter++;
+                    waves.push(new Wave(waveIdCounter, source.x, source.y, simTime));
+                    lastWaveTime = simTime;
+                }
+
+                // 3. Update waves
+                waves.forEach(w => w.update(dt, simTime));
+
+                // 4. Wave crossing detection
+                waves.forEach(w => {
+                    // Left observer crossing (from center moving outward)
+                    let dLeft = Math.sqrt((observerLeft.x - w.x)**2 + (observerLeft.y - w.y)**2);
+                    if (w.r >= dLeft && !observerLeft.lastCheckIdxs.has(w.id)) {
+                        observerLeft.count++;
+                        observerLeft.lastCheckIdxs.add(w.id);
+                        observerLeft.pulseTimer = 8; // trigger ear pulse animation frames
+                        updateUI();
+                    }
+
+                    // Right observer crossing
+                    let dRight = Math.sqrt((observerRight.x - w.x)**2 + (observerRight.y - w.y)**2);
+                    if (w.r >= dRight && !observerRight.lastCheckIdxs.has(w.id)) {
+                        observerRight.count++;
+                        observerRight.lastCheckIdxs.add(w.id);
+                        observerRight.pulseTimer = 8;
+                        updateUI();
+                    }
+                });
+
+                // Remove outer waves
+                waves = waves.filter(w => w.r < w.maxR);
+
+                // Update timers
+                if (observerLeft.pulseTimer > 0) observerLeft.pulseTimer--;
+                if (observerRight.pulseTimer > 0) observerRight.pulseTimer--;
+            }
+
+            draw();
+            requestAnimationFrame(renderLoop);
+        }
+
+        function draw() {
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(0, 0, logicalWidth, logicalHeight);
+
+            // Center road/axis
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, 180); ctx.lineTo(logicalWidth, 180);
+            ctx.stroke();
+
+            // Draw Waves
+            waves.forEach(w => w.draw());
+
+            // Left observer (Behind)
+            drawObserver(observerLeft, "#3b82f6", "後ろの人");
+
+            // Right observer (Ahead)
+            drawObserver(observerRight, "#ec4899", "前の人");
+
+            // Draw Sound Source (Speaker)
+            ctx.save();
+            ctx.translate(source.x, source.y);
+            
+            // Draw speed vector arrow if speed > 0
+            if (sourceSpeed > 0) {
+                ctx.beginPath();
+                ctx.moveTo(30, 0);
+                ctx.lineTo(30 + sourceSpeed * 0.4, 0);
+                ctx.lineTo(25 + sourceSpeed * 0.4, -5);
+                ctx.moveTo(30 + sourceSpeed * 0.4, 0);
+                ctx.lineTo(25 + sourceSpeed * 0.4, 5);
+                ctx.strokeStyle = '#ef4444';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+            }
+
+            let pulse = 1 + Math.sin(simTime * (sourceSpeed > 0 ? 8 : 4)) * 0.08;
+            ctx.scale(pulse, pulse);
+            ctx.beginPath();
+            ctx.arc(0, 0, 22, 0, Math.PI * 2);
+            ctx.fillStyle = '#ef4444';
+            ctx.fill();
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 3.5;
+            ctx.stroke();
+
+            // Speaker graphic
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.moveTo(-8, -6);
+            ctx.lineTo(-3, -6);
+            ctx.lineTo(4, -12);
+            ctx.lineTo(4, 12);
+            ctx.lineTo(-3, 6);
+            ctx.lineTo(-8, 6);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawObserver(obs, color, labelText) {
+            ctx.save();
+            
+            // Pulsing scale based on wave detection crossing event
+            let scale = obs.pulseTimer > 0 ? (1 + obs.pulseTimer * 0.04) : 1;
+            ctx.translate(obs.x, obs.y);
+            ctx.scale(scale, scale);
+
+            // Flash effect ring
+            if (obs.pulseTimer > 0) {
+                ctx.beginPath();
+                ctx.arc(0, 0, 25, 0, Math.PI*2);
+                ctx.strokeStyle = obs.pulseTimer % 2 === 0 ? color : '#ffffff';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+
+            // Headset body
+            ctx.beginPath();
+            ctx.arc(0, 0, 18, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Headphones headband
+            ctx.beginPath();
+            ctx.arc(0, 0, 22, Math.PI, 0);
+            ctx.strokeStyle = '#f1f5f9';
+            ctx.lineWidth = 4.5;
+            ctx.stroke();
+            
+            ctx.fillStyle = '#1f2937';
+            ctx.fillRect(-24, -6, 5, 12);
+            ctx.fillRect(19, -6, 5, 12);
+
+            // Smiling eyes
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(-5, -2, 2.5, 0, Math.PI*2);
+            ctx.arc(5, -2, 2.5, 0, Math.PI*2);
+            ctx.fill();
+
+            // Smiling mouth if receiving wave
+            ctx.beginPath();
+            if (obs.pulseTimer > 0) {
+                ctx.arc(0, 3, 4, 0, Math.PI);
+                ctx.fillStyle = '#ffffff';
+                ctx.fill();
+            } else {
+                ctx.arc(0, 3, 3, 0, Math.PI);
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            }
+
+            ctx.restore();
+
+            // Label text
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = 'bold 12px "Inter", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(labelText, obs.x, obs.y + 40);
+
+            // Visual pulse text "ピポッ！"
+            if (obs.pulseTimer > 0) {
+                ctx.fillStyle = obs === observerRight ? '#f472b6' : '#60a5fa';
+                ctx.font = 'black 14px "M PLUS Rounded 1c", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText("ピッ！", obs.x, obs.y - 30);
+            }
+        }
+
+        init();
+        requestAnimationFrame(renderLoop);
+    </script>
+</body>
+</html>

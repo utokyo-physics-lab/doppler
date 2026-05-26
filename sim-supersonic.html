@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>超音速と衝撃波シミュレーション</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=M+PLUS+Rounded+1c:wght@500;700;900&display=swap');
+        body {
+            font-family: 'Inter', 'M PLUS Rounded 1c', sans-serif;
+            background-color: #f8fafc;
+        }
+        input[type=range] {
+            height: 8px;
+            border-radius: 4px;
+            background: #cbd5e1;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #eab308;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        .btn-active {
+            background-color: #eab308 !important;
+            color: #1e293b !important;
+            border-color: #ca8a04 !important;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen p-4 flex flex-col items-center justify-center">
+
+    <div class="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+        
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-slate-800 to-slate-900 text-white p-5 text-center shadow-inner">
+            <h1 class="text-2xl font-black tracking-tight flex items-center justify-center gap-2">
+                🚀 シミュレーション 4 ：音のスピードを超えると・・・？
+            </h1>
+            <p class="mt-1 text-slate-300 font-bold text-sm">音速を超えたときに発生する「衝撃波」と「ソニックブーム」を目撃しよう！</p>
+        </div>
+
+        <!-- Simulation Area -->
+        <div class="relative bg-slate-950 overflow-hidden flex justify-center items-center">
+            <canvas id="simCanvas" width="800" height="380" class="w-full h-auto block touch-none"></canvas>
+            
+            <!-- Boom indicator overlay -->
+            <div id="boomOverlay" class="absolute inset-0 bg-yellow-400/20 backdrop-blur-[1px] pointer-events-none opacity-0 transition-opacity duration-75 flex items-center justify-center">
+                <div class="text-yellow-100 font-black text-6xl px-12 py-6 bg-yellow-600/90 rounded-2xl border-4 border-yellow-400 shadow-2xl scale-75 animate-bounce">
+                    💥 ドン！！！
+                </div>
+            </div>
+
+            <!-- Mach indicator overlay -->
+            <div class="absolute top-4 left-4 bg-black/75 backdrop-blur-md px-3 py-2 rounded-xl border border-white/10 text-xs font-bold text-white flex flex-col gap-1">
+                <div class="text-yellow-400 font-black">⚡ フライトステータス:</div>
+                <div class="text-lg">マッハ数: <span id="machVal" class="text-yellow-300 font-black">Mach 1.5</span></div>
+                <div id="statusLabel" class="text-[10px] text-slate-400">超音速飛行中 (音速超え)</div>
+            </div>
+        </div>
+
+        <!-- Controls Panel -->
+        <div class="p-5 bg-slate-50 border-t border-slate-200 flex flex-col gap-4">
+            
+            <!-- Presets -->
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-black text-slate-500 mr-2">速度プリセット:</span>
+                    
+                    <button id="btnMach05" class="bg-white hover:bg-slate-100 text-slate-700 font-bold border border-slate-300 py-1.5 px-4 rounded-full text-xs transition-all shadow-sm">
+                        Mach 0.5 (亜音速)
+                    </button>
+                    <button id="btnMach10" class="bg-white hover:bg-slate-100 text-slate-700 font-bold border border-slate-300 py-1.5 px-4 rounded-full text-xs transition-all shadow-sm">
+                        Mach 1.0 (音速と同速)
+                    </button>
+                    <button id="btnMach15" class="bg-white hover:bg-slate-100 text-slate-700 font-bold border border-slate-300 py-1.5 px-4 rounded-full text-xs transition-all shadow-sm btn-active">
+                        Mach 1.5 (超音速)
+                    </button>
+                </div>
+
+                <!-- Shockwave Line Toggle -->
+                <button id="btnToggleLine" class="bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-black py-1.5 px-4 rounded-full text-xs shadow-md transition-all flex items-center gap-1 border border-yellow-600">
+                    📐 <span>衝撃波ライン: ON</span>
+                </button>
+            </div>
+
+            <!-- Custom Velocity Slider -->
+            <div class="flex items-center gap-4">
+                <span class="text-xs font-black text-slate-500 whitespace-nowrap">カスタム速度:</span>
+                <input type="range" id="machSlider" min="0.2" max="1.8" step="0.1" value="1.5" class="flex-1">
+                <span id="sliderMachVal" class="text-xs font-black text-yellow-600 bg-yellow-50 px-2.5 py-1 rounded min-w-[3rem]">Mach 1.5</span>
+            </div>
+
+            <!-- Start/Pause & Loop instructions -->
+            <div class="flex items-center justify-between mt-1">
+                <div class="flex items-center gap-3">
+                    <button id="btnPlayPause" class="bg-slate-800 hover:bg-slate-900 text-white font-black py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2 text-sm">
+                        <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        </svg>
+                        <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 9v6m4-6v6" />
+                        </svg>
+                        <span id="playText">スタート</span>
+                    </button>
+                    
+                    <button id="btnReset" class="bg-slate-500 hover:bg-slate-600 text-white font-black py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 text-sm">
+                        リセット
+                    </button>
+                </div>
+
+                <div class="text-[11px] font-bold text-slate-500">
+                    💡 飛行機が地上観測者（青い人）の上を横切り、金色のラインが横切った瞬間に大爆音が発生します！
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Explanation Footer -->
+        <div class="bg-yellow-50/50 p-3 border-t border-yellow-100 text-center">
+            <p class="text-slate-700 font-bold leading-relaxed text-sm max-w-2xl mx-auto">
+                💡 音速を超えると波の壁（衝撃波）ができ、これが通過する瞬間に大爆音が響きます！
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        let isRunning = false;
+        let showLines = true;
+        let waves = [];
+        let simTime = 0;
+        let lastWaveTime = 0;
+        const soundSpeed = 130; // pixels per second
+        let mach = 1.5;
+        let sourceSpeed = soundSpeed * mach; // px/sec
+        const emissionInterval = 0.25; // waves emit fast to show envelope clearly
+
+        // Canvas Setup
+        const canvas = document.getElementById('simCanvas');
+        const ctx = canvas.getContext('2d');
+        const logicalWidth = 800;
+        const logicalHeight = 380;
+        const dpr = window.devicePixelRatio || 1;
+        canvas.style.width = logicalWidth + 'px';
+        canvas.style.maxWidth = '100%';
+        canvas.width = logicalWidth * dpr;
+        canvas.height = logicalHeight * dpr;
+        ctx.scale(dpr, dpr);
+
+        // Sound Source (Jet Plane) & Observer (Ground listener)
+        const source = { x: 50, y: 140 };
+        const observer = { x: 400, y: 280, boomTimer: 0, boomTriggeredInLoop: false };
+
+        class Wave {
+            constructor(x, y, t) {
+                this.x = x;
+                this.y = y;
+                this.emittedTime = t;
+                this.r = 0;
+                this.maxR = 500;
+            }
+            update(dt, currentTime) {
+                this.r = soundSpeed * (currentTime - this.emittedTime);
+            }
+            draw() {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(254, 240, 138, 0.15)'; // faint yellow
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        function init() {
+            waves = [];
+            simTime = 0;
+            lastWaveTime = 0;
+            source.x = 50;
+            observer.boomTriggeredInLoop = false;
+            observer.boomTimer = 0;
+            document.getElementById('boomOverlay').style.opacity = 0;
+            draw();
+        }
+
+        function togglePlay() {
+            isRunning = !isRunning;
+            document.getElementById('playIcon').classList.toggle('hidden', isRunning);
+            document.getElementById('pauseIcon').classList.toggle('hidden', !isRunning);
+            document.getElementById('playText').innerText = isRunning ? "一時停止" : "スタート";
+        }
+
+        function toggleLines() {
+            showLines = !showLines;
+            document.getElementById('btnToggleLine').className = showLines 
+                ? "bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-black py-1.5 px-4 rounded-full text-xs shadow-md transition-all flex items-center gap-1 border border-yellow-600"
+                : "bg-slate-400 hover:bg-slate-500 text-white font-black py-1.5 px-4 rounded-full text-xs shadow-md transition-all flex items-center gap-1 border border-slate-500";
+            document.getElementById('btnToggleLine').querySelector('span').innerText = showLines ? "衝撃波ライン: ON" : "衝撃波ライン: OFF";
+        }
+
+        function setMach(newMach) {
+            mach = newMach;
+            sourceSpeed = soundSpeed * mach;
+            document.getElementById('machVal').innerText = `Mach ${mach.toFixed(1)}`;
+            document.getElementById('sliderMachVal').innerText = `Mach ${mach.toFixed(1)}`;
+            document.getElementById('machSlider').value = mach;
+            
+            // Labels updates
+            const statusEl = document.getElementById('statusLabel');
+            if (mach < 0.9) {
+                statusEl.innerText = "亜音速飛行中 (音速より遅い)";
+                statusEl.className = "text-[10px] text-blue-400 font-bold";
+            } else if (mach >= 0.9 && mach <= 1.1) {
+                statusEl.innerText = "音速付近を飛行中 (音速の壁)";
+                statusEl.className = "text-[10px] text-red-400 font-bold animate-pulse";
+            } else {
+                statusEl.innerText = "超音速飛行中 (音速超え！)";
+                statusEl.className = "text-[10px] text-yellow-400 font-bold";
+            }
+
+            // Sync button active status
+            document.getElementById('btnMach05').classList.toggle('btn-active', Math.abs(mach - 0.5) < 0.05);
+            document.getElementById('btnMach10').classList.toggle('btn-active', Math.abs(mach - 1.0) < 0.05);
+            document.getElementById('btnMach15').classList.toggle('btn-active', Math.abs(mach - 1.5) < 0.05);
+            
+            // Reset checking variables
+            observer.boomTriggeredInLoop = false;
+        }
+
+        // Event listeners
+        document.getElementById('btnMach05').addEventListener('click', () => setMach(0.5));
+        document.getElementById('btnMach10').addEventListener('click', () => setMach(1.0));
+        document.getElementById('btnMach15').addEventListener('click', () => setMach(1.5));
+        document.getElementById('btnToggleLine').addEventListener('click', toggleLines);
+        document.getElementById('btnPlayPause').addEventListener('click', togglePlay);
+        document.getElementById('btnReset').addEventListener('click', init);
+        
+        document.getElementById('machSlider').addEventListener('input', (e) => {
+            setMach(parseFloat(e.target.value));
+        });
+
+        let lastTime = 0;
+
+        function renderLoop(timestamp) {
+            if (!lastTime) lastTime = timestamp;
+            let dt = (timestamp - lastTime) / 1000;
+            lastTime = timestamp;
+
+            if (dt > 0.1) dt = 0.1;
+
+            if (isRunning) {
+                simTime += dt;
+
+                // 1. Move jet
+                source.x += sourceSpeed * dt;
+                
+                // Loops if off canvas
+                if (source.x > 850) {
+                    source.x = -50;
+                    observer.boomTriggeredInLoop = false;
+                }
+
+                // 2. Emit wave
+                if (simTime - lastWaveTime >= emissionInterval) {
+                    waves.push(new Wave(source.x, source.y, simTime));
+                    lastWaveTime = simTime;
+                }
+
+                // 3. Update waves
+                waves.forEach(w => w.update(dt, simTime));
+                waves = waves.filter(w => w.r < w.maxR);
+
+                // 4. Sonic Boom detection
+                // Trigger sonic boom if:
+                // - Mach is supersonic (Mach >= 1.0)
+                // - Source is to the right of observer
+                // - Shockwave line (envelope) passes ground observer
+                if (mach >= 1.0 && !observer.boomTriggeredInLoop && source.x > observer.x) {
+                    if (mach === 1.0) {
+                        // At Mach 1.0, sonic boom triggers exactly when jet passes observer x
+                        if (source.x >= observer.x) {
+                            triggerSonicBoom();
+                        }
+                    } else {
+                        // At Mach > 1.0, shockwave angle is arcsin(1/M)
+                        // The Mach cone meets the observer's line at:
+                        // dist = observerY - sourceY = 140px.
+                        // xDiff = dist * tan(theta) where sin(theta) = 1/M.
+                        // so tan(theta) = 1 / sqrt(M^2 - 1).
+                        // Trigger point is sourceX = observerX + xDiff
+                        const yDiff = observer.y - source.y;
+                        const xDiff = yDiff / Math.sqrt(mach * mach - 1);
+                        if (source.x >= observer.x + xDiff) {
+                            triggerSonicBoom();
+                        }
+                    }
+                }
+
+                // Handle boom overlay timers
+                if (observer.boomTimer > 0) {
+                    observer.boomTimer -= dt * 1000;
+                    if (observer.boomTimer <= 0) {
+                        document.getElementById('boomOverlay').style.opacity = 0;
+                    }
+                }
+            }
+
+            draw();
+            requestAnimationFrame(renderLoop);
+        }
+
+        function triggerSonicBoom() {
+            observer.boomTriggeredInLoop = true;
+            observer.boomTimer = 400; // milliseconds flash duration
+            document.getElementById('boomOverlay').style.opacity = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = '#030712';
+            ctx.fillRect(0, 0, logicalWidth, logicalHeight);
+
+            // Ground drawing
+            ctx.fillStyle = '#1f2937';
+            ctx.fillRect(0, 310, logicalWidth, 70);
+            ctx.fillStyle = '#111827';
+            ctx.fillRect(0, 330, logicalWidth, 50);
+
+            // Guides
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, source.y); ctx.lineTo(logicalWidth, source.y);
+            ctx.moveTo(observer.x, 0); ctx.lineTo(observer.x, 310);
+            ctx.stroke();
+
+            // Draw Sound waves (faint circles)
+            waves.forEach(w => w.draw());
+
+            // Draw Shockwave Line envelope (Mach cone golden lines)
+            if (showLines && mach >= 1.0 && source.x > -50) {
+                // Math calculation for Mach Cone angle
+                // Angle relative to velocity vector: theta = arcsin(1/M)
+                // We draw two tangent lines lagging behind source
+                const angle = Math.asin(1 / mach);
+                const lineLength = 550;
+
+                ctx.save();
+                ctx.translate(source.x, source.y);
+                
+                ctx.beginPath();
+                // Upper boundary line
+                ctx.moveTo(0, 0);
+                ctx.lineTo(-lineLength * Math.cos(angle), -lineLength * Math.sin(angle));
+                // Lower boundary line
+                ctx.moveTo(0, 0);
+                ctx.lineTo(-lineLength * Math.cos(angle), lineLength * Math.sin(angle));
+                
+                ctx.strokeStyle = '#f59e0b'; // solid golden yellow
+                ctx.lineWidth = 3;
+                ctx.shadowColor = '#fbbf24';
+                ctx.shadowBlur = 10;
+                ctx.stroke();
+                
+                ctx.restore();
+            }
+
+            // Draw Ground observer (blue)
+            ctx.save();
+            let isBooming = observer.boomTimer > 0;
+            let scale = isBooming ? 1.4 : 1;
+            ctx.translate(observer.x, observer.y);
+            ctx.scale(scale, scale);
+
+            // Body
+            ctx.beginPath();
+            ctx.arc(0, 0, 16, 0, Math.PI * 2);
+            ctx.fillStyle = isBooming ? '#eab308' : '#3b82f6';
+            ctx.fill();
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Headphones
+            ctx.beginPath();
+            ctx.arc(0, 0, 20, Math.PI, 0);
+            ctx.strokeStyle = '#f8fafc';
+            ctx.lineWidth = 4.5;
+            ctx.stroke();
+            ctx.fillStyle = '#1e293b';
+            ctx.fillRect(-24, -6, 5, 12);
+            ctx.fillRect(19, -6, 5, 12);
+
+            // Face (surprised face during sonic boom!)
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            if (isBooming) {
+                // Wide shocked eyes
+                ctx.arc(-6, -3, 3, 0, Math.PI*2);
+                ctx.arc(6, -3, 3, 0, Math.PI*2);
+                ctx.fill();
+                // Shocked open mouth
+                ctx.beginPath();
+                ctx.arc(0, 5, 5, 0, Math.PI*2);
+                ctx.fill();
+            } else {
+                // Happy normal eyes
+                ctx.arc(-5, -2, 2.5, 0, Math.PI*2);
+                ctx.arc(5, -2, 2.5, 0, Math.PI*2);
+                ctx.fill();
+                // Small smile
+                ctx.beginPath();
+                ctx.arc(0, 4, 3, 0, Math.PI);
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            }
+
+            ctx.restore();
+
+            // Ground observer name label
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = 'bold 12px "Inter", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText("地上で待つ人", observer.x, observer.y + 40);
+
+            // Draw Jet Plane
+            ctx.save();
+            ctx.translate(source.x, source.y);
+
+            // Pulsing flame size
+            let flameW = 15 + Math.sin(simTime * 30) * 5;
+            let fireGrad = ctx.createLinearGradient(-35, 0, -10, 0);
+            fireGrad.addColorStop(0, '#f97316');
+            fireGrad.addColorStop(1, '#ef4444');
+            ctx.fillStyle = fireGrad;
+            ctx.beginPath();
+            ctx.moveTo(-15, -4);
+            ctx.lineTo(-15 - flameW, 0);
+            ctx.lineTo(-15, 4);
+            ctx.closePath();
+            ctx.fill();
+
+            // Jet body
+            ctx.fillStyle = '#cbd5e1'; // light steel
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            // Wing profile
+            ctx.moveTo(-15, -3);
+            ctx.lineTo(-5, -16); // tail wing
+            ctx.lineTo(5, -4);
+            ctx.lineTo(20, -4);
+            ctx.lineTo(35, 0); // nose cone
+            ctx.lineTo(20, 4);
+            ctx.lineTo(5, 4);
+            ctx.lineTo(-5, 16);
+            ctx.lineTo(-15, 3);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Cockpit glass
+            ctx.fillStyle = '#38bdf8';
+            ctx.beginPath();
+            ctx.ellipse(15, -1, 8, 3, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        init();
+        requestAnimationFrame(renderLoop);
+    </script>
+</body>
+</html>

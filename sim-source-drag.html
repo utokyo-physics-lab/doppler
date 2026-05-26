@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音源ドラッグシミュレーション</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=M+PLUS+Rounded+1c:wght@500;700;900&display=swap');
+        body {
+            font-family: 'Inter', 'M PLUS Rounded 1c', sans-serif;
+            background-color: #f8fafc;
+        }
+        input[type=range] {
+            height: 8px;
+            border-radius: 4px;
+            background: #e2e8f0;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4f46e5;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen p-4 flex flex-col items-center justify-center">
+
+    <div class="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+        
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white p-5 text-center shadow-inner">
+            <h1 class="text-2xl font-black tracking-tight">シミュレーション 2 ：音源を動かしてみよう</h1>
+            <p class="mt-1 text-indigo-100 font-bold text-sm">赤いスピーカーをマウスやタッチでドラッグするか、自動運転ボタンを押して動かしてみよう！</p>
+        </div>
+
+        <!-- Canvas Area -->
+        <div class="relative bg-slate-900 overflow-hidden flex justify-center items-center">
+            <canvas id="simCanvas" width="800" height="400" class="w-full h-auto block touch-none"></canvas>
+            
+            <!-- Instructions Overlay -->
+            <div class="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-2 rounded-lg border border-white/10 text-xs font-bold text-white flex flex-col gap-1">
+                <div class="text-indigo-400 font-black">💡 操作方法:</div>
+                <div>👉 赤いスピーカーをドラッグして動かす</div>
+                <div>🤖 自動運転ボタンで右向きに走らせる</div>
+            </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="p-5 bg-slate-50 border-t border-slate-200 flex flex-col md:flex-row gap-6 items-center justify-between">
+            <!-- Play/Pause & Reset -->
+            <div class="flex items-center gap-3">
+                <button id="btnPlayPause" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2 text-sm">
+                    <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    </svg>
+                    <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 9v6m4-6v6" />
+                    </svg>
+                    <span id="playText">スタート</span>
+                </button>
+
+                <button id="btnAuto" class="bg-emerald-600 hover:bg-emerald-700 text-white font-black py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2 text-sm">
+                    🤖 <span id="autoText">自動運転：ON</span>
+                </button>
+
+                <button id="btnReset" class="bg-slate-500 hover:bg-slate-600 text-white font-black py-2.5 px-5 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2 text-sm">
+                    リセット
+                </button>
+            </div>
+
+            <!-- Auto-Move Velocity Slider -->
+            <div class="flex-1 w-full max-w-sm flex items-center gap-3">
+                <span class="text-xs font-black text-slate-500 whitespace-nowrap">スピーカーの速度:</span>
+                <input type="range" id="speedSlider" min="10" max="90" step="5" value="45" class="w-full">
+                <span id="sliderVal" class="text-xs font-black text-indigo-600 min-w-[2.5rem]">時速45km</span>
+            </div>
+        </div>
+
+        <!-- Explanation Footer -->
+        <div class="bg-indigo-50/70 p-3 border-t border-indigo-100 text-center">
+            <p class="text-slate-700 font-bold leading-relaxed text-sm max-w-2xl mx-auto">
+                💡 前側では波がギュッとつまり、後ろ側では波が引き伸ばされます！
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        let isRunning = false;
+        let isAutoMode = true;
+        let autoDirection = 1; // 1 = right, -1 = left
+        let sourceSpeed = 45; // speed parameter (px/s)
+        let lastWaveTime = 0;
+        let waves = [];
+        const soundSpeed = 110; // wave propagation speed (px/s)
+        const emissionInterval = 0.6; // seconds
+
+        // Mouse/Touch Drag state
+        let isDragging = false;
+        let dragOffset = { x: 0, y: 0 };
+
+        // Canvas Setup
+        const canvas = document.getElementById('simCanvas');
+        const ctx = canvas.getContext('2d');
+        const logicalWidth = 800;
+        const logicalHeight = 400;
+        const dpr = window.devicePixelRatio || 1;
+        canvas.style.width = logicalWidth + 'px';
+        canvas.style.maxWidth = '100%';
+        canvas.width = logicalWidth * dpr;
+        canvas.height = logicalHeight * dpr;
+        ctx.scale(dpr, dpr);
+
+        // Entities
+        const source = { x: 200, y: 200 };
+        const observers = [
+            { name: "前の人 (前)", x: 650, y: 200, color: "#ec4899" },
+            { name: "後ろの人 (後ろ)", x: 150, y: 200, color: "#3b82f6" }
+        ];
+
+        class Wave {
+            constructor(x, y, t) {
+                this.x = x; // Emitted center remains fixed
+                this.y = y;
+                this.emittedTime = t;
+                this.r = 0;
+                this.maxR = 400;
+                this.opacity = 1;
+            }
+            update(dt, currentTime) {
+                this.r = soundSpeed * (currentTime - this.emittedTime);
+                this.opacity = Math.max(0, 1 - (this.r / this.maxR));
+            }
+            draw() {
+                if (this.opacity <= 0) return;
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(147, 197, 253, ${this.opacity})`;
+                ctx.lineWidth = 2.5;
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        function init() {
+            waves = [];
+            lastWaveTime = 0;
+            source.x = 200;
+            source.y = 200;
+            autoDirection = 1;
+            draw();
+        }
+
+        function togglePlay() {
+            isRunning = !isRunning;
+            document.getElementById('playIcon').classList.toggle('hidden', isRunning);
+            document.getElementById('pauseIcon').classList.toggle('hidden', !isRunning);
+            document.getElementById('playText').innerText = isRunning ? "一時停止" : "スタート";
+        }
+
+        function toggleAuto() {
+            isAutoMode = !isAutoMode;
+            document.getElementById('btnAuto').className = isAutoMode 
+                ? "bg-emerald-600 hover:bg-emerald-700 text-white font-black py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2 text-sm"
+                : "bg-amber-500 hover:bg-amber-600 text-white font-black py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2 text-sm";
+            document.getElementById('autoText').innerText = isAutoMode ? "自動運転：ON" : "手動ドラッグ";
+        }
+
+        function reset() {
+            isRunning = false;
+            document.getElementById('playIcon').classList.remove('hidden');
+            document.getElementById('pauseIcon').classList.add('hidden');
+            document.getElementById('playText').innerText = "スタート";
+            init();
+        }
+
+        // Drag handlers
+        function getCanvasMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            // Scaling factor for CSS layout
+            const scaleX = logicalWidth / rect.width;
+            const scaleY = logicalHeight / rect.height;
+            
+            let clientX, clientY;
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+
+            return {
+                x: (clientX - rect.left) * scaleX,
+                y: (clientY - rect.top) * scaleY
+            };
+        }
+
+        function onMouseDown(e) {
+            const pos = getCanvasMousePos(e);
+            // Check distance to speaker
+            const dist = Math.sqrt((pos.x - source.x)**2 + (pos.y - source.y)**2);
+            if (dist < 30) {
+                isDragging = true;
+                dragOffset.x = pos.x - source.x;
+                dragOffset.y = pos.y - source.y;
+                isAutoMode = false; // Disable auto mode when dragging starts
+                document.getElementById('btnAuto').className = "bg-amber-500 hover:bg-amber-600 text-white font-black py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2 text-sm";
+                document.getElementById('autoText').innerText = "手動ドラッグ";
+            }
+        }
+
+        function onMouseMove(e) {
+            if (!isDragging) return;
+            const pos = getCanvasMousePos(e);
+            source.x = Math.max(50, Math.min(logicalWidth - 50, pos.x - dragOffset.x));
+            source.y = Math.max(50, Math.min(logicalHeight - 50, pos.y - dragOffset.y));
+        }
+
+        function onMouseUp() {
+            isDragging = false;
+        }
+
+        // Event listeners for dragging
+        canvas.addEventListener('mousedown', onMouseDown);
+        canvas.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+
+        canvas.addEventListener('touchstart', onMouseDown, { passive: true });
+        canvas.addEventListener('touchmove', onMouseMove, { passive: true });
+        window.addEventListener('touchend', onMouseUp);
+
+        // Sliders and Buttons
+        document.getElementById('speedSlider').addEventListener('input', (e) => {
+            sourceSpeed = parseFloat(e.target.value);
+            document.getElementById('sliderVal').innerText = `時速${sourceSpeed}km`;
+        });
+
+        document.getElementById('btnPlayPause').addEventListener('click', togglePlay);
+        document.getElementById('btnAuto').addEventListener('click', toggleAuto);
+        document.getElementById('btnReset').addEventListener('click', reset);
+
+        // Core physics logic loop
+        let lastTime = 0;
+        let simTime = 0;
+
+        function renderLoop(timestamp) {
+            if (!lastTime) lastTime = timestamp;
+            let dt = (timestamp - lastTime) / 1000;
+            lastTime = timestamp;
+
+            if (dt > 0.1) dt = 0.1;
+
+            if (isRunning) {
+                simTime += dt;
+
+                // 1. Emmit wave
+                if (simTime - lastWaveTime >= emissionInterval) {
+                    waves.push(new Wave(source.x, source.y, simTime));
+                    lastWaveTime = simTime;
+                }
+
+                // 2. Automated movement
+                if (isAutoMode && !isDragging) {
+                    source.x += sourceSpeed * dt * autoDirection;
+                    // Bounce at boundaries
+                    if (source.x >= 600 && autoDirection === 1) {
+                        autoDirection = -1;
+                    } else if (source.x <= 200 && autoDirection === -1) {
+                        autoDirection = 1;
+                    }
+                }
+
+                // 3. Update waves
+                waves.forEach(w => w.update(dt, simTime));
+                waves = waves.filter(w => w.r < w.maxR);
+            }
+
+            draw();
+            requestAnimationFrame(renderLoop);
+        }
+
+        function draw() {
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(0, 0, logicalWidth, logicalHeight);
+
+            // Background guides
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, 200); ctx.lineTo(logicalWidth, 200);
+            ctx.stroke();
+
+            // Draw Waves
+            waves.forEach(w => w.draw());
+
+            // Draw Observers
+            observers.forEach(obs => {
+                ctx.save();
+                
+                let isPassing = false;
+                waves.forEach(w => {
+                    let d = Math.sqrt((obs.x - w.x)**2 + (obs.y - w.y)**2);
+                    if (Math.abs(d - w.r) < 8) {
+                        isPassing = true;
+                    }
+                });
+
+                let scale = isPassing ? 1.15 : 1;
+                ctx.translate(obs.x, obs.y);
+                ctx.scale(scale, scale);
+
+                // Body
+                ctx.beginPath();
+                ctx.arc(0, 0, 16, 0, Math.PI * 2);
+                ctx.fillStyle = obs.color;
+                ctx.fill();
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // Headphones
+                ctx.beginPath();
+                ctx.arc(0, 0, 20, Math.PI, 0);
+                ctx.strokeStyle = '#e2e8f0';
+                ctx.lineWidth = 4;
+                ctx.stroke();
+                
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(-22, -6, 5, 12);
+                ctx.fillRect(17, -6, 5, 12);
+
+                // Eyes
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(-5, -2, 2.5, 0, Math.PI*2);
+                ctx.arc(5, -2, 2.5, 0, Math.PI*2);
+                ctx.fill();
+
+                ctx.restore();
+
+                ctx.fillStyle = '#94a3b8';
+                ctx.font = 'bold 12px "Inter", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(obs.name, obs.x, obs.y + 35);
+            });
+
+            // Draw Speaker (Sound Source)
+            ctx.save();
+            ctx.translate(source.x, source.y);
+            
+            // Halo glow for drag feedback
+            if (isDragging) {
+                ctx.beginPath();
+                ctx.arc(0, 0, 30, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(239, 68, 68, 0.2)';
+                ctx.fill();
+            }
+
+            let pulse = 1 + Math.sin(simTime * 6) * 0.08;
+            ctx.scale(pulse, pulse);
+            ctx.beginPath();
+            ctx.arc(0, 0, 22, 0, Math.PI * 2);
+            ctx.fillStyle = '#ef4444';
+            ctx.fill();
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 3.5;
+            ctx.stroke();
+
+            // Speaker vector icon
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.moveTo(-8, -6);
+            ctx.lineTo(-3, -6);
+            ctx.lineTo(4, -12);
+            ctx.lineTo(4, 12);
+            ctx.lineTo(-3, 6);
+            ctx.lineTo(-8, 6);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+
+            // Drag hints if not dragging
+            if (!isRunning && !isDragging) {
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '10px "Inter", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText("ドラッグで動くよ！", source.x, source.y - 30);
+            }
+        }
+
+        init();
+        requestAnimationFrame(renderLoop);
+    </script>
+</body>
+</html>
