@@ -337,7 +337,7 @@ body {
 /* Premium Glassmorphic Image Styles */
 .slide-image {
   max-width: 100%;
-  max-height: 250px;
+  max-height: 320px;
   object-fit: contain;
   border-radius: 1.25rem;
   border: 1.5px solid var(--border-light);
