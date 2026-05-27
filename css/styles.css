@@ -175,7 +175,7 @@ body {
 /* Title Typography */
 .title-text {
   font-family: var(--font-display);
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: 900;
   line-height: 1.15;
   letter-spacing: -0.03em;
@@ -195,7 +195,7 @@ body {
 }
 
 .subtitle-text {
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   color: var(--text-muted);
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -207,7 +207,7 @@ body {
 
 .heading-text {
   font-family: var(--font-display);
-  font-size: 2.6rem;
+  font-size: 3.5rem;
   font-weight: 900;
   color: var(--text-main);
   letter-spacing: -0.02em;
@@ -223,12 +223,12 @@ body {
 }
 
 .body-desc {
-  font-size: 1.15rem;
+  font-size: 1.9rem;
   font-weight: 500;
   color: var(--text-muted);
-  line-height: 1.65;
+  line-height: 1.6;
   text-align: left;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .dark-theme .body-desc {
@@ -238,7 +238,7 @@ body {
 /* Split Layout Grid for bespoke presentation style */
 .slide-grid {
   display: grid;
-  grid-template-columns: 4.5fr 7.5fr;
+  grid-template-columns: 5fr 7fr;
   gap: 3rem;
   align-items: center;
   width: 100%;
@@ -254,6 +254,34 @@ body {
   width: 100%;
   height: 100%;
   flex-grow: 1;
+}
+
+/* Spacious Vertical Stacking Layout */
+.slide-flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+}
+
+.slide-flex-col-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+}
+
+.slide-flex-col-media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-grow: 1;
+  margin-top: 0.5rem;
 }
 
 .slide-content-left {
@@ -276,17 +304,48 @@ body {
   background: rgba(255, 255, 255, 0.65);
   border: 1px solid var(--border-light);
   border-radius: 1.5rem;
-  padding: 2rem;
+  padding: 2.2rem;
   box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(0,0,0,0.01);
   backdrop-filter: blur(12px);
   width: 100%;
   box-sizing: border-box;
 }
 
+.premium-card p {
+  font-size: 2.0rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
 .dark-theme .premium-card {
   background: rgba(15, 23, 42, 0.45);
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
+}
+
+/* Premium Glassmorphic Image Styles */
+.slide-image {
+  max-width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+  border-radius: 1.25rem;
+  border: 1.5px solid var(--border-light);
+  box-shadow: 0 15px 35px -10px rgba(15, 23, 42, 0.15), 0 5px 15px -5px rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  padding: 0.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.dark-theme .slide-image {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(15, 23, 42, 0.5);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
+
+.slide-image:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 25px 45px -15px rgba(99, 102, 241, 0.25);
 }
 
 /* Highlight Text Utilities */
@@ -311,13 +370,13 @@ body {
 
 /* Custom list layout */
 .list-item {
-  font-size: 1.35rem;
+  font-size: 2.2rem;
   font-weight: 700;
-  margin: 1rem 0;
+  margin: 1.2rem 0;
   color: var(--text-main);
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
   width: 100%;
 }
 
@@ -329,14 +388,15 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 3.2rem;
+  height: 3.2rem;
   background: #eff6ff;
   border-radius: 50%;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   color: var(--primary);
   font-family: var(--font-display);
   font-weight: 800;
+  flex-shrink: 0;
 }
 
 .dark-theme .list-item span {
@@ -348,25 +408,25 @@ body {
 .quiz-options {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-  margin-top: 1rem;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
   width: 100%;
 }
 
 .quiz-options-vertical {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
   width: 100%;
 }
 
 .quiz-option {
   background: rgba(255, 255, 255, 0.7);
-  border: 2px solid var(--border-light);
-  border-radius: 1.25rem;
-  padding: 1.25rem 1.5rem;
-  font-size: 1.2rem;
+  border: 2.5px solid var(--border-light);
+  border-radius: 1.5rem;
+  padding: 1.5rem 2rem;
+  font-size: 1.9rem;
   font-weight: 700;
   color: var(--text-main);
   text-align: left;
@@ -376,22 +436,23 @@ body {
   outline: none;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1.25rem;
   box-sizing: border-box;
 }
 
 .quiz-option-number {
   font-family: var(--font-display);
-  font-size: 0.9rem;
+  font-size: 1.4rem;
   font-weight: 800;
-  width: 1.8rem;
-  height: 1.8rem;
+  width: 2.8rem;
+  height: 2.8rem;
   border-radius: 50%;
   background: var(--border-light);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-muted);
+  flex-shrink: 0;
 }
 
 .dark-theme .quiz-option {
@@ -432,18 +493,18 @@ body {
 /* Beautiful Answer Badge */
 .answer-badge {
   font-family: var(--font-display);
-  font-size: 0.75rem;
+  font-size: 1.3rem;
   font-weight: 900;
   letter-spacing: 0.15em;
-  padding: 0.4rem 0.8rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 9999px;
   background: #dcfce7;
   color: #15803d;
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.4rem;
   text-transform: uppercase;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
   border: 1px solid rgba(21, 128, 61, 0.15);
 }
 
@@ -454,7 +515,7 @@ body {
 }
 
 .answer-title {
-  font-size: 2.2rem;
+  font-size: 3.2rem;
   font-weight: 900;
   color: #166534;
   margin-top: 0;
