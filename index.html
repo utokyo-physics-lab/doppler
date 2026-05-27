@@ -4,121 +4,177 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ドップラー効果 - 救急車から宇宙へつながる波のふしぎ</title>
+    <!-- Premium Google Fonts & Iconify Framework -->
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 </head>
 <body>
 
     <div id="presentation-container">
+        <!-- Ambient blur glow orbs for depth -->
+        <div class="glow-orb glow-orb-primary"></div>
+        <div class="glow-orb glow-orb-secondary"></div>
+
         <div id="presentation-wrapper">
         
         <!-- Slide 1: Title -->
         <div class="slide">
-            <h1 class="title-text">同じ音なのに高さが変わる？</h1>
-            <h2 class="subtitle-text">第4回：救急車から宇宙までつながる波のふしぎ</h2>
-            
-            <div class="illustration-container" style="margin-top: 3rem;">
-                <svg width="400" height="150" viewBox="0 0 400 150">
-                    <!-- Twinkling stars in background -->
-                    <circle cx="50" cy="30" r="1.5" fill="#a5b4fc" />
-                    <circle cx="350" cy="40" r="2" fill="#a5b4fc" />
-                    <!-- Galaxy illustration on left -->
-                    <g transform="translate(60, 80) scale(0.6)">
-                        <path d="M-40,0 Q0,-30 40,0 Q0,30 -40,0" fill="none" stroke="#818cf8" stroke-width="3" opacity="0.8"/>
-                        <path d="M-60,-10 Q0,-45 60,10 Q0,45 -60,-10" fill="none" stroke="#c084fc" stroke-width="2" opacity="0.6"/>
-                        <circle cx="0" cy="0" r="12" fill="#fbbf24" filter="drop-shadow(0 0 8px #fbbf24)"/>
-                    </g>
-                    <!-- Ripple wave from center -->
-                    <circle cx="200" cy="80" r="45" fill="none" stroke="#60a5fa" stroke-width="2" stroke-dasharray="4,4"/>
-                    <circle cx="210" cy="80" r="30" fill="none" stroke="#818cf8" stroke-width="3"/>
-                    <circle cx="215" cy="80" r="15" fill="none" stroke="#f472b6" stroke-width="4"/>
-                    <!-- Ambulance illustration on right -->
-                    <g transform="translate(230, 65) scale(0.7)">
-                        <rect x="0" y="15" width="80" height="35" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
-                        <path d="M50,15 L70,15 L80,30 L80,50 L50,50 Z" fill="#ef4444"/>
-                        <rect x="53" y="20" width="18" height="10" fill="#38bdf8"/>
-                        <circle cx="20" cy="50" r="10" fill="#334155"/>
-                        <circle cx="65" cy="50" r="10" fill="#334155"/>
-                        <!-- Red siren -->
-                        <polygon points="40,5 35,15 45,15" fill="#f59e0b"/>
-                        <circle cx="40" cy="5" r="4" fill="#ef4444"/>
-                    </g>
-                </svg>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">01 / INTRODUCTION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <!-- Main Content in Split Asymmetrical Layout -->
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h1 class="title-text">同じ音なのに<br>高さが変わる？</h1>
+                    <h2 class="subtitle-text">救急車から宇宙までつながる波のふしぎ</h2>
+                </div>
+
+                <div class="slide-media-right">
+                    <svg width="460" height="300" viewBox="0 0 460 300" class="blueprint-svg">
+                        <!-- Space stars background -->
+                        <circle cx="80" cy="50" r="1.5" fill="#a5b4fc" opacity="0.4"/>
+                        <circle cx="380" cy="60" r="2" fill="#fbcfe8" opacity="0.5"/>
+                        
+                        <!-- Galaxy illustration on left -->
+                        <g transform="translate(100, 100) scale(0.75)">
+                            <path d="M-60,0 Q0,-45 60,0 Q0,45 -60,0" fill="none" stroke="rgba(99, 102, 241, 0.4)" stroke-width="2"/>
+                            <path d="M-90,-15 Q0,-65 90,15 Q0,65 -90,-15" fill="none" stroke="rgba(236, 72, 153, 0.3)" stroke-width="2"/>
+                            <circle cx="0" cy="0" r="15" fill="url(#sunGlow)" filter="drop-shadow(0 0 10px #fbbf24)"/>
+                            <defs>
+                                <radialGradient id="sunGlow">
+                                    <stop offset="0%" stop-color="#ffffff"/>
+                                    <stop offset="40%" stop-color="#f59e0b"/>
+                                    <stop offset="100%" stop-color="transparent"/>
+                                </radialGradient>
+                            </defs>
+                        </g>
+
+                        <!-- Rippling waves connecting cosmos to ambulance -->
+                        <circle cx="230" cy="150" r="80" fill="none" stroke="rgba(99, 102, 241, 0.15)" stroke-width="2" stroke-dasharray="6,6"/>
+                        <circle cx="240" cy="150" r="50" fill="none" stroke="rgba(99, 102, 241, 0.25)" stroke-width="3"/>
+                        <circle cx="245" cy="150" r="25" fill="none" stroke="rgba(236, 72, 153, 0.4)" stroke-width="4"/>
+
+                        <!-- Ambulance illustration on right -->
+                        <g transform="translate(250, 125) scale(0.85)">
+                            <rect x="0" y="15" width="100" height="45" rx="6" fill="#ffffff" stroke="var(--primary)" stroke-width="2.5"/>
+                            <path d="M65,15 L85,15 L100,30 L100,60 L65,60 Z" fill="rgba(236, 72, 153, 0.1)" stroke="var(--secondary)" stroke-width="2.5"/>
+                            <rect x="68" y="20" width="20" height="12" fill="#38bdf8" stroke="var(--text-main)" stroke-width="1.5"/>
+                            <circle cx="25" cy="60" r="12" fill="#ffffff" stroke="var(--text-main)" stroke-width="2.5"/>
+                            <circle cx="75" cy="60" r="12" fill="#ffffff" stroke="var(--text-main)" stroke-width="2.5"/>
+                            <circle cx="25" cy="60" r="4" fill="var(--text-main)"/>
+                            <circle cx="75" cy="60" r="4" fill="var(--text-main)"/>
+                            <!-- Siren light -->
+                            <polygon points="50,5 45,15 55,15" fill="#fbbf24"/>
+                            <circle cx="50" cy="5" r="4" fill="#ef4444" filter="drop-shadow(0 0 4px #ef4444)"/>
+                        </g>
+                    </svg>
+                </div>
             </div>
         </div>
 
         <!-- Slide 2: Ambulance Running Situation -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🚑 救急車が走っている！</h2>
-                <p class="body-desc" style="margin-bottom: 1.5rem;">
-                    救急車が右へ走っています！周りの3人にはどう聞こえるかな？
-                </p>
-                
-                <div style="background: #f1f5f9; padding: 2rem; border-radius: 1.5rem; width: 100%; border: 3px dashed #cbd5e1; position: relative;">
-                    <svg width="700" height="200" viewBox="0 0 700 200">
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">02 / EXPERIMENT CASE</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <!-- Asymmetrical Grid Layout -->
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="solar:ambulance-broken" style="color: var(--secondary);"></iconify-icon>
+                        救急車が走っている！
+                    </h2>
+                    <p class="body-desc">
+                        救急車が右側に向かってサイレンを鳴らしながら走っています。周囲の3人には、その音は一体どのように聞こえるでしょうか？
+                    </p>
+                </div>
+
+                <div class="slide-media-right">
+                    <!-- Clean minimal infographic layout -->
+                    <svg width="680" height="240" viewBox="0 0 680 240" class="blueprint-svg">
+                        <!-- Ground line -->
+                        <line x1="20" y1="180" x2="660" y2="180" stroke="var(--border-light)" stroke-width="3" stroke-linecap="round"/>
+
                         <!-- Observers -->
                         <!-- Left Person (Behind) -->
-                        <g transform="translate(80, 110)">
-                            <circle cx="0" cy="0" r="18" fill="#3b82f6"/>
-                            <!-- Face eyes and smile -->
-                            <circle cx="-5" cy="-3" r="2.5" fill="#1e3a8a"/>
-                            <circle cx="5" cy="-3" r="2.5" fill="#1e3a8a"/>
-                            <path d="M-6,4 Q0,10 6,4" fill="none" stroke="#1e3a8a" stroke-width="2"/>
+                        <g transform="translate(80, 130)">
+                            <circle cx="0" cy="0" r="16" fill="#eff6ff" stroke="#3b82f6" stroke-width="2.5"/>
+                            <!-- Eyes and Smile -->
+                            <circle cx="-5" cy="-3" r="2" fill="#1e3a8a"/>
+                            <circle cx="5" cy="-3" r="2" fill="#1e3a8a"/>
+                            <path d="M-5,4 Q0,9 5,4" fill="none" stroke="#1e3a8a" stroke-width="2" stroke-linecap="round"/>
                             <!-- Headphones -->
-                            <path d="M-22,0 A22,22 0 0,1 22,0" fill="none" stroke="#1e293b" stroke-width="6"/>
-                            <rect x="-24" y="-6" width="6" height="12" rx="2" fill="#1e293b"/>
-                            <rect x="18" y="-6" width="6" height="12" rx="2" fill="#1e293b"/>
-                            <text x="0" y="45" font-size="16" font-weight="bold" fill="#3b82f6" text-anchor="middle">後ろの人</text>
+                            <path d="M-19,0 A19,19 0 0,1 19,0" fill="none" stroke="#1e293b" stroke-width="4.5"/>
+                            <rect x="-21" y="-5" width="5" height="10" rx="1.5" fill="#1e293b"/>
+                            <rect x="16" y="-5" width="5" height="10" rx="1.5" fill="#1e293b"/>
+                            <text x="0" y="45" font-family="var(--font-body)" font-size="14" font-weight="800" fill="#3b82f6" text-anchor="middle">後ろの人</text>
                         </g>
                         
                         <!-- Right Person (Ahead) -->
-                        <g transform="translate(620, 110)">
-                            <circle cx="0" cy="0" r="18" fill="#ec4899"/>
-                            <!-- Face eyes and smile -->
-                            <circle cx="-5" cy="-3" r="2.5" fill="#9d174d"/>
-                            <circle cx="5" cy="-3" r="2.5" fill="#9d174d"/>
-                            <path d="M-6,4 Q0,10 6,4" fill="none" stroke="#9d174d" stroke-width="2"/>
+                        <g transform="translate(600, 130)">
+                            <circle cx="0" cy="0" r="16" fill="#fdf2f8" stroke="#ec4899" stroke-width="2.5"/>
+                            <!-- Eyes and Smile -->
+                            <circle cx="-5" cy="-3" r="2" fill="#9d174d"/>
+                            <circle cx="5" cy="-3" r="2" fill="#9d174d"/>
+                            <path d="M-5,4 Q0,9 5,4" fill="none" stroke="#9d174d" stroke-width="2" stroke-linecap="round"/>
                             <!-- Headphones -->
-                            <path d="M-22,0 A22,22 0 0,1 22,0" fill="none" stroke="#1e293b" stroke-width="6"/>
-                            <rect x="-24" y="-6" width="6" height="12" rx="2" fill="#1e293b"/>
-                            <rect x="18" y="-6" width="6" height="12" rx="2" fill="#1e293b"/>
-                            <text x="0" y="45" font-size="16" font-weight="bold" fill="#ec4899" text-anchor="middle">前の人</text>
+                            <path d="M-19,0 A19,19 0 0,1 19,0" fill="none" stroke="#1e293b" stroke-width="4.5"/>
+                            <rect x="-21" y="-5" width="5" height="10" rx="1.5" fill="#1e293b"/>
+                            <rect x="16" y="-5" width="5" height="10" rx="1.5" fill="#1e293b"/>
+                            <text x="0" y="45" font-family="var(--font-body)" font-size="14" font-weight="800" fill="#ec4899" text-anchor="middle">前の人</text>
                         </g>
 
                         <!-- Ambulance -->
-                        <g transform="translate(290, 70)">
-                            <rect x="0" y="15" width="120" height="50" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="3"/>
-                            <path d="M80,15 L105,15 L120,35 L120,65 L80,65 Z" fill="#ef4444"/>
+                        <g transform="translate(270, 90)">
+                            <!-- Main Body -->
+                            <rect x="0" y="15" width="130" height="50" rx="8" fill="#ffffff" stroke="var(--primary)" stroke-width="3"/>
+                            <path d="M90,15 L115,15 L130,32 L130,65 L90,65 Z" fill="rgba(99, 102, 241, 0.05)" stroke="var(--primary)" stroke-width="3"/>
                             
                             <!-- Window -->
-                            <rect x="85" y="22" width="22" height="15" fill="#38bdf8" stroke="#1e293b" stroke-width="1.5"/>
+                            <rect x="95" y="22" width="22" height="16" fill="#e0f2fe" stroke="var(--text-main)" stroke-width="1.5" rx="3"/>
                             
-                            <!-- Person inside the window -->
-                            <g transform="translate(96, 31) scale(0.4)">
-                                <circle cx="0" cy="0" r="15" fill="#10b981"/>
-                                <circle cx="-4" cy="-3" r="2.5" fill="#064e3b"/>
-                                <circle cx="4" cy="-3" r="2.5" fill="#064e3b"/>
-                                <path d="M-5,3 Q0,8 5,3" fill="none" stroke="#064e3b" stroke-width="2"/>
+                            <!-- Person inside (Driver) -->
+                            <g transform="translate(106, 32) scale(0.42)">
+                                <circle cx="0" cy="0" r="14" fill="#10b981"/>
+                                <circle cx="-4" cy="-3" r="2" fill="#064e3b"/>
+                                <circle cx="4" cy="-3" r="2" fill="#064e3b"/>
+                                <path d="M-5,3 Q0,8 5,3" fill="none" stroke="#064e3b" stroke-width="2" stroke-linecap="round"/>
                             </g>
 
-                            <circle cx="30" cy="65" r="15" fill="#334155"/>
-                            <circle cx="95" cy="65" r="15" fill="#334155"/>
-                            <!-- Siren -->
-                            <polygon points="60,0 52,15 68,15" fill="#f59e0b"/>
-                            <circle cx="60" cy="0" r="6" fill="#ef4444"/>
-                            <text x="60" y="45" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">サイレン</text>
+                            <!-- Wheels -->
+                            <circle cx="30" cy="65" r="14" fill="#ffffff" stroke="var(--text-main)" stroke-width="3"/>
+                            <circle cx="100" cy="65" r="14" fill="#ffffff" stroke="var(--text-main)" stroke-width="3"/>
+                            <circle cx="30" cy="65" r="5" fill="var(--text-main)"/>
+                            <circle cx="100" cy="65" r="5" fill="var(--text-main)"/>
+
+                            <!-- Siren Light -->
+                            <polygon points="65,0 58,15 72,15" fill="#f59e0b"/>
+                            <circle cx="65" cy="0" r="6" fill="#ef4444" filter="drop-shadow(0 0 5px #ef4444)"/>
+                            <text x="65" y="44" font-family="var(--font-body)" font-size="11" font-weight="900" fill="var(--primary)" text-anchor="middle">サイレン</text>
                         </g>
 
                         <!-- Label for person inside -->
-                        <g transform="translate(386, 65)">
-                            <path d="M 0,0 L -5,20" stroke="#059669" stroke-width="2" fill="none"/>
-                            <text x="0" y="-8" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">車内の人</text>
+                        <g transform="translate(376, 85)">
+                            <path d="M 0,0 L -5,20" stroke="#059669" stroke-width="2" stroke-dasharray="3,3" fill="none"/>
+                            <text x="18" y="-5" font-family="var(--font-body)" font-size="13" font-weight="800" fill="#059669" text-anchor="middle">車内の人</text>
                         </g>
 
                         <!-- Movement Arrow -->
-                        <g transform="translate(430, 100)">
-                            <path d="M0,0 L60,0 M45,-10 L60,0 L45,10" fill="none" stroke="#ef4444" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <text x="30" y="-15" font-size="14" font-weight="bold" fill="#ef4444" text-anchor="middle">進む方向</text>
+                        <g transform="translate(420, 125)">
+                            <path d="M0,0 L50,0 M40,-6 L50,0 L40,6" fill="none" stroke="var(--secondary)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <text x="25" y="-12" font-family="var(--font-body)" font-size="12" font-weight="800" fill="var(--secondary)" text-anchor="middle">進む方向</text>
                         </g>
                     </svg>
                 </div>
@@ -127,104 +183,183 @@
 
         <!-- Slide 3: Quiz 1 -->
         <div class="slide">
-            <div class="content-box">
-                <h2 class="heading-text">🤔 クイズ 1</h2>
-                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5; margin-bottom: 2rem;">
-                    ピーポーピーポーという「高い音」を聞くためには、どこに立っていればよいでしょう？
-                </p>
-                <div class="quiz-options">
-                    <button class="quiz-option" style="cursor: default;">1. 救急車の前</button>
-                    <button class="quiz-option" style="cursor: default;">2. 救急車の後ろ</button>
-                    <button class="quiz-option" style="cursor: default;">3. 救急車の中</button>
-                    <button class="quiz-option" style="cursor: default;">4. 全部同じ高さ</button>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">03 / ACTIVE INQUIRY</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:help-circle" style="color: var(--primary);"></iconify-icon>
+                        クイズ 1
+                    </h2>
+                    <p class="body-desc" style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 2rem;">
+                        ピーポーピーポーという「高い音」を聞くためには、どこに立っていればよいでしょう？
+                    </p>
+                </div>
+
+                <div class="slide-media-right">
+                    <div class="quiz-options-vertical">
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">1</span>
+                            <span>救急車の前</span>
+                        </div>
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">2</span>
+                            <span>救急車の後ろ</span>
+                        </div>
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">3</span>
+                            <span>救急車の中</span>
+                        </div>
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">4</span>
+                            <span>全部同じ高さ</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Slide 4: Quiz 1 Correct Answer -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🎉 クイズ 1 の正解！</h2>
-                <div style="background: #ffffff; padding: 2rem; border-radius: 1.5rem; border: 4px solid #fbcfe8; margin-top: 1rem; width: 100%; box-sizing: border-box;">
-                    <p style="font-size: 2.8rem; font-weight: 900; color: #db2777; margin-top: 0; margin-bottom: 2rem;">
-                        正解は 「1. 救急車の前」！
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">04 / ANSWER EXPLANATION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid-symmetric">
+                <div class="slide-content-left">
+                    <span class="answer-badge">
+                        <iconify-icon icon="lucide:check-circle"></iconify-icon>
+                        ANSWER 01
+                    </span>
+                    <h2 class="answer-title">正解は「1. 救急車の前」！</h2>
+                    <p class="body-desc">
+                        同じサイレンの音を出し続けているにもかかわらず、聞く場所によって音の高さが異なって聞こえます。
                     </p>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
-                        <div style="background: #eff6ff; padding: 1.5rem; border-radius: 1rem; border-top: 6px solid #3b82f6;">
-                            <h3 style="font-size: 1.8rem; color: #1e3a8a; margin-bottom: 0.5rem;">後ろの人</h3>
-                            <p style="font-size: 2.2rem; font-weight: 900; color: #2563eb; margin: 0;">低い音 🔉</p>
+                </div>
+
+                <div class="slide-media-right">
+                    <div class="premium-card" style="border: 2px solid #cbd5e1; background: #ffffff;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="background: #eff6ff; padding: 1.25rem; border-radius: 1rem; border-top: 5px solid #3b82f6; text-align: center;">
+                                <h3 style="font-size: 1.2rem; color: #1e3a8a; margin-bottom: 0.5rem; font-weight: 800;">後ろの人</h3>
+                                <p style="font-size: 1.5rem; font-weight: 900; color: #2563eb; margin: 0;">低い音 🔉</p>
+                            </div>
+                            <div style="background: #ecfdf5; padding: 1.25rem; border-radius: 1rem; border-top: 5px solid #10b981; text-align: center;">
+                                <h3 style="font-size: 1.2rem; color: #065f46; margin-bottom: 0.5rem; font-weight: 800;">車内の人</h3>
+                                <p style="font-size: 1.5rem; font-weight: 900; color: #059669; margin: 0;">元の高さ 🚗</p>
+                            </div>
+                            <div style="background: #fdf2f8; padding: 1.25rem; border-radius: 1rem; border-top: 5px solid #ec4899; text-align: center;">
+                                <h3 style="font-size: 1.2rem; color: #9d174d; margin-bottom: 0.5rem; font-weight: 800;">前の人</h3>
+                                <p style="font-size: 1.5rem; font-weight: 900; color: #db2777; margin: 0;">高い音 🔊</p>
+                            </div>
                         </div>
-                        <div style="background: #ecfdf5; padding: 1.5rem; border-radius: 1rem; border-top: 6px solid #10b981;">
-                            <h3 style="font-size: 1.8rem; color: #065f46; margin-bottom: 0.5rem;">車内の人</h3>
-                            <p style="font-size: 2.2rem; font-weight: 900; color: #059669; margin: 0;">元の高さ 🚗</p>
-                        </div>
-                        <div style="background: #fdf2f8; padding: 1.5rem; border-radius: 1rem; border-top: 6px solid #ec4899;">
-                            <h3 style="font-size: 1.8rem; color: #9d174d; margin-bottom: 0.5rem;">前の人</h3>
-                            <p style="font-size: 2.2rem; font-weight: 900; color: #db2777; margin: 0;">高い音 🔊</p>
-                        </div>
+                        <p style="font-size: 1.1rem; font-weight: 700; color: var(--text-main); text-align: center; margin: 0; line-height: 1.5;">
+                            音源に近い前側では波が押しつぶされ、後ろ側では波が引き伸ばされているようです。
+                        </p>
                     </div>
-                    
-                    <p style="font-size: 2.2rem; font-weight: 800; color: #1e293b; margin: 0; line-height: 1.5;">
-                        同じサイレンの音を出しているのに、<span class="highlight">聞く場所によって音の高さがちがう</span>んだね！
-                    </p>
                 </div>
             </div>
         </div>
 
         <!-- Slide 5: Today's Wonder -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🧐 今日のふしぎ</h2>
-                
-                <div style="display: flex; flex-direction: column; gap: 2rem; width: 100%; margin-top: 1rem;">
-                    <div style="background: #f8fafc; padding: 2rem; border-radius: 1.5rem; border-left: 8px solid #cbd5e1; text-align: left;">
-                        <p style="font-size: 2.2rem; font-weight: 800; color: #475569; margin: 0;">
-                            📢 救急車は、ずっと「同じ音」を出し続けている。
-                        </p>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">05 / RESEARCH QUESTION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:lightbulb" style="color: var(--accent);"></iconify-icon>
+                        今日のふしぎ
+                    </h2>
+                    <p class="body-desc">
+                        なぜ、ずっと同じサイレンの音を出している救急車が、目の前を通り過ぎた瞬間に「高 ➔ 低」と変わって聞こえるのでしょうか？
+                    </p>
+                </div>
+
+                <div class="slide-media-right">
+                    <div style="display: flex; flex-direction: column; gap: 1.25rem; width: 100%;">
+                        <div class="premium-card" style="border-left: 6px solid #cbd5e1; padding: 1.5rem 2rem;">
+                            <p style="font-size: 1.3rem; font-weight: 800; color: var(--text-muted); margin: 0; display: flex; align-items: center; gap: 0.75rem;">
+                                <iconify-icon icon="lucide:volume-2" style="color: var(--primary);"></iconify-icon>
+                                救急車は、同じ音を出し続けている。
+                            </p>
+                        </div>
+                        <div class="premium-card" style="border-left: 6px solid var(--secondary); padding: 1.5rem 2rem;">
+                            <p style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin: 0; display: flex; align-items: center; gap: 0.75rem;">
+                                <iconify-icon icon="lucide:ear" style="color: var(--secondary);"></iconify-icon>
+                                しかし、耳には高さが変わって聞こえる。
+                            </p>
+                        </div>
+                        <h3 class="pulse-animation" style="font-size: 3rem; font-weight: 900; color: #ef4444; margin-top: 1.5rem; text-align: center;">
+                            「なぜだろう？」
+                        </h3>
                     </div>
-                    <div style="background: #fdf4ff; padding: 2rem; border-radius: 1.5rem; border-left: 8px solid #d946ef; text-align: left;">
-                        <p style="font-size: 2.2rem; font-weight: 800; color: #a21caf; margin: 0;">
-                            👂 でも、目の前を通り過ぎると「高 ➔ 低」と変わって聞こえる。
-                        </p>
-                    </div>
-                    
-                    <h3 class="pulse-animation" style="font-size: 4.5rem; font-weight: 900; color: #ef4444; margin-top: 2rem;">
-                        「なんでだろう？」
-                    </h3>
                 </div>
             </div>
         </div>
 
         <!-- Slide 6: Sound is a Wave -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🌊 音は「波」である</h2>
-                <p class="body-desc" style="margin-bottom: 2rem;">
-                    そもそも「音」ってなんだろう？実は空気の振動が伝わる「波」なんだ！
-                </p>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; width: 100%;">
-                    <div style="background: #f8fafc; padding: 2rem; border-radius: 1.5rem; border: 2px solid #cbd5e1;">
-                        <h3 style="font-size: 2rem; color: #475569; margin-bottom: 1rem;">💧 水面の波</h3>
-                        <svg width="250" height="100" viewBox="0 0 250 100">
-                            <!-- Concentric circles -->
-                            <circle cx="125" cy="50" r="10" fill="none" stroke="#93c5fd" stroke-width="2"/>
-                            <circle cx="125" cy="50" r="25" fill="none" stroke="#60a5fa" stroke-width="2"/>
-                            <circle cx="125" cy="50" r="40" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="3,3"/>
-                        </svg>
-                        <p style="font-size: 1.4rem; font-weight: bold; color: #64748b; margin-top: 1rem;">石を落とすと広がる輪っか</p>
-                    </div>
-                    <div style="background: #fdf2f8; padding: 2rem; border-radius: 1.5rem; border: 2px solid #fbcfe8;">
-                        <h3 style="font-size: 2rem; color: #be185d; margin-bottom: 1rem;">📢 音の波</h3>
-                        <svg width="250" height="100" viewBox="0 0 250 100">
-                            <!-- Sound ripples -->
-                            <path d="M30,50 L50,50" stroke="#f472b6" stroke-width="3"/>
-                            <path d="M70,30 A30,30 0 0,1 70,70" fill="none" stroke="#f472b6" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M100,20 A50,50 0 0,1 100,80" fill="none" stroke="#ec4899" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M130,10 A70,70 0 0,1 130,90" fill="none" stroke="#db2777" stroke-width="5" stroke-linecap="round"/>
-                        </svg>
-                        <p style="font-size: 1.4rem; font-weight: bold; color: #be185d; margin-top: 1rem;">目に見えない空気の波</p>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">06 / WAVE MECHANICS</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:waves" style="color: var(--primary);"></iconify-icon>
+                        音は「波」である
+                    </h2>
+                    <p class="body-desc">
+                        そもそも「音」とは何でしょうか？その正体は、目に見えない空気の振動が次々と周囲に伝わっていく「波」なのです。
+                    </p>
+                </div>
+
+                <div class="slide-media-right">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%;">
+                        <div class="premium-card" style="text-align: center;">
+                            <h3 style="font-size: 1.6rem; color: var(--primary); margin-bottom: 1rem; font-weight: 800;">💧 水面の波</h3>
+                            <svg width="220" height="90" viewBox="0 0 220 90" style="margin: 0 auto;">
+                                <circle cx="110" cy="45" r="10" fill="none" stroke="#93c5fd" stroke-width="2"/>
+                                <circle cx="110" cy="45" r="22" fill="none" stroke="#60a5fa" stroke-width="2"/>
+                                <circle cx="110" cy="45" r="34" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="3,3"/>
+                            </svg>
+                            <p style="font-size: 1.1rem; font-weight: 700; color: var(--text-muted); margin-top: 0.75rem;">石を落とすと広がる波紋</p>
+                        </div>
+                        <div class="premium-card" style="text-align: center;">
+                            <h3 style="font-size: 1.6rem; color: var(--secondary); margin-bottom: 1rem; font-weight: 800;">📢 音の波</h3>
+                            <svg width="220" height="90" viewBox="0 0 220 90" style="margin: 0 auto;">
+                                <path d="M20,45 L45,45" stroke="#f472b6" stroke-width="3"/>
+                                <path d="M60,25 A25,25 0 0,1 60,65" fill="none" stroke="#f472b6" stroke-width="3" stroke-linecap="round"/>
+                                <path d="M85,15 A45,45 0 0,1 85,75" fill="none" stroke="#ec4899" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M110,5 A65,65 0 0,1 110,85" fill="none" stroke="#db2777" stroke-width="5" stroke-linecap="round"/>
+                            </svg>
+                            <p style="font-size: 1.1rem; font-weight: 700; color: var(--secondary); margin-top: 0.75rem;">見えない空気の圧縮波</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -232,117 +367,186 @@
 
         <!-- Slide 7: High vs Low waves -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🎼 高い音と低い音のちがい</h2>
-                <p class="body-desc" style="margin-bottom: 2rem;">
-                    波の「間隔（スキマ）」によって、音の高さが決まります。
-                </p>
-                
-                <div style="background: #f8fafc; padding: 2rem; border-radius: 1.5rem; border: 3px solid #cbd5e1; width: 100%; display: flex; flex-direction: column; gap: 2rem; box-sizing: border-box;">
-                    <!-- High Pitch Wave -->
-                    <div style="display: flex; align-items: center; justify-content: space-between; background: #fdf2f8; padding: 1rem 2rem; border-radius: 1rem; border-left: 8px solid #ec4899;">
-                        <span style="font-size: 2.2rem; font-weight: 900; color: #db2777; width: 200px; text-align: left;">🔊 高い音</span>
-                        <svg width="400" height="40" viewBox="0 0 400 40">
-                            <!-- Tight sine wave -->
-                            <path d="M 0,20 Q 10,0 20,20 T 40,20 T 60,20 T 80,20 T 100,20 T 120,20 T 140,20 T 160,20 T 180,20 T 200,20 T 220,20 T 240,20 T 260,20 T 280,20 T 300,20 T 320,20 T 340,20 T 360,20 T 380,20 T 400,20" fill="none" stroke="#ec4899" stroke-width="4"/>
-                        </svg>
-                        <span style="font-size: 1.6rem; font-weight: 800; color: #db2777;">波の間隔が【せまい】</span>
-                    </div>
-                    
-                    <!-- Low Pitch Wave -->
-                    <div style="display: flex; align-items: center; justify-content: space-between; background: #eff6ff; padding: 1rem 2rem; border-radius: 1rem; border-left: 8px solid #3b82f6;">
-                        <span style="font-size: 2.2rem; font-weight: 900; color: #2563eb; width: 200px; text-align: left;">🔉 低い音</span>
-                        <svg width="400" height="40" viewBox="0 0 400 40">
-                            <!-- Loose sine wave -->
-                            <path d="M 0,20 Q 25,0 50,20 T 100,20 T 150,20 T 200,20 T 250,20 T 300,20 T 350,20 T 400,20" fill="none" stroke="#3b82f6" stroke-width="4"/>
-                        </svg>
-                        <span style="font-size: 1.6rem; font-weight: 800; color: #2563eb;">波の間隔が【ひろい】</span>
-                    </div>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">07 / FREQUENCY RELATION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:music" style="color: var(--primary);"></iconify-icon>
+                        高い音と低い音のちがい
+                    </h2>
+                    <p class="body-desc">
+                        音が「高い」か「低い」かは、波と波の「間隔（スキマ）」によって物理的に決定されます。
+                    </p>
                 </div>
 
-                <div style="display: flex; justify-content: center; gap: 4rem; margin-top: 2rem;">
-                    <span style="font-size: 2.2rem; font-weight: 900; color: #d946ef;">✨ 波がつまると高い！</span>
-                    <span style="font-size: 2.2rem; font-weight: 900; color: #0ea5e9;">✨ 波が広がると低い！</span>
+                <div class="slide-media-right">
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem; width: 100%;">
+                        <!-- High Pitch Wave -->
+                        <div style="display: flex; align-items: center; justify-content: space-between; background: #fff5f7; padding: 1rem 1.5rem; border-radius: 1.25rem; border-left: 6px solid var(--secondary); border: 1px solid rgba(236,72,153,0.1); border-left: 6px solid var(--secondary);">
+                            <span style="font-size: 1.3rem; font-weight: 900; color: #db2777; width: 120px; text-align: left;">🔊 高い音</span>
+                            <svg width="280" height="30" viewBox="0 0 280 30">
+                                <path d="M 0,15 Q 7,2 14,15 T 28,15 T 42,15 T 56,15 T 70,15 T 84,15 T 98,15 T 112,15 T 126,15 T 140,15 T 154,15 T 168,15 T 182,15 T 196,15 T 210,15 T 224,15 T 238,15 T 252,15 T 266,15 T 280,15" fill="none" stroke="#ec4899" stroke-width="3"/>
+                            </svg>
+                            <span style="font-size: 1.1rem; font-weight: 800; color: #db2777;">波の間隔が【せまい】</span>
+                        </div>
+                        
+                        <!-- Low Pitch Wave -->
+                        <div style="display: flex; align-items: center; justify-content: space-between; background: #eff6ff; padding: 1rem 1.5rem; border-radius: 1.25rem; border-left: 6px solid var(--primary); border: 1px solid rgba(99,102,241,0.1); border-left: 6px solid var(--primary);">
+                            <span style="font-size: 1.3rem; font-weight: 900; color: #2563eb; width: 120px; text-align: left;">🔉 低い音</span>
+                            <svg width="280" height="30" viewBox="0 0 280 30">
+                                <path d="M 0,15 Q 18,2 36,15 T 72,15 T 108,15 T 144,15 T 180,15 T 216,15 T 252,15 T 280,15" fill="none" stroke="#3b82f6" stroke-width="3"/>
+                            </svg>
+                            <span style="font-size: 1.1rem; font-weight: 800; color: #2563eb;">波の間隔が【ひろい】</span>
+                        </div>
+
+                        <div style="display: flex; justify-content: center; gap: 3rem; margin-top: 1rem;">
+                            <span style="font-size: 1.4rem; font-weight: 900; color: var(--secondary);">✨ 波がつまると高い！</span>
+                            <span style="font-size: 1.4rem; font-weight: 900; color: var(--primary);">✨ 波が広がると低い！</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Slide 8: Mini Check -->
         <div class="slide">
-            <div class="content-box">
-                <h2 class="heading-text">📝 ミニ確認テスト</h2>
-                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5; margin-bottom: 2rem;">
-                    Q3. この2つの波のうち、聞くと「高い音」に感じるのはどっち？
-                </p>
-                
-                <div class="quiz-options" style="grid-template-columns: 1fr 1fr; margin-top: 1rem;">
-                    <!-- Option A -->
-                    <button class="quiz-option" style="padding: 2rem; cursor: default;">
-                        <div style="font-size: 2rem; margin-bottom: 1rem;">A. 間隔がせまい波</div>
-                        <svg width="200" height="30" viewBox="0 0 200 30" style="margin: 0 auto;">
-                            <path d="M 0,15 Q 5,0 10,15 T 20,15 T 30,15 T 40,15 T 50,15 T 60,15 T 70,15 T 80,15 T 90,15 T 100,15 T 110,15 T 120,15 T 130,15 T 140,15 T 150,15 T 160,15 T 170,15 T 180,15 T 190,15 T 200,15" fill="none" stroke="#ec4899" stroke-width="3"/>
-                        </svg>
-                    </button>
-                    <!-- Option B -->
-                    <button class="quiz-option" style="padding: 2rem; cursor: default;">
-                        <div style="font-size: 2rem; margin-bottom: 1rem;">B. 間隔が広い波</div>
-                        <svg width="200" height="30" viewBox="0 0 200 30" style="margin: 0 auto;">
-                            <path d="M 0,15 Q 15,0 30,15 T 60,15 T 90,15 T 120,15 T 150,15 T 180,15 T 200,15" fill="none" stroke="#3b82f6" stroke-width="3"/>
-                        </svg>
-                    </button>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">08 / VERIFY CONCEPT</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:clipboard-check" style="color: var(--primary);"></iconify-icon>
+                        ミニ確認テスト
+                    </h2>
+                    <p class="body-desc" style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 2rem;">
+                        Q3. この2つの波のうち、聞くと「高い音」に感じるのはどっち？
+                    </p>
+                </div>
+
+                <div class="slide-media-right">
+                    <div class="quiz-options" style="grid-template-columns: 1fr; gap: 1.25rem;">
+                        <button class="quiz-option" style="padding: 1.5rem;">
+                            <span class="quiz-option-number">A</span>
+                            <div style="flex-grow: 1; display: flex; align-items: center; justify-content: space-between;">
+                                <span style="font-size: 1.3rem;">間隔がせまい波</span>
+                                <svg width="150" height="24" viewBox="0 0 150 24">
+                                    <path d="M 0,12 Q 4,0 8,12 T 16,12 T 24,12 T 32,12 T 40,12 T 48,12 T 56,12 T 64,12 T 72,12 T 80,12 T 88,12 T 96,12 T 104,12 T 112,12 T 120,12 T 128,12 T 136,12 T 144,12 T 150,12" fill="none" stroke="#ec4899" stroke-width="2.5"/>
+                                </svg>
+                            </div>
+                        </button>
+                        <button class="quiz-option" style="padding: 1.5rem;">
+                            <span class="quiz-option-number">B</span>
+                            <div style="flex-grow: 1; display: flex; align-items: center; justify-content: space-between;">
+                                <span style="font-size: 1.3rem;">間隔が広い波</span>
+                                <svg width="150" height="24" viewBox="0 0 150 24">
+                                    <path d="M 0,12 Q 12,0 24,12 T 48,12 T 72,12 T 96,12 T 120,12 T 144,12 T 150,12" fill="none" stroke="#3b82f6" stroke-width="2.5"/>
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Slide 9: Mini Check Answer -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🎉 ミニ確認テストの正解！</h2>
-                <div style="background: #ffffff; padding: 2rem; border-radius: 1.5rem; border: 4px solid #fbcfe8; width: 100%; box-sizing: border-box;">
-                    <p style="font-size: 2.8rem; font-weight: 900; color: #db2777; margin-top: 0; margin-bottom: 2rem;">
-                        正解は 「A. 間隔がせまい波」！
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">09 / ANSWER EXPLANATION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid-symmetric">
+                <div class="slide-content-left">
+                    <span class="answer-badge">
+                        <iconify-icon icon="lucide:check-circle"></iconify-icon>
+                        ANSWER 03
+                    </span>
+                    <h2 class="answer-title">正解は「A. 間隔がせまい波」！</h2>
+                    <p class="body-desc">
+                        波の間隔が狭い（つまっている）ほど、一定時間内に耳にたくさんの波が飛び込んでくるため、人間の脳はそれを「高い音」として認識します。
                     </p>
-                    <p style="font-size: 2.2rem; font-weight: 800; color: #1e293b; line-height: 1.6; margin: 0;">
-                        波の間隔がせまい（つまっている）方が、1秒間に耳に届く波の数（周波数）が多くなり、高い音として聞こえます！
-                    </p>
+                </div>
+
+                <div class="slide-media-right">
+                    <div class="premium-card" style="border: 2px solid #cbd5e1; background: #ffffff;">
+                        <h4 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem; text-align: left;">📝 なぜ音の高さが変わるのか？</h4>
+                        <p style="font-size: 1.1rem; line-height: 1.6; color: var(--text-muted); margin: 0; text-align: left;">
+                            耳が空気の波にぶつかる「ペース」が鍵を握っています。1秒間に波と出会う回数のことを物理では<strong>周波数（ヘルツ）</strong>と呼びます。
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Slide 10: What if the Observer Moves? -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🏃‍♀️ 聞く人が動いたら？</h2>
-                <p class="body-desc" style="margin-bottom: 1.5rem;">
-                    スピーカーは止まったまま、自分が「爆速」で近づくとどうなる？
-                </p>
-                
-                <div style="background: #eff6ff; padding: 2rem; border-radius: 1.5rem; border: 3px solid #bfdbfe; width: 100%; box-sizing: border-box;">
-                    <svg width="600" height="150" viewBox="0 0 600 150">
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">10 / OBSERVER DYNAMICS</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:user" style="color: var(--primary);"></iconify-icon>
+                        聞く人が動いたら？
+                    </h2>
+                    <p class="body-desc">
+                        これまでは救急車が動くケースを考えましたが、もし「音を出すもの」は止まっていて、自分自身が「爆速」で近づいていったらどうなるでしょう？
+                    </p>
+                </div>
+
+                <div class="slide-media-right">
+                    <svg width="600" height="150" viewBox="0 0 600 150" class="blueprint-svg">
                         <!-- Speaker -->
                         <g transform="translate(80, 75)">
                             <rect x="-30" y="-30" width="60" height="60" rx="10" fill="#475569"/>
                             <path d="M-10,-15 L10,-15 L25,-25 L25,25 L10,15 L-10,15 Z" fill="#1e293b"/>
-                            <!-- Sound waves -->
-                            <path d="M35,-15 A20,20 0 0,1 35,15" fill="none" stroke="#475569" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M45,-25 A35,35 0 0,1 45,25" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
-                            <text x="0" y="48" font-size="14" font-weight="bold" fill="#475569" text-anchor="middle">止まっている</text>
+                            <path d="M35,-15 A20,20 0 0,1 35,15" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M45,-25 A35,35 0 0,1 45,25" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                            <text x="0" y="48" font-family="var(--font-body)" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">スピーカー (静止)</text>
                         </g>
                         
                         <!-- Runner -->
                         <g transform="translate(480, 75)">
-                            <circle cx="0" cy="0" r="20" fill="#3b82f6"/>
+                            <circle cx="0" cy="0" r="18" fill="#eff6ff" stroke="#3b82f6" stroke-width="2.5"/>
+                            <circle cx="-5" cy="-3" r="2" fill="#1e3a8a"/>
+                            <circle cx="5" cy="-3" r="2" fill="#1e3a8a"/>
+                            <path d="M-5,4 Q0,9 5,4" fill="none" stroke="#1e3a8a" stroke-width="2" stroke-linecap="round"/>
                             <!-- Headphones -->
-                            <path d="M-24,0 A24,24 0 0,1 24,0" fill="none" stroke="#1e293b" stroke-width="6"/>
-                            <rect x="-26" y="-6" width="6" height="12" rx="2" fill="#1e293b"/>
-                            <rect x="20" y="-6" width="6" height="12" rx="2" fill="#1e293b"/>
-                            <text x="0" y="45" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">爆速で走る自分</text>
+                            <path d="M-22,0 A22,22 0 0,1 22,0" fill="none" stroke="#1e293b" stroke-width="5"/>
+                            <rect x="-24" y="-6" width="6" height="12" rx="2" fill="#1e293b"/>
+                            <rect x="18" y="-6" width="6" height="12" rx="2" fill="#1e293b"/>
+                            <text x="0" y="42" font-family="var(--font-body)" font-size="14" font-weight="800" fill="#2563eb" text-anchor="middle">走る自分</text>
                         </g>
                         
                         <!-- Arrow -->
-                        <g transform="translate(400, 75)">
-                            <path d="M0,0 L-80,0 M-65,-10 L-80,0 L-65,10" fill="none" stroke="#ef4444" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <text x="-40" y="-15" font-size="14" font-weight="bold" fill="#ef4444" text-anchor="middle">爆速で進む！</text>
+                        <g transform="translate(390, 75)">
+                            <path d="M0,0 L-70,0 M-55,-8 L-70,0 L-55,8" fill="none" stroke="#ef4444" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <text x="-35" y="-12" font-family="var(--font-body)" font-size="12" font-weight="800" fill="#ef4444" text-anchor="middle">爆速で近づく！</text>
                         </g>
                     </svg>
                 </div>
@@ -351,35 +555,73 @@
 
         <!-- Slide 11: Quiz 2 -->
         <div class="slide">
-            <div class="content-box">
-                <h2 class="heading-text">🤔 クイズ 2</h2>
-                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5; margin-bottom: 2rem;">
-                    スピーカーに向かって自分が爆速で走って近づくと、聞こえる音の高さはどうなる？
-                </p>
-                <div class="quiz-options-vertical">
-                    <button class="quiz-option" style="cursor: default;">1. 音が高くなる 📈</button>
-                    <button class="quiz-option" style="cursor: default;">2. 音が低くなる 📉</button>
-                    <button class="quiz-option" style="cursor: default;">3. 変わらない 😐</button>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">11 / ACTIVE INQUIRY</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:help-circle" style="color: var(--primary);"></iconify-icon>
+                        クイズ 2
+                    </h2>
+                    <p class="body-desc" style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 2rem;">
+                        スピーカーに向かって自分が爆速で走って近づくと、聞こえる音の高さはどうなる？
+                    </p>
+                </div>
+
+                <div class="slide-media-right">
+                    <div class="quiz-options-vertical">
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">1</span>
+                            <span>音が高くなる 📈</span>
+                        </div>
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">2</span>
+                            <span>音が低くなる 📉</span>
+                        </div>
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">3</span>
+                            <span>変わらない 😐</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Slide 12: Quiz 2 Correct Answer -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🎉 クイズ 2 の正解！</h2>
-                <div style="background: #eff6ff; padding: 2rem; border-radius: 1.5rem; border: 4px solid #93c5fd; width: 100%; box-sizing: border-box;">
-                    <p style="font-size: 2.8rem; font-weight: 900; color: #1d4ed8; margin-top: 0; margin-bottom: 1.5rem;">
-                        正解は 「1. 音が高くなる」！
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">12 / ANSWER EXPLANATION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid-symmetric">
+                <div class="slide-content-left">
+                    <span class="answer-badge">
+                        <iconify-icon icon="lucide:check-circle"></iconify-icon>
+                        ANSWER 02
+                    </span>
+                    <h2 class="answer-title">正解は「1. 音が高くなる」！</h2>
+                    <p class="body-desc">
+                        自分が波に向かって走るため、1秒間に耳に衝突する波の数（周波数）が増加します。その結果、音は本来より高く聞こえるようになります。
                     </p>
-                    
-                    <p style="font-size: 2.2rem; font-weight: 700; color: #334155; line-height: 1.5; margin-bottom: 1.5rem;">
-                        波にぶつかるペースが早くなる（＝波がつまって耳に届く）から！
-                    </p>
-                    
-                    <div style="background: #fffbeb; padding: 0.8rem 1.5rem; border-radius: 1rem; border: 2px solid #fde68a; display: inline-block;">
-                        <p style="font-size: 1.5rem; font-weight: 800; color: #b45309; margin: 0;">
-                            ※車や新幹線くらい速いとよく分かります。
+                </div>
+
+                <div class="slide-media-right">
+                    <div class="premium-card" style="border: 2px solid #cbd5e1; background: #ffffff;">
+                        <h4 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem; text-align: left;">🏃‍♂️ 衝突の物理イメージ</h4>
+                        <p style="font-size: 1.1rem; line-height: 1.6; color: var(--text-muted); margin: 0; text-align: left;">
+                            川上から等間隔で流れてくる葉っぱを想像してください。自分が上流に向かって泳いで進むと、立ち止まっている時よりも「早いペース」で葉っぱとすれ違いますよね。それと同じ原理です！
                         </p>
                     </div>
                 </div>
@@ -388,231 +630,449 @@
 
         <!-- Slide 13: Quiz 3 (Find compressed waves) -->
         <div class="slide">
-            <div class="content-box">
-                <h2 class="heading-text">🤔 波がつまる場所を探せ！</h2>
-                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5; margin-bottom: 1.5rem;">
-                    音源が「右」に向かって動いているとき、もっとも波がつまって【高い音】を聞くのはどの人？
-                </p>
-                
-                <!-- Illustration inside Quiz -->
-                <svg width="450" height="150" viewBox="0 0 450 150" style="margin: 0 auto; display: block;">
-                    <!-- Observer Top (3) -->
-                    <circle cx="225" cy="18" r="10" fill="#3b82f6"/>
-                    <text x="225" y="38" font-size="12" font-weight="bold" fill="#3b82f6" text-anchor="middle">3. 上</text>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">13 / ACTIVE INQUIRY</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:help-circle" style="color: var(--primary);"></iconify-icon>
+                        波がつまる場所を探せ！
+                    </h2>
+                    <p class="body-desc" style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 1.5rem;">
+                        音源が「右」に向かって動いているとき、もっとも波がつまって【高い音】を聞くのはどこの人？
+                    </p>
                     
-                    <!-- Observer Bottom (4) -->
-                    <circle cx="225" cy="132" r="10" fill="#3b82f6"/>
-                    <text x="225" y="122" font-size="12" font-weight="bold" fill="#3b82f6" text-anchor="middle">4. 下</text>
+                    <div class="quiz-options" style="grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                        <div class="quiz-option" style="padding: 0.8rem 1.2rem;">
+                            <span class="quiz-option-number">1</span>
+                            <span>前 🏃‍♂️💨</span>
+                        </div>
+                        <div class="quiz-option" style="padding: 0.8rem 1.2rem;">
+                            <span class="quiz-option-number">2</span>
+                            <span>後ろ 🚶‍♂️</span>
+                        </div>
+                        <div class="quiz-option" style="padding: 0.8rem 1.2rem;">
+                            <span class="quiz-option-number">3</span>
+                            <span>上 🧭</span>
+                        </div>
+                        <div class="quiz-option" style="padding: 0.8rem 1.2rem;">
+                            <span class="quiz-option-number">4</span>
+                            <span>下 🧭</span>
+                        </div>
+                    </div>
+                </div>
 
-                    <!-- Observer Left (2. 後ろ) -->
-                    <circle cx="80" cy="75" r="10" fill="#3b82f6"/>
-                    <text x="50" y="80" font-size="12" font-weight="bold" fill="#3b82f6" text-anchor="middle">2. 後ろ</text>
+                <div class="slide-media-right">
+                    <!-- Illustration inside Quiz -->
+                    <svg width="420" height="200" viewBox="0 0 420 200" class="blueprint-svg">
+                        <!-- Observer Top (3) -->
+                        <circle cx="210" cy="22" r="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+                        <text x="210" y="45" font-family="var(--font-body)" font-size="12" font-weight="bold" fill="#3b82f6" text-anchor="middle">3. 上</text>
+                        
+                        <!-- Observer Bottom (4) -->
+                        <circle cx="210" cy="155" r="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+                        <text x="210" y="145" font-family="var(--font-body)" font-size="12" font-weight="bold" fill="#3b82f6" text-anchor="middle">4. 下</text>
 
-                    <!-- Observer Right (1. 前) -->
-                    <circle cx="370" cy="75" r="10" fill="#ec4899"/>
-                    <text x="400" y="80" font-size="12" font-weight="bold" fill="#ec4899" text-anchor="middle">1. 前</text>
+                        <!-- Observer Left (2. 後ろ) -->
+                        <circle cx="70" cy="85" r="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+                        <text x="42" y="90" font-family="var(--font-body)" font-size="12" font-weight="bold" fill="#3b82f6" text-anchor="middle">2. 後ろ</text>
 
-                    <!-- Source and Ripples -->
-                    <!-- Center at 210, 75 -->
-                    <circle cx="170" cy="75" r="72" fill="none" stroke="#94a3b8" stroke-width="1.5" opacity="0.4"/>
-                    <circle cx="190" cy="75" r="47" fill="none" stroke="#94a3b8" stroke-width="1.5" opacity="0.6"/>
-                    <circle cx="210" cy="75" r="22" fill="none" stroke="#94a3b8" stroke-width="1.5" opacity="0.9"/>
-                    
-                    <circle cx="225" cy="75" r="8" fill="#ef4444"/>
-                    <!-- Velocity Arrow -->
-                    <path d="M235,75 L265,75 M255,70 L265,75 L255,80" fill="none" stroke="#ef4444" stroke-width="3"/>
-                </svg>
+                        <!-- Observer Right (1. 前) -->
+                        <circle cx="340" cy="85" r="10" fill="#fdf2f8" stroke="#ec4899" stroke-width="2"/>
+                        <text x="368" y="90" font-family="var(--font-body)" font-size="12" font-weight="bold" fill="#ec4899" text-anchor="middle">1. 前</text>
 
-                <div class="quiz-options" style="margin-top: 1.5rem;">
-                    <button class="quiz-option" style="cursor: default;">1. 前 🏃‍♂️💨</button>
-                    <button class="quiz-option" style="cursor: default;">2. 後ろ 🚶‍♂️</button>
-                    <button class="quiz-option" style="cursor: default;">3. 上 🧭</button>
-                    <button class="quiz-option" style="cursor: default;">4. 下 🧭</button>
+                        <!-- Source and Ripples -->
+                        <!-- Center at 210, 85 -->
+                        <circle cx="170" cy="85" r="65" fill="none" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <circle cx="190" cy="85" r="42" fill="none" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <circle cx="210" cy="85" r="20" fill="none" stroke="var(--border-light)" stroke-width="1.5"/>
+                        
+                        <circle cx="225" cy="85" r="7" fill="var(--secondary)"/>
+                        <!-- Velocity Arrow -->
+                        <path d="M235,85 L260,85 M252,80 L260,85 L252,90" fill="none" stroke="var(--secondary)" stroke-width="2.5"/>
+                    </svg>
                 </div>
             </div>
         </div>
 
         <!-- Slide 14: Simulation 1 - Static Source -->
         <div class="slide">
-            <div class="iframe-container">
-                <iframe src="sim-source-static.html"></iframe>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">14 / INTERACTIVE SIMULATION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-media-right" style="justify-content: center; align-items: center; width: 100%;">
+                <div class="sim-window-frame">
+                    <div class="sim-window-header">
+                        <div class="sim-window-dots">
+                            <span class="sim-dot sim-dot-red"></span>
+                            <span class="sim-dot sim-dot-yellow"></span>
+                            <span class="sim-dot sim-dot-green"></span>
+                        </div>
+                        <span class="sim-window-title">Simulation 01 - Static Wave Source</span>
+                        <div class="sim-window-status"></div>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe src="sim-source-static.html"></iframe>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Slide 15: Simulation 2 - Drag Source -->
         <div class="slide">
-            <div class="iframe-container">
-                <iframe src="sim-source-drag.html"></iframe>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">15 / INTERACTIVE SIMULATION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-media-right" style="justify-content: center; align-items: center; width: 100%;">
+                <div class="sim-window-frame">
+                    <div class="sim-window-header">
+                        <div class="sim-window-dots">
+                            <span class="sim-dot sim-dot-red"></span>
+                            <span class="sim-dot sim-dot-yellow"></span>
+                            <span class="sim-dot sim-dot-green"></span>
+                        </div>
+                        <span class="sim-window-title">Simulation 02 - Moving Wave Source</span>
+                        <div class="sim-window-status"></div>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe src="sim-source-drag.html"></iframe>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Slide 16: Name Reveal -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🎉 クイズの正解！</h2>
-                <div style="background: #eff6ff; padding: 1.5rem 2rem; border-radius: 1.5rem; border: 4px solid #93c5fd; width: 100%; box-sizing: border-box; margin-bottom: 1rem;">
-                    <p style="font-size: 2.4rem; font-weight: 900; color: #1d4ed8; margin: 0;">
-                        正解は 「1. 前 🏃‍♂️💨」！
-                    </p>
-                    <p style="font-size: 1.6rem; font-weight: 700; color: #3b82f6; margin-top: 0.5rem; line-height: 1.4;">
-                        音源が進む前方では、音源が波を追いかける形になるため、波と波の間隔がぎゅっとつまります！
-                    </p>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">16 / PHYSICAL PRINCIPLE</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid-symmetric">
+                <div class="slide-content-left" style="align-items: center; text-align: center;">
+                    <span class="answer-badge">
+                        <iconify-icon icon="lucide:check-circle"></iconify-icon>
+                        ANSWER 03
+                    </span>
+                    <h2 class="answer-title" style="margin-bottom: 1rem;">正解は「1. 前」！</h2>
+                    
+                    <p style="font-size: 1.5rem; font-weight: 800; color: var(--primary); margin: 0.5rem 0 0.5rem 0; letter-spacing: 0.1em;">✨ この現象の名前は・・・ ✨</p>
+                    <h1 style="font-size: 5.5rem; font-weight: 900; color: #ef4444; margin: 0.5rem 0; text-shadow: 0 4px 10px rgba(239, 68, 68, 0.15);" class="pulse-animation">
+                        ドップラー効果
+                    </h1>
                 </div>
 
-                <p style="font-size: 1.8rem; font-weight: 800; color: var(--primary); margin: 0.5rem 0 0.5rem 0; letter-spacing: 0.1em;">✨ この現象の名前は・・・ ✨</p>
-                <h1 style="font-size: 5.5rem; font-weight: 900; color: #ef4444; margin: 0.5rem 0; text-shadow: 0 4px 10px rgba(239, 68, 68, 0.15);" class="pulse-animation">
-                    ドップラー効果
-                </h1>
-                
-                <div style="background: #f8fafc; padding: 1.5rem 2rem; border-radius: 1.5rem; border: 3px solid #cbd5e1; max-width: 800px; text-align: left; margin-left: auto; margin-right: auto;">
-                    <p style="font-size: 2rem; font-weight: 800; color: #1e293b; margin-top: 0; margin-bottom: 0.5rem; text-align: center;">
-                        「動くことで、波の間隔が変わって聞こえる現象」
-                    </p>
-                    <p style="font-size: 1.4rem; font-weight: 700; color: #64748b; text-align: center; margin: 0;">
-                        💡 1842年にオーストリアの物理学者ドップラーさんが発見しました。
-                    </p>
+                <div class="slide-media-right">
+                    <div class="premium-card">
+                        <h4 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem; text-align: left;">💡 ドップラー効果とは？</h4>
+                        <p style="font-size: 1.15rem; line-height: 1.7; color: var(--text-muted); text-align: left; margin-bottom: 1.25rem;">
+                            音源や観測者が動くことで、元々一定だったはずの<strong>波の間隔（周波数）が変わって聞こえる現象</strong>のことです。
+                        </p>
+                        <p style="font-size: 1rem; font-weight: 600; color: var(--text-muted); text-align: left; margin: 0;">
+                            ※1842年にオーストリアの物理学者クリスチャン・ドップラーが提唱しました。
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Slide 17: Misconception Check -->
         <div class="slide">
-            <div class="content-box">
-                <h2 class="heading-text">⚠️ 誤解チェック！</h2>
-                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5; margin-bottom: 2rem;">
-                    Q4. 救急車が前に走ると、前に出した「音の進む速さ」はどうなる？
-                </p>
-                <div class="quiz-options-vertical">
-                    <button class="quiz-option" style="cursor: default;">1. 救急車に押されて、音の進むスピードが速くなる</button>
-                    <button class="quiz-option" style="cursor: default;">2. 音の進むスピードはほぼ変わらない</button>
-                    <button class="quiz-option" style="cursor: default;">3. 音がその場に止まってしまう</button>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">17 / CONCEPT HARDENING</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:alert-triangle" style="color: var(--accent);"></iconify-icon>
+                        誤解チェック！
+                    </h2>
+                    <p class="body-desc" style="font-size: 1.45rem; font-weight: 800; color: var(--text-main); margin-bottom: 2rem;">
+                        Q4. 救急車が前に走ると、前に出した「音の進む速さ」はどうなる？
+                    </p>
+                </div>
+
+                <div class="slide-media-right">
+                    <div class="quiz-options-vertical">
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">1</span>
+                            <span>救急車に押されて、音のスピードが速くなる</span>
+                        </div>
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">2</span>
+                            <span>音の進むスピードはまったく変わらない</span>
+                        </div>
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">3</span>
+                            <span>音がその場に止まってしまう</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Slide 18: Correct explanation - Spacing, not speed -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">💡 音の速さではなく、間隔が変わる！</h2>
-                <p class="body-desc" style="margin-bottom: 1.5rem;">
-                    音は出た場所から丸く広がるだけ！音を押して速くしているわけじゃないよ。
-                </p>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">18 / ANSWER EXPLANATION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
 
-                <div style="background: #fffbeb; padding: 2rem; border-radius: 1.5rem; border: 4px solid #fde68a; width: 100%; box-sizing: border-box;">
-                    <!-- Simple diagram displaying wave centers -->
-                    <svg width="600" height="150" viewBox="0 0 600 150" style="margin: 0 auto; display: block;">
-                        <!-- Time stages -->
-                        <!-- Center 1 (Oldest) -->
-                        <circle cx="260" cy="75" r="75" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4,4"/>
-                        <circle cx="260" cy="75" r="3" fill="#94a3b8"/>
-                        <text x="260" y="138" font-size="10" fill="#94a3b8" text-anchor="middle">昔出した波の中心</text>
-                        
-                        <!-- Center 2 (Middle) -->
-                        <circle cx="280" cy="75" r="50" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="2,2"/>
-                        <circle cx="280" cy="75" r="3" fill="#64748b"/>
-                        <text x="280" y="112" font-size="10" fill="#64748b" text-anchor="middle">少し前に出した波の中心</text>
-
-                        <!-- Center 3 (Newest) -->
-                        <circle cx="300" cy="75" r="25" fill="none" stroke="#a78bfa" stroke-width="2" stroke-dasharray="2,2"/>
-                        <circle cx="300" cy="75" r="3" fill="#a78bfa"/>
-
-                        <!-- Current Source Position -->
-                        <circle cx="320" cy="75" r="5" fill="#ef4444"/>
-                        <text x="330" y="60" font-size="12" font-weight="bold" fill="#ef4444" text-anchor="middle">今の音源の位置</text>
-
-                        <!-- Compression indicators -->
-                        <text x="375" y="80" font-size="16" font-weight="bold" fill="#db2777">➔ つまる！</text>
-                        <text x="140" y="80" font-size="16" font-weight="bold" fill="#2563eb">⬅ 広がる！</text>
-                    </svg>
-
-                    <p style="font-size: 1.8rem; font-weight: 800; color: #b45309; margin-top: 1rem; line-height: 1.6;">
-                        「音を出す場所」が前へズレていくから、前だけ波がつまるんだね！
+            <div class="slide-grid-symmetric">
+                <div class="slide-content-left">
+                    <span class="answer-badge">
+                        <iconify-icon icon="lucide:check-circle"></iconify-icon>
+                        ANSWER 04
+                    </span>
+                    <h2 class="answer-title">正解は「2. 音の速さは変わらない」！</h2>
+                    <p class="body-desc">
+                        音波を送り出す「音源（車）」がいくらスピードを出しても、放出された音そのものの速度は空気の状態だけで決まるため、速くなりません。
                     </p>
+                </div>
+
+                <div class="slide-media-right">
+                    <div class="premium-card">
+                        <h4 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem; text-align: left;">💡 音が「前へ詰まる」理由</h4>
+                        <p style="font-size: 1.15rem; line-height: 1.6; color: var(--text-muted); text-align: left; margin: 0;">
+                            音の速さは変わりませんが、「次の音を出す場所」が前へ前へとズレていくため、前に進む波同士の隙間がギューッと狭まります。つまり、<strong>音速ではなく波の間隔が変わる</strong>のです！
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Slide 19: Interim Summary -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">📌 ここまでのまとめ</h2>
-                
-                <div style="display: flex; flex-direction: column; gap: 1.5rem; width: 100%; text-align: left; margin-top: 1rem;">
-                    <div class="list-item"><span>1️⃣</span> 音を出すもの（救急車など）が動いても、音の高さは変わる！</div>
-                    <div class="list-item"><span>2️⃣</span> 音を聞く人（自分など）が動いても、音の高さは変わる！</div>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">19 / CONCEPT SUMMARY</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid-symmetric">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:pin" style="color: var(--primary);"></iconify-icon>
+                        ここまでのまとめ
+                    </h2>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                        <div class="list-item"><span>1️⃣</span> 音を出すもの（車など）が動いても音の高さは変わる</div>
+                        <div class="list-item"><span>2️⃣</span> 音を聞く人（自分など）が動いても音の高さは変わる</div>
+                    </div>
                 </div>
-                
-                <div style="background: #f1f5f9; padding: 2rem; border-radius: 1.5rem; border: 3px solid #cbd5e1; margin-top: 3rem; width: 100%; box-sizing: border-box;">
-                    <p style="font-size: 1.8rem; font-weight: 800; color: #475569; margin: 0 0 1rem 0;">どちらも一番大切なのは・・・</p>
-                    <p style="font-size: 3.5rem; font-weight: 900; color: #4f46e5; margin: 0;" class="pulse-animation">
-                        「1秒間に波と出会う回数」
-                    </p>
+
+                <div class="slide-media-right">
+                    <div class="premium-card" style="border: 2px solid var(--primary); text-align: center;">
+                        <p style="font-size: 1.25rem; font-weight: 800; color: var(--text-muted); margin: 0 0 1rem 0;">どちらのパターンでも一番大切なのは・・・</p>
+                        <p style="font-size: 2.8rem; font-weight: 900; color: var(--primary); margin: 0;" class="pulse-animation">
+                            「1秒間に波と出会う回数」
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Slide 20: Simulation 3 - Frequency Slider -->
         <div class="slide">
-            <div class="iframe-container">
-                <iframe src="sim-frequency.html"></iframe>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">20 / INTERACTIVE SIMULATION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-media-right" style="justify-content: center; align-items: center; width: 100%;">
+                <div class="sim-window-frame">
+                    <div class="sim-window-header">
+                        <div class="sim-window-dots">
+                            <span class="sim-dot sim-dot-red"></span>
+                            <span class="sim-dot sim-dot-yellow"></span>
+                            <span class="sim-dot sim-dot-green"></span>
+                        </div>
+                        <span class="sim-window-title">Simulation 03 - Wavelength and Frequency control</span>
+                        <div class="sim-window-status"></div>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe src="sim-frequency.html"></iframe>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Slide 21: Quiz 5 (Super sonic intro) -->
         <div class="slide">
-            <div class="content-box">
-                <h2 class="heading-text">🚀 もっと速く動いたら・・・？</h2>
-                <p style="font-size: 2.2rem; font-weight: 800; text-align: center; color: #1e293b; line-height: 1.5; margin-bottom: 2rem;">
-                    Q5. 音を出すものが、ついに「音の伝わる速さ（音速）」よりも速く動いたらどうなるでしょう？
-                </p>
-                
-                <div class="quiz-options-vertical">
-                    <button class="quiz-option" style="cursor: default;">1. 音が前に逃げられなくなり、波が重なり合う 🌊💥</button>
-                    <button class="quiz-option" style="cursor: default;">2. 音が完全に消えて、静かになる 🤫</button>
-                    <button class="quiz-option" style="cursor: default;">3. 音の高さも進み方も、普通と何も変わらない 😐</button>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">21 / ACTIVE INQUIRY</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:rocket" style="color: var(--secondary);"></iconify-icon>
+                        もっと速く動いたら？
+                    </h2>
+                    <p class="body-desc" style="font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-bottom: 2rem;">
+                        Q5. 音を出すものが、ついに「音の伝わる速さ（音速）」よりも速く動いたらどうなるでしょう？
+                    </p>
+                </div>
+
+                <div class="slide-media-right">
+                    <div class="quiz-options-vertical">
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">1</span>
+                            <span>音が前に逃げられなくなり、波が重なり合う 🌊💥</span>
+                        </div>
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">2</span>
+                            <span>音が完全に消えて、静かになる 🤫</span>
+                        </div>
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">3</span>
+                            <span>音の高さも進み方も、普通と何も変わらない 😐</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Slide 22: Quiz 5 Correct Answer -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🎉 クイズの正解！</h2>
-                <div style="background: #fff7ed; padding: 2rem; border-radius: 1.5rem; border: 4px solid #fed7aa; width: 100%; box-sizing: border-box;">
-                    <p style="font-size: 2.8rem; font-weight: 900; color: #ea580c; margin-top: 0; margin-bottom: 2rem;">
-                        正解は 「1. 波が重なり合う 🌊💥」！
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">22 / ANSWER EXPLANATION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid-symmetric">
+                <div class="slide-content-left">
+                    <span class="answer-badge">
+                        <iconify-icon icon="lucide:check-circle"></iconify-icon>
+                        ANSWER 05
+                    </span>
+                    <h2 class="answer-title">正解は「1. 波が重なり合う」！</h2>
+                    <p class="body-desc">
+                        物体が自ら放出した音波を追い抜いてしまうため、前方へ広がる音波は逃げ道を失い、1つに重なり合って巨大な「壁（衝撃波）」を作ります。
                     </p>
-                    <p style="font-size: 2.2rem; font-weight: 800; color: #1e293b; line-height: 1.6; margin: 0;">
-                        音を出すものが音速（音の伝わる速さ）よりも速くなると、前方へ広がる波を追い越してしまい、出した波が前方に逃げ切れずに1つに重なり合います。
-                    </p>
+                </div>
+
+                <div class="slide-media-right">
+                    <div class="premium-card">
+                        <h4 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem; text-align: left;">💥 重なる波のエネルギー</h4>
+                        <p style="font-size: 1.15rem; line-height: 1.6; color: var(--text-muted); text-align: left; margin: 0;">
+                            この重なり合った波の壁は非常に強いエネルギーを持っています。この衝撃波が地上の耳に到達したとき、あの凄まじい爆音である<strong>ソニックブーム</strong>を引き起こすことになります。
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Slide 23: Simulation 4 - Supersonic -->
         <div class="slide">
-            <div class="iframe-container">
-                <iframe src="sim-supersonic.html"></iframe>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">23 / INTERACTIVE SIMULATION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-media-right" style="justify-content: center; align-items: center; width: 100%;">
+                <div class="sim-window-frame">
+                    <div class="sim-window-header">
+                        <div class="sim-window-dots">
+                            <span class="sim-dot sim-dot-red"></span>
+                            <span class="sim-dot sim-dot-yellow"></span>
+                            <span class="sim-dot sim-dot-green"></span>
+                        </div>
+                        <span class="sim-window-title">Simulation 04 - Supersonic Speed and Shockwaves</span>
+                        <div class="sim-window-status"></div>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe src="sim-supersonic.html"></iframe>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Slide 24: Sonic Boom -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">💥 ソニックブーム</h2>
-                
-                <p class="body-desc" style="margin-bottom: 1.5rem;">
-                    出した音を自分で追い越す戦闘機！重なった波が地上に届くと？
-                </p>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">24 / SHOCKWAVE ACOUSTICS</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
 
-                <div style="background: #fff7ed; padding: 2rem; border-radius: 1.5rem; border: 4px solid #fed7aa; width: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: space-around;">
-                    <svg width="500" height="180" viewBox="0 0 500 180" style="margin: 0 auto; display: block;">
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:flame" style="color: var(--secondary);"></iconify-icon>
+                        ソニックブーム
+                    </h2>
+                    <p class="body-desc">
+                        自ら出した音を追い越す超音速の戦闘機。重なり合った空気の巨大な壁（衝撃波の円錐）が地上を一瞬で掃引するとき、耳にはどのような音が届くでしょうか？
+                    </p>
+                </div>
+
+                <div class="slide-media-right">
+                    <svg width="500" height="180" viewBox="0 0 500 180" class="blueprint-svg">
                         <!-- Ground -->
-                        <rect x="0" y="150" width="500" height="30" fill="#475569"/>
+                        <rect x="0" y="150" width="500" height="30" fill="var(--border-light)" opacity="0.3"/>
+                        <line x1="0" y1="150" x2="500" y2="150" stroke="var(--border-light)" stroke-width="2"/>
                         
                         <!-- Observer on Ground -->
                         <g transform="translate(100, 130)">
-                            <circle cx="0" cy="0" r="12" fill="#3b82f6"/>
+                            <circle cx="0" cy="0" r="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
                             <!-- Headphones -->
                             <path d="M-15,0 A15,15 0 0,1 15,0" fill="none" stroke="#1e293b" stroke-width="4"/>
                             <rect x="-17" y="-4" width="4" height="8" rx="1" fill="#1e293b"/>
@@ -621,100 +1081,106 @@
                             <circle cx="-3" cy="-2" r="1.5" fill="#1e3a8a"/>
                             <circle cx="3" cy="-2" r="1.5" fill="#1e3a8a"/>
                             <circle cx="0" cy="4" r="3" fill="#1e3a8a"/>
-                            <text x="0" y="32" font-size="12" font-weight="bold" fill="#3b82f6" text-anchor="middle">観測者</text>
+                            <text x="0" y="32" font-family="var(--font-body)" font-size="11" font-weight="bold" fill="#3b82f6" text-anchor="middle">観測者</text>
                         </g>
 
                         <!-- Supersonic Jet (flying to the right) -->
                         <g transform="translate(300, 50) scale(0.6)">
                             <!-- Jet body -->
-                            <path d="M-70,0 L-20,-15 L60,-5 L80,0 L60,5 L-20,15 Z" fill="#94a3b8" stroke="#475569" stroke-width="2"/>
+                            <path d="M-70,0 L-20,-15 L60,-5 L80,0 L60,5 L-20,15 Z" fill="#ffffff" stroke="var(--primary)" stroke-width="2"/>
                             <!-- Wings -->
-                            <path d="M-20,-12 L-40,-45 L-10,-45 L20,-8" fill="#64748b" stroke="#475569" stroke-width="2"/>
-                            <path d="M-20,12 L-40,45 L-10,45 L20,8" fill="#64748b" stroke="#475569" stroke-width="2"/>
+                            <path d="M-20,-12 L-40,-45 L-10,-45 L20,-8" fill="rgba(99, 102, 241, 0.1)" stroke="var(--primary)" stroke-width="2"/>
+                            <path d="M-20,12 L-40,45 L-10,45 L20,8" fill="rgba(99, 102, 241, 0.1)" stroke="var(--primary)" stroke-width="2"/>
                             <!-- Tail fin -->
-                            <path d="M-60,0 L-75,-30 L-50,-30 L-35,0" fill="#475569"/>
+                            <path d="M-60,0 L-75,-30 L-50,-30 L-35,0" fill="var(--primary)"/>
                         </g>
                         
                         <!-- Absolute Nose of the Jet: x = 348, y = 50 -->
                         <!-- Shockwave (Mach Cone) -->
                         <!-- Top Boundary -->
-                        <line x1="348" y1="50" x2="60" y2="-70" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6,4"/>
+                        <line x1="348" y1="50" x2="60" y2="-70" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="5,3"/>
                         <!-- Bottom Boundary (Shockwave front reaching the observer) -->
-                        <line x1="348" y1="50" x2="80" y2="162" stroke="#ef4444" stroke-width="4" filter="drop-shadow(0 0 4px #ef4444)"/>
+                        <line x1="348" y1="50" x2="80" y2="162" stroke="#ef4444" stroke-width="3.5" filter="drop-shadow(0 0 4px #ef4444)"/>
                         
                         <!-- Shockwave Label -->
-                        <text x="230" y="125" font-size="12" font-weight="bold" fill="#ef4444" transform="rotate(22.6, 230, 125)">衝撃波の壁 (音が重なったもの)</text>
+                        <text x="245" y="120" font-family="var(--font-body)" font-size="11" font-weight="bold" fill="#ef4444" transform="rotate(22.6, 245, 120)">衝撃波の壁 (音が重なったもの)</text>
 
                         <!-- Boom effect near observer -->
                         <g transform="translate(100, 100)">
                             <path d="M-30,-15 L-15,-25 L0,-15 L15,-25 L30,-15 L20,10 L-20,10 Z" fill="#f59e0b" opacity="0.9" filter="drop-shadow(0 0 8px #f59e0b)"/>
-                            <text x="0" y="-3" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle">ドン！</text>
+                            <text x="0" y="-3" font-family="var(--font-display)" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle">BOOM!</text>
                         </g>
                         
                         <!-- Jet Speed Arrow -->
                         <g transform="translate(380, 20)">
-                            <path d="M0,0 L40,0 M30,-5 L40,0 L30,5" fill="none" stroke="#ef4444" stroke-width="3"/>
-                            <text x="20" y="-10" font-size="12" font-weight="bold" fill="#ef4444" text-anchor="middle">音速より速い！</text>
+                            <path d="M0,0 L40,0 M30,-5 L40,0 L30,5" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+                            <text x="20" y="-8" font-family="var(--font-body)" font-size="11" font-weight="bold" fill="#ef4444" text-anchor="middle">音速より速い！</text>
                         </g>
                     </svg>
-                    
-                    <div style="text-align: left; max-width: 400px;">
-                        <h3 style="font-size: 2.2rem; color: #ea580c; margin-bottom: 0.5rem;">落雷のような大爆音！</h3>
-                        <p style="font-size: 1.6rem; font-weight: 700; color: #4b5563; line-height: 1.4; margin: 0;">
-                            重なり合った波が「巨大な空気の壁（衝撃波）」となって届くため、大爆音（ソニックブーム）になります！
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Slide 25: Grand Summary -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🌟 ここまでの大まとめ</h2>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; width: 100%; margin-top: 1rem;">
-                    <!-- Subsonic slow -->
-                    <div style="background: #f8fafc; padding: 2rem; border-radius: 1.5rem; border: 2px solid #cbd5e1;">
-                        <h3 style="font-size: 2rem; color: #64748b; margin-top: 0;">1. ゆっくり動く</h3>
-                        <div style="height: 100px; display: flex; align-items: center; justify-content: center;">
-                            <svg width="150" height="80" viewBox="0 0 150 80">
-                                <circle cx="65" cy="40" r="30" fill="none" stroke="#94a3b8" stroke-width="2"/>
-                                <circle cx="75" cy="40" r="18" fill="none" stroke="#94a3b8" stroke-width="2"/>
-                                <circle cx="80" cy="40" r="5" fill="#ef4444"/>
-                            </svg>
-                        </div>
-                        <p style="font-size: 1.6rem; font-weight: 800; color: #475569; margin: 0;">波が少しつまる</p>
-                    </div>
-                    
-                    <!-- Subsonic fast -->
-                    <div style="background: #fff1f2; padding: 2rem; border-radius: 1.5rem; border: 2px solid #fecdd3;">
-                        <h3 style="font-size: 2rem; color: #be185d; margin-top: 0;">2. 速く動く</h3>
-                        <div style="height: 100px; display: flex; align-items: center; justify-content: center;">
-                            <svg width="150" height="80" viewBox="0 0 150 80">
-                                <circle cx="50" cy="40" r="38" fill="none" stroke="#db2777" stroke-width="2"/>
-                                <circle cx="70" cy="40" r="20" fill="none" stroke="#db2777" stroke-width="2"/>
-                                <circle cx="85" cy="40" r="5" fill="#ef4444"/>
-                            </svg>
-                        </div>
-                        <p style="font-size: 1.6rem; font-weight: 800; color: #be185d; margin: 0;">波がかなりつまる</p>
-                    </div>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">25 / SYSTEM SUMMARY</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
 
-                    <!-- Supersonic -->
-                    <div style="background: #fffbeb; padding: 2rem; border-radius: 1.5rem; border: 2px solid #fef3c7;">
-                        <h3 style="font-size: 2rem; color: #d97706; margin-top: 0;">3. 音より速い！</h3>
-                        <div style="height: 100px; display: flex; align-items: center; justify-content: center;">
-                            <svg width="150" height="80" viewBox="0 0 150 80">
-                                <circle cx="35" cy="40" r="35" fill="none" stroke="#d97706" stroke-width="1.5" opacity="0.6"/>
-                                <circle cx="60" cy="40" r="25" fill="none" stroke="#d97706" stroke-width="1.5" opacity="0.8"/>
-                                <circle cx="85" cy="40" r="10" fill="none" stroke="#d97706" stroke-width="1.5"/>
-                                <circle cx="100" cy="40" r="5" fill="#ef4444"/>
-                                <!-- Mach cone lines -->
-                                <line x1="100" y1="40" x2="20" y2="0" stroke="#f59e0b" stroke-width="2"/>
-                                <line x1="100" y1="40" x2="20" y2="80" stroke="#f59e0b" stroke-width="2"/>
-                            </svg>
+            <div class="slide-grid" style="grid-template-columns: 1fr;">
+                <div class="slide-content-left" style="align-items: center; text-align: center;">
+                    <h2 class="heading-text" style="align-self: center;">
+                        <iconify-icon icon="lucide:layers" style="color: var(--primary);"></iconify-icon>
+                        ドップラー効果の大まとめ
+                    </h2>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; width: 100%; margin-top: 1rem;">
+                        <!-- Subsonic slow -->
+                        <div class="premium-card" style="text-align: center; padding: 1.5rem;">
+                            <h3 style="font-size: 1.4rem; color: var(--text-muted); margin-top: 0; font-weight: 800;">1. ゆっくり動く</h3>
+                            <div style="height: 90px; display: flex; align-items: center; justify-content: center;">
+                                <svg width="150" height="70" viewBox="0 0 150 70">
+                                    <circle cx="65" cy="35" r="25" fill="none" stroke="var(--border-light)" stroke-width="2"/>
+                                    <circle cx="75" cy="35" r="14" fill="none" stroke="var(--border-light)" stroke-width="2"/>
+                                    <circle cx="80" cy="35" r="4" fill="var(--primary)"/>
+                                </svg>
+                            </div>
+                            <p style="font-size: 1.1rem; font-weight: 800; color: var(--text-muted); margin: 0;">波が少しつまる</p>
                         </div>
-                        <p style="font-size: 1.6rem; font-weight: 800; color: #b45309; margin: 0;">波が重なって衝撃波</p>
+                        
+                        <!-- Subsonic fast -->
+                        <div class="premium-card" style="text-align: center; padding: 1.5rem; border: 1.5px solid rgba(236,72,153,0.3);">
+                            <h3 style="font-size: 1.4rem; color: var(--secondary); margin-top: 0; font-weight: 800;">2. 速く動く</h3>
+                            <div style="height: 90px; display: flex; align-items: center; justify-content: center;">
+                                <svg width="150" height="70" viewBox="0 0 150 70">
+                                    <circle cx="50" cy="35" r="30" fill="none" stroke="var(--secondary)" stroke-width="1.8" opacity="0.6"/>
+                                    <circle cx="70" cy="35" r="16" fill="none" stroke="var(--secondary)" stroke-width="2" opacity="0.8"/>
+                                    <circle cx="85" cy="35" r="4" fill="var(--secondary)"/>
+                                </svg>
+                            </div>
+                            <p style="font-size: 1.1rem; font-weight: 800; color: var(--secondary); margin: 0;">波がかなりつまる</p>
+                        </div>
+
+                        <!-- Supersonic -->
+                        <div class="premium-card" style="text-align: center; padding: 1.5rem; border: 1.5px solid rgba(245,158,11,0.3);">
+                            <h3 style="font-size: 1.4rem; color: var(--accent); margin-top: 0; font-weight: 800;">3. 音より速い！</h3>
+                            <div style="height: 90px; display: flex; align-items: center; justify-content: center;">
+                                <svg width="150" height="70" viewBox="0 0 150 70">
+                                    <circle cx="35" cy="35" r="30" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.4"/>
+                                    <circle cx="60" cy="35" r="20" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.7"/>
+                                    <circle cx="85" cy="35" r="9" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+                                    <circle cx="100" cy="35" r="4" fill="#ef4444"/>
+                                    <line x1="100" y1="35" x2="20" y2="0" stroke="var(--accent)" stroke-width="2"/>
+                                    <line x1="100" y1="35" x2="20" y2="70" stroke="var(--accent)" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <p style="font-size: 1.1rem; font-weight: 800; color: var(--accent); margin: 0;">波が重なって衝撃波</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -722,106 +1188,170 @@
 
         <!-- Slide 26: Light is also a Wave -->
         <div class="slide" data-theme="dark">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🌌 実は「光」も波である！</h2>
-                
-                <p class="body-desc" style="margin-bottom: 1.5rem;">
-                    音と同じく、目に見える「光」にも波の性質があります！
-                </p>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">26 / COSMOLOGICAL EXPANSION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
 
-                <div style="background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 1.5rem; border: 2px solid rgba(255, 255, 255, 0.1); width: 100%; box-sizing: border-box;">
-                    <svg width="600" height="150" viewBox="0 0 600 150" style="margin: 0 auto; display: block;">
-                        <!-- Wave of light spectrum -->
-                        <defs>
-                            <linearGradient id="spectrum" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stop-color="#3b82f6"/> <!-- Blue -->
-                                <stop offset="50%" stop-color="#10b981"/> <!-- Green -->
-                                <stop offset="100%" stop-color="#ef4444"/> <!-- Red -->
-                            </linearGradient>
-                        </defs>
-                        <!-- Sine wave with changing color and period -->
-                        <path d="M 50,75 
-                                 C 70,25 90,25 110,75 C 130,125 150,125 170,75 
-                                 C 195,30 220,30 245,75 C 270,120 295,120 320,75 
-                                 C 355,35 390,35 425,75 C 460,115 495,115 530,75" 
-                              fill="none" stroke="url(#spectrum)" stroke-width="6" stroke-linecap="round"/>
-                        
-                        <text x="110" y="130" font-size="16" font-weight="bold" fill="#60a5fa" text-anchor="middle">青い光（せまい波）</text>
-                        <text x="490" y="130" font-size="16" font-weight="bold" fill="#f87171" text-anchor="middle">赤い光（広い波）</text>
-                    </svg>
-
-                    <p style="font-size: 2.2rem; font-weight: 800; color: #a5b4fc; margin-top: 1rem; line-height: 1.4;">
-                        光がつまると「青く」、広がると「赤く」見えるよ！
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:telescope" style="color: #a5b4fc;"></iconify-icon>
+                        実は「光」も波である！
+                    </h2>
+                    <p class="body-desc">
+                        目に見える「光」も、音と同じく波としての強い性質を備えています。そのため、光のドップラー効果も同様に観察されます。
                     </p>
                 </div>
-                
-                <p style="font-size: 1.3rem; color: #9ca3af; margin-top: 1.5rem;">
-                    ※光の波のルールでも、ドップラー効果（赤方偏移・青方偏移）が起きます。
-                </p>
+
+                <div class="slide-media-right">
+                    <div class="premium-card">
+                        <svg width="450" height="110" viewBox="0 0 450 110" style="margin: 0 auto; display: block;">
+                            <defs>
+                                <linearGradient id="spectrum" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#3b82f6"/> <!-- Blue -->
+                                    <stop offset="50%" stop-color="#10b981"/> <!-- Green -->
+                                    <stop offset="100%" stop-color="#ef4444"/> <!-- Red -->
+                                </linearGradient>
+                            </defs>
+                            <path d="M 30,55 
+                                     C 50,15 70,15 90,55 C 110,95 130,95 150,55 
+                                     C 170,20 190,20 210,55 C 230,90 250,90 270,55 
+                                     C 300,25 330,25 360,55 C 390,85 420,85 450,55" 
+                                  fill="none" stroke="url(#spectrum)" stroke-width="5" stroke-linecap="round"/>
+                            
+                            <text x="90" y="98" font-family="var(--font-display)" font-size="12" font-weight="bold" fill="#60a5fa" text-anchor="middle">青い光（せまい波）</text>
+                            <text x="390" y="98" font-family="var(--font-display)" font-size="12" font-weight="bold" fill="#f87171" text-anchor="middle">赤い光（広い波）</text>
+                        </svg>
+
+                        <p style="font-size: 1.45rem; font-weight: 800; color: #a5b4fc; margin-top: 1.5rem; text-align: center; line-height: 1.4;">
+                            光がつまると「青く」見え、広がると「赤く」見える！
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Slide 27: Cosmic simulation -->
         <div class="slide" data-theme="dark">
-            <div class="iframe-container">
-                <iframe src="sim-cosmic.html"></iframe>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">27 / COSMIC SIMULATION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-media-right" style="justify-content: center; align-items: center; width: 100%;">
+                <div class="sim-window-frame">
+                    <div class="sim-window-header">
+                        <div class="sim-window-dots">
+                            <span class="sim-dot sim-dot-red"></span>
+                            <span class="sim-dot sim-dot-yellow"></span>
+                            <span class="sim-dot sim-dot-green"></span>
+                        </div>
+                        <span class="sim-window-title">Simulation 05 - Cosmological Redshift & Hubble's Law</span>
+                        <div class="sim-window-status"></div>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe src="sim-cosmic.html"></iframe>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Slide 28: Cosmic expansion to age of universe -->
         <div class="slide" data-theme="dark">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🌌 宇宙の年齢を解き明かす</h2>
-                
-                <div style="background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 1.5rem; border: 2px solid rgba(255, 255, 255, 0.1); width: 100%; box-sizing: border-box; text-align: left;">
-                    <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.2rem;">
-                        <span style="font-size: 2.5rem;">🔭</span>
-                        <div>
-                            <h3 style="font-size: 2rem; color: #a5b4fc; margin: 0; text-align: left;">1. 赤方偏移を調べる ➔ 銀河の遠ざかる速度がわかる！</h3>
-                        </div>
-                    </div>
-                    
-                    <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.2rem;">
-                        <span style="font-size: 2.5rem;">🔄</span>
-                        <div>
-                            <h3 style="font-size: 2rem; color: #a5b4fc; margin: 0; text-align: left;">2. 昔の姿をイメージ ➔ 巻き戻すと、昔はぎゅっと1点だった！</h3>
-                        </div>
-                    </div>
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">28 / COSMIC CONCLUSION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
 
-                    <div style="display: flex; align-items: center; gap: 1.5rem;">
-                        <span style="font-size: 2.5rem;">🌟</span>
-                        <div>
-                            <h3 style="font-size: 2rem; color: #a5b4fc; margin: 0; text-align: left;">3. 始まりの逆算 ➔ 広がり方から宇宙の誕生を突き止める！</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="background: linear-gradient(135deg, #1e1b4b, #311042); padding: 1.2rem 2.5rem; border-radius: 1.5rem; border: 2px solid #d946ef; margin-top: 1.5rem; display: inline-block;">
-                    <p style="font-size: 3rem; font-weight: 900; color: #fdf2f8; margin: 0;" class="pulse-animation">
-                        🚀 宇宙の年齢： 約 138億年！
+            <div class="slide-grid-symmetric">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:hourglass" style="color: #a5b4fc;"></iconify-icon>
+                        宇宙の年齢を解き明かす
+                    </h2>
+                    <p class="body-desc">
+                        遠くの銀河ほど速いスピードで遠ざかる＝赤方偏移が強い、という事実を巻き戻して推論すると、すべての始まりは1点に凝縮されます。
                     </p>
                 </div>
-                
-                <p style="font-size: 1.2rem; color: #9ca3af; margin-top: 1rem;">
-                    ※さまざまな観測結果を組み合わせて高精度に計算されています。
-                </p>
+
+                <div class="slide-media-right">
+                    <div style="display: flex; flex-direction: column; gap: 1.25rem; width: 100%;">
+                        <div class="premium-card" style="text-align: left; padding: 1.25rem 1.5rem;">
+                            <p style="font-size: 1.15rem; font-weight: 800; color: #a5b4fc; margin: 0; display: flex; align-items: center; gap: 0.6rem;">
+                                <iconify-icon icon="lucide:scan"></iconify-icon>
+                                1. 赤方偏移を計測 ➔ 銀河の離脱速度を解明
+                            </p>
+                        </div>
+                        <div class="premium-card" style="text-align: left; padding: 1.25rem 1.5rem;">
+                            <p style="font-size: 1.15rem; font-weight: 800; color: #a5b4fc; margin: 0; display: flex; align-items: center; gap: 0.6rem;">
+                                <iconify-icon icon="lucide:rotate-ccw"></iconify-icon>
+                                2. 時間の巻き戻し ➔ 初期は1点に凝縮されていた
+                            </p>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, #1e1b4b, #311042); padding: 1.25rem 2rem; border-radius: 1.5rem; border: 2px solid #d946ef; text-align: center; margin-top: 1rem;">
+                            <p style="font-size: 2.2rem; font-weight: 900; color: #fdf2f8; margin: 0;" class="pulse-animation">
+                                🚀 宇宙の年齢： 約 138億年！
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Slide 29: Quiz 6 (Final Test 1) -->
         <div class="slide">
-            <div class="content-box">
-                <h2 class="heading-text">📝 さいごの小テスト (1/2)</h2>
-                
-                <div style="background: #fffbeb; padding: 2.5rem; border-radius: 1.5rem; border: 3px solid #fbbf24; width: 100%; box-sizing: border-box;">
-                    <p style="font-size: 2.2rem; font-weight: 800; color: #1e293b; margin-top: 0; margin-bottom: 2rem; text-align: center;">
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">29 / CONCEPT VERIFICATION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:clipboard-list" style="color: var(--primary);"></iconify-icon>
+                        さいごの小テスト (1/2)
+                    </h2>
+                    <p class="body-desc" style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 2rem;">
                         Q. 救急車が近づいてくるとき、前の方の音の波はどうなる？
                     </p>
-                    <div class="quiz-options" style="margin-top: 0; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 100%;">
-                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">1. 波と波の間隔がせまくなる</button>
-                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">2. 波と波の間隔が広くなる</button>
-                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">3. 波が完全になくなる</button>
-                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">4. 何も変わらない</button>
+                </div>
+
+                <div class="slide-media-right">
+                    <div class="quiz-options-vertical">
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">1</span>
+                            <span>波と波の間隔がせまくなる</span>
+                        </div>
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">2</span>
+                            <span>波と波の間隔が広くなる</span>
+                        </div>
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">3</span>
+                            <span>波が完全になくなる</span>
+                        </div>
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">4</span>
+                            <span>何も変わらない</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -829,33 +1359,78 @@
 
         <!-- Slide 30: Final Test 1 Answer -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🎉 さいごの小テスト (1/2) の正解！</h2>
-                <div style="background: #fffbeb; padding: 2rem; border-radius: 1.5rem; border: 4px solid #fcd34d; width: 100%; box-sizing: border-box;">
-                    <p style="font-size: 2.8rem; font-weight: 900; color: #b45309; margin-top: 0; margin-bottom: 2rem;">
-                        正解は 「1. 波と波の間隔がせまくなる」！
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">30 / ANSWER EXPLANATION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid-symmetric">
+                <div class="slide-content-left">
+                    <span class="answer-badge">
+                        <iconify-icon icon="lucide:check-circle"></iconify-icon>
+                        ANSWER 06
+                    </span>
+                    <h2 class="answer-title">正解は「1. 間隔がせまくなる」！</h2>
+                    <p class="body-desc">
+                        近づく音源が、自ら放出した波を前方に追いかけながら次の波を出すため、波同士が圧縮されて間隔がぎゅっと狭まります。
                     </p>
-                    <p style="font-size: 2.2rem; font-weight: 800; color: #1e293b; line-height: 1.6; margin: 0;">
-                        近づくときは、音を出す救急車が波を追いかけながら次の波を出すため、前方の波の間隔がせまくなります。
-                    </p>
+                </div>
+
+                <div class="slide-media-right">
+                    <div class="premium-card">
+                        <h4 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem; text-align: left;">🌊 おさらい知識</h4>
+                        <p style="font-size: 1.15rem; line-height: 1.6; color: var(--text-muted); text-align: left; margin: 0;">
+                            「波の間隔が狭くなる」＝「1秒間に耳に飛び込んでくる波の数（周波数）が増える」ため、人間の耳には本来より<strong>高い音</strong>として捉えられます！
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Slide 31: Quiz 7 (Final Test 2) -->
         <div class="slide">
-            <div class="content-box">
-                <h2 class="heading-text">📝 さいごの小テスト (2/2)</h2>
-                
-                <div style="background: #eff6ff; padding: 2.5rem; border-radius: 1.5rem; border: 3px solid #60a5fa; width: 100%; box-sizing: border-box;">
-                    <p style="font-size: 2.2rem; font-weight: 800; color: #1e293b; margin-top: 0; margin-bottom: 2rem; text-align: center;">
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">31 / CONCEPT VERIFICATION</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid">
+                <div class="slide-content-left">
+                    <h2 class="heading-text">
+                        <iconify-icon icon="lucide:clipboard-list" style="color: var(--primary);"></iconify-icon>
+                        さいごの小テスト (2/2)
+                    </h2>
+                    <p class="body-desc" style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 2rem;">
                         Q. 1秒間にたくさんの音の波が耳に届くと、音はどう聞こえる？
                     </p>
-                    <div class="quiz-options" style="margin-top: 0; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 100%;">
-                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">1. 高く聞こえる 📈</button>
-                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">2. 必ず大きく聞こえる 🔊</button>
-                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">3. 聞こえなくなる 🤫</button>
-                        <button class="quiz-option" style="padding: 1.5rem; cursor: default;">4. 低く聞こえる 📉</button>
+                </div>
+
+                <div class="slide-media-right">
+                    <div class="quiz-options-vertical">
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">1</span>
+                            <span>高く聞こえる 📈</span>
+                        </div>
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">2</span>
+                            <span>必ず大きく聞こえる 🔊</span>
+                        </div>
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">3</span>
+                            <span>聞こえなくなる 🤫</span>
+                        </div>
+                        <div class="quiz-option">
+                            <span class="quiz-option-number">4</span>
+                            <span>低く聞こえる 📉</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -863,24 +1438,47 @@
 
         <!-- Slide 32: Final Test 2 Answer -->
         <div class="slide">
-            <div class="content-box" style="text-align: center;">
-                <h2 class="heading-text">🎉 さいごの小テスト (2/2) の正解！</h2>
-                <div style="background: #eff6ff; padding: 2rem; border-radius: 1.5rem; border: 4px solid #93c5fd; width: 100%; box-sizing: border-box;">
-                    <p style="font-size: 2.8rem; font-weight: 900; color: #1d4ed8; margin-top: 0; margin-bottom: 2rem;">
-                        正解は 「1. 高く聞こえる」！
+            <!-- Top Metadata -->
+            <div class="slide-meta">
+                <span class="meta-tag">32 / PRESENTATION OUTRO</span>
+                <span class="meta-org">
+                    <iconify-icon icon="lucide:presentation" style="font-size: 1rem; vertical-align: middle; color: var(--primary);"></iconify-icon>
+                    UTokyo Physics Lab
+                </span>
+            </div>
+
+            <div class="slide-grid-symmetric">
+                <div class="slide-content-left">
+                    <span class="answer-badge">
+                        <iconify-icon icon="lucide:check-circle"></iconify-icon>
+                        ANSWER 07
+                    </span>
+                    <h2 class="answer-title">正解は「1. 高く聞こえる」！</h2>
+                    <p class="body-desc">
+                        波の数（周波数）は音の<strong>高さ</strong>に対応しており、波のゆれる強さ（振幅）は音の<strong>大きさ</strong>に対応します。混同しやすいので注意しましょう！
                     </p>
-                    <p style="font-size: 2.2rem; font-weight: 800; color: #1e293b; line-height: 1.6; margin: 0;">
-                        1秒間に耳に届く波の数（周波数）が多くなるため、音が高く聞こえるようになります。
-                    </p>
+                </div>
+
+                <div class="slide-media-right">
+                    <div class="premium-card" style="border: 2.5px solid var(--primary); text-align: center;">
+                        <h4 style="font-size: 1.5rem; font-weight: 900; color: var(--primary); margin-bottom: 1rem;">🎓 お疲れ様でした！</h4>
+                        <p style="font-size: 1.15rem; line-height: 1.6; color: var(--text-main); margin: 0;">
+                            ドップラー効果の本質的な「考え方」をマスターしました。身近な救急車の不思議から、壮大な宇宙創生にまで波の法則はつながっているのですね。
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Navigation Controls -->
         <div class="controls">
-            <button id="prev-btn" class="control-btn" title="前のスライドへ (左矢印キー)">◀</button>
+            <button id="prev-btn" class="control-btn" title="前のスライドへ (左矢印キー)">
+                <iconify-icon icon="lucide:chevron-left" style="font-size: 1.4rem;"></iconify-icon>
+            </button>
             <span id="slide-number" class="slide-number">1 / 32</span>
-            <button id="next-btn" class="control-btn" title="次のスライドへ (右矢印キー / スペース)">▶</button>
+            <button id="next-btn" class="control-btn" title="次のスライドへ (右矢印キー / スペース)">
+                <iconify-icon icon="lucide:chevron-right" style="font-size: 1.4rem;"></iconify-icon>
+            </button>
         </div>
 
         <!-- Progress Bar -->
@@ -889,12 +1487,6 @@
         </div> <!-- #presentation-wrapper -->
     </div> <!-- #presentation-container -->
 
-    <script>
-        // Clicking is disabled globally on all quiz options now, so this helper is kept only for legacy checks if any, or it can be left clean.
-        function checkAnswer(btn, isCorrect, explanationText) {
-            // Deprecated - clicking is disabled to prevent slide stretching, answers are on next slides.
-        }
-    </script>
     <script src="js/slides.js"></script>
 </body>
 </html>
