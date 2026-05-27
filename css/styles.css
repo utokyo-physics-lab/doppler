@@ -538,79 +538,24 @@ body {
   color: #4ade80;
 }
 
-/* Sleek OS App-Window Container for Iframes */
-.sim-window-frame {
+/* Sleek Simulator Iframe with Full active screen space */
+.sim-iframe {
   width: 100%;
   height: 100%;
-  max-height: 480px;
+  max-height: 520px;
   border-radius: 1.25rem;
-  overflow: hidden;
-  box-shadow: 0 25px 60px -20px rgba(15, 23, 42, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  border: 1.5px solid var(--border-light);
+  box-shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.02);
   background: #ffffff;
-  display: flex;
-  flex-direction: column;
+  box-sizing: border-box;
   flex-grow: 1;
   flex-shrink: 1;
-  box-sizing: border-box;
 }
 
-.dark-theme .sim-window-frame {
-  box-shadow: 0 35px 80px -25px rgba(0, 0, 0, 0.8);
+.dark-theme .sim-iframe {
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 35px 80px -25px rgba(0, 0, 0, 0.6);
   background: #0d121f;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.sim-window-header {
-  height: 2.5rem;
-  background: #f1f5f9;
-  border-bottom: 1px solid var(--border-light);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1rem;
-  flex-shrink: 0;
-}
-
-.dark-theme .sim-window-header {
-  background: #131929;
-  border-color: rgba(255, 255, 255, 0.06);
-}
-
-.sim-window-dots {
-  display: flex;
-  gap: 0.45rem;
-}
-
-.sim-dot {
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 50%;
-}
-
-.sim-dot-red { background-color: #ef4444; }
-.sim-dot-yellow { background-color: #eab308; }
-.sim-dot-green { background-color: #22c55e; }
-
-.sim-window-title {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 800;
-  color: var(--text-muted);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.dark-theme .sim-window-title {
-  color: #94a3b8;
-}
-
-.sim-window-status {
-  width: 3rem; /* spacer to center title */
-}
-
-.iframe-container {
-  width: 100%;
-  flex-grow: 1;
 }
 
 iframe {
@@ -619,28 +564,29 @@ iframe {
   border: none;
 }
 
-/* Floating Glassmorphic Slide Controls */
+/* Floating Glassmorphic Slide Controls (Top Centered to Prevent Overlapping Content) */
 .controls {
   position: absolute;
-  bottom: 2rem;
-  right: 4rem;
+  top: 1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 100;
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  background: rgba(255, 255, 255, 0.7);
-  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 0.4rem 0.8rem;
   border-radius: 3rem;
   backdrop-filter: blur(12px);
   border: 1px solid var(--border-light);
-  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06);
+  box-shadow: 0 8px 20px -6px rgba(15, 23, 42, 0.08);
   transition: all var(--transition-speed) ease;
 }
 
 .dark-theme .controls {
   background: rgba(13, 18, 31, 0.75);
   border-color: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.4);
 }
 
 .control-btn {
